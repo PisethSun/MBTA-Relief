@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import ReactNavbar from 'react-bootstrap/Navbar';
 
-// Testing functionality again
+// Testing functionality
 
 // Here, we display our Navbar
 export default function Navbar() {
