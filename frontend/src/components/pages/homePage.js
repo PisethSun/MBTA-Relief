@@ -22,7 +22,7 @@ const HomePage = () => {
         <>
             <div>
                 <h3>
-                    Welcome
+                    Welcome to mbta Bathrooms reviews
                     <span className='username'> @{username}</span>
                 </h3>
                 <h3>
