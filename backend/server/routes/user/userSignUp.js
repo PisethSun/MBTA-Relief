@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const z = require('zod')
 const bcrypt = require("bcrypt");
-const { newUserValidation } = require('../models/userValidator')
-const newUserModel = require('../models/userModel')
+const { newUserValidation } = require('../../models/userValidator')
+const newUserModel = require('../../models/userModel')
 
 router.post('/signup', async (req, res) => {
     const { error } = newUserValidation(req.body);

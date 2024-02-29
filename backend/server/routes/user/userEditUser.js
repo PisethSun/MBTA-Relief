@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const z = require('zod')
 const bcrypt = require("bcrypt");
-const newUserModel = require('../models/userModel')
-const { newUserValidation } = require('../models/userValidator');
-const { generateAccessToken } = require('../utilities/generateToken');
+const newUserModel = require('../../models/userModel')
+const { newUserValidation } = require('../../models/userValidator');
+const { generateAccessToken } = require('../../utilities/generateToken');
 
 router.post('/editUser', async (req, res) =>
 {
