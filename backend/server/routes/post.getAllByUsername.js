@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const newPostModel = require('../../models/postModel')
+const newPostModel = require('../models/postModel')
 
 router.get("/posts/getAllByUsername/:username", async (req, res) => {
     const { username } = req.params

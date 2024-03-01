@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const newPostModel = require('../../models/postModel')
+const newPostModel = require('../models/postModel')
 
 router.delete("/posts/deletePost/:postId", async (req, res) => {  
   const { postId } = req.params
