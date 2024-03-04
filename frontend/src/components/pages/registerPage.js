@@ -37,10 +37,10 @@ const Register = () => {
         <div style={{ position: 'absolute', top: '50%', right: '300px', transform: 'translateY(-50%)', zIndex: 1 }}>
           <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: '700px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <div>
-              <h2 style={{ textAlign: 'center', color: 'black' }}>Sign Up</h2>
+              <h2 style={{ textAlign: 'center', color: 'black',marginBottom:'100px' }}>Sign Up </h2>
               <Form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <div className="mb-3 row">
-                  <label htmlFor="username" className="col-sm-3 col-form-label" style={{ color: 'black', textAlign: 'left' }}>Username</label>
+                  <label htmlFor="username" className="col-sm-3 col-form-label" style={{ color: 'black', textAlign: 'left',fontSize:'20px' }}>Username</label>
                   <div className="col-sm-9">
                     <input
                       type="text"
@@ -48,12 +48,12 @@ const Register = () => {
                       id="username"
                       name="username"
                       onChange={handleChange}
-                      style={{ backgroundColor: 'black', color: 'white', height: '40px', marginRight: '10px' }}
+                      style={{ backgroundColor: 'black', color: 'white', height: '40px', marginRight: '10px', marginBottom:'70px' }}
                     />
                   </div>
                 </div>
                 <div className="mb-3 row">
-                  <label htmlFor="email" className="col-sm-3 col-form-label" style={{ color: 'black', textAlign: 'left' }}>Email</label>
+                  <label htmlFor="email" className="col-sm-3 col-form-label" style={{ color: 'black', textAlign: 'left', fontSize:'20px' }}>Email</label>
                   <div className="col-sm-9">
                     <input
                       type="email"
@@ -61,12 +61,12 @@ const Register = () => {
                       id="email"
                       name="email"
                       onChange={handleChange}
-                      style={{ backgroundColor: 'black', color: 'white', height: '40px', marginRight: '10px' }}
+                      style={{ backgroundColor: 'black', color: 'white', height: '40px', marginRight: '10px', marginBottom:'60px' }}
                     />
                   </div>
                 </div>
                 <div className="mb-3 row">
-                  <label htmlFor="password" className="col-sm-3 col-form-label" style={{ color: 'black', textAlign: 'left' }}>Password</label>
+                  <label htmlFor="password" className="col-sm-3 col-form-label" style={{ color: 'black', textAlign: 'left',fontSize:'20px' }}>Password</label>
                   <div className="col-sm-9">
                     <input
                       type="password"
@@ -74,7 +74,7 @@ const Register = () => {
                       id="password"
                       name="password"
                       onChange={handleChange}
-                      style={{ backgroundColor: 'black', color: 'white', height: '40px', marginRight: '10px' }}
+                      style={{ backgroundColor: 'black', color: 'white', height: '40px', marginRight: '10px', marginBottom: '60px' }}
                     />
                   </div>
                 </div>
@@ -84,15 +84,17 @@ const Register = () => {
                   </div>
                 )}
               </Form>
+            
             </div>
             <Button
               variant="primary"
               type="submit"
-              style={{ backgroundColor: 'black', alignSelf: 'flex-end' }}
+              style={{ backgroundColor: 'black',alignContent:'center' }}
               onClick={handleSubmit}
             >
               Register
             </Button>
+            
           </div>
         </div>
       </div>
