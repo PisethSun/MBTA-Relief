@@ -24,18 +24,31 @@ const PrivateUserProfile = () => {
     window.location.href = "/";
   };
 
+  const handleUpdateProfile = () => {
+    // Add logic for updating the user's profile
+    console.log("Updating profile...");
+  };
+
   return (
-    <div className="container mt-4"> {/* Added mt-4 for top margin */}
-      <Button className="me-2 float-end" onClick={handleShow}>
-        Log Out
-      </Button>
+    <div className="container mt-4">
       <Row className="justify-content-center align-items-center">
         <Col xs={12} md={4} className="text-center">
           <Image src="https://via.placeholder.com/150" rounded />
-          <h1>{user && user.username}</h1>
+          <div className="mt-2">
+            <h1>{user && user.username}</h1>
+            <div className="d-flex">
+              <Button className="me-2" onClick={handleShow}>
+                Log Out
+              </Button>
+              <Button variant="info" onClick={handleUpdateProfile}>
+                Update Profile
+              </Button>
+            </div>
+          </div>
         </Col>
-
+            
         <Col xs={12} md={8} className="text-center">
+          {/* Modal */}
           <Modal
             show={show}
             onHide={handleClose}
@@ -55,6 +68,16 @@ const PrivateUserProfile = () => {
               </Button>
             </Modal.Footer>
           </Modal>
+
+          {/* Code Section */}
+          <div className="mt-4">
+            <h2>Favorite Station</h2>
+            <pre>
+              <code>
+                {}
+              </code>
+            </pre>
+          </div>
         </Col>
       </Row>
     </div>
