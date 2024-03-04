@@ -36,10 +36,10 @@ const PrivateUserProfile = () => {
           <Image src="https://via.placeholder.com/150" rounded />
           <div className="mt-2">
             <h1>{user && user.username}</h1>
-            <div className="d-flex">
-              <Button className="me-2" onClick={handleShow}>
+            <div className="d-flex justify-content-center"> {/* Center the buttons */}
+              {/* <Button className="me-2" onClick={handleShow}>
                 Log Out
-              </Button>
+              </Button> */}
               <Button variant="info" onClick={handleUpdateProfile}>
                 Update Profile
               </Button>
@@ -49,7 +49,7 @@ const PrivateUserProfile = () => {
             
         <Col xs={12} md={8} className="text-center">
           {/* Modal */}
-          <Modal
+          {/* <Modal
             show={show}
             onHide={handleClose}
             backdrop="static"
@@ -67,16 +67,12 @@ const PrivateUserProfile = () => {
                 Yes
               </Button>
             </Modal.Footer>
-          </Modal>
+          </Modal> */}
 
           {/* Code Section */}
           <div className="mt-4">
             <h2>Favorite Station</h2>
-            <pre>
-              <code>
-                {}
-              </code>
-            </pre>
+            
           </div>
         </Col>
       </Row>
