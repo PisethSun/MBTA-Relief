@@ -26,8 +26,7 @@ const HomePage = () => {
       <Row>
         <Col>
           <h3>
-            Welcome to mbta Bathrooms reviews
-            <span className='username'> @{username}</span>
+            Welcome
           </h3>
         </Col>
       </Row>
@@ -35,22 +34,24 @@ const HomePage = () => {
         <Col>
           <Table striped bordered hover>
             <tbody>
-              
+              <tr>
+                <td>User Name </td>
+                <td className='username'> {username}</td>
+              </tr>
               <tr>
                 <td>Email</td>
                 <td>{email}</td>
               </tr>
-              <tr>
-                <td>Password</td>
-                <td>{password} (hashed)</td>
-              </tr>
+             
             </tbody>
           </Table>
         </Col>
       </Row>
       <Row className="mt-3">
         <Col>
-        
+          <Button variant="primary" onClick={(e) => handleClick(e)}>
+            Log Out
+          </Button>
         </Col>
       </Row>
     </Container>
