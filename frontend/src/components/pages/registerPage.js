@@ -1,144 +1,103 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import backgroundImage from "./images/RedLineImage.png";
 
-const PRIMARY_COLOR = "#cc5c99";
-const SECONDARY_COLOR = "#0c0c1f";
+
 const url = "http://localhost:8081/user/signup";
 
 const Register = () => {
   const [data, setData] = useState({ username: "", email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [light, setLight] = useState(false);
-  const [bgColor, setBgColor] = useState(SECONDARY_COLOR);
-  const [bgText, setBgText] = useState("Light Mode");
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.name]: input.value });
   };
 
-  useEffect(() => {
-    if (light) {
-      setBgColor("white");
-      setBgText("Dark mode");
-    } else {
-      setBgColor(SECONDARY_COLOR);
-      setBgText("Light mode");
-    }
-  }, [light]);
-
-  let labelStyling = {
-    color: PRIMARY_COLOR,
-    fontWeight: "bold",
-    textDecoration: "none",
-  };
-  let backgroundStyling = { background: bgColor };
-  let buttonStyling = {
-    background: PRIMARY_COLOR,
-    borderStyle: "none",
-    color: bgColor,
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data:res} = await axios.post(url, data);
-      const {accessToken} = res
+      const { data: res } = await axios.post(url, data);
+      const { accessToken } = res;
       navigate("/login");
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
+      if (error.response && error.response.status >= 400 && error.response.status <= 500) {
         setError(error.response.data.message);
       }
     }
   };
 
   return (
-    <>
-      <section className="vh-100">
-        <div className="container-fluid h-custom vh-100">
-          <div
-            className="row d-flex justify-content-center align-items-center h-100 "
-            style={backgroundStyling}
-          >
-            <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label style={labelStyling}>Username</Form.Label>
-                  <Form.Control
-                    type="username"
-                    name="username"
-                    onChange={handleChange}
-                    placeholder="Enter username"
-                  />
-                  <Form.Text className="text-muted">
-                    We just might sell your data
-                  </Form.Text>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label style={labelStyling}>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    name="email"
-                    onChange={handleChange}
-                    placeholder="Enter Email Please"
-                  />
-                  <Form.Text className="text-muted">
-                    We just might sell your data
-                  </Form.Text>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label style={labelStyling}>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                <div class="form-check form-switch">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="flexSwitchCheckDefault"
-                    onChange={() => {
-                      setLight(!light);
-                    }}
-                  />
-                  <label
-                    class="form-check-label"
-                    for="flexSwitchCheckDefault"
-                    className="text-muted"
-                  >
-                    {bgText}
-                  </label>
+    <div style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
+      <div style={{ position: 'relative', height: 'calc(100% - 100px)', border: '30px solid white' }}>
+        <img src={backgroundImage} alt="Right Image" style={{ position: 'absolute', top: 0, right: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+        <div style={{ position: 'absolute', top: '50%', right: '300px', transform: 'translateY(-50%)', zIndex: 1 }}>
+          <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: '700px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div>
+              <h2 style={{ textAlign: 'center', color: 'black' }}>Sign Up</h2>
+              <Form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <div className="mb-3 row">
+                  <label htmlFor="username" className="col-sm-3 col-form-label" style={{ color: 'black', textAlign: 'left' }}>Username</label>
+                  <div className="col-sm-9">
+                    <input
+                      type="text"
+                      className="form-control mb-2"
+                      id="username"
+                      name="username"
+                      onChange={handleChange}
+                      style={{ backgroundColor: 'black', color: 'white', height: '40px', marginRight: '10px' }}
+                    />
+                  </div>
+                </div>
+                <div className="mb-3 row">
+                  <label htmlFor="email" className="col-sm-3 col-form-label" style={{ color: 'black', textAlign: 'left' }}>Email</label>
+                  <div className="col-sm-9">
+                    <input
+                      type="email"
+                      className="form-control mb-2"
+                      id="email"
+                      name="email"
+                      onChange={handleChange}
+                      style={{ backgroundColor: 'black', color: 'white', height: '40px', marginRight: '10px' }}
+                    />
+                  </div>
+                </div>
+                <div className="mb-3 row">
+                  <label htmlFor="password" className="col-sm-3 col-form-label" style={{ color: 'black', textAlign: 'left' }}>Password</label>
+                  <div className="col-sm-9">
+                    <input
+                      type="password"
+                      className="form-control mb-2"
+                      id="password"
+                      name="password"
+                      onChange={handleChange}
+                      style={{ backgroundColor: 'black', color: 'white', height: '40px', marginRight: '10px' }}
+                    />
+                  </div>
                 </div>
                 {error && (
-                  <div style={labelStyling} className="pt-3">
+                  <div style={{ color: 'red', fontWeight: 'bold' }}>
                     {error}
                   </div>
                 )}
-                <Button
-                  variant="primary"
-                  type="submit"
-                  onClick={handleSubmit}
-                  style={buttonStyling}
-                  className="mt-2"
-                >
-                  Register
-                </Button>
               </Form>
             </div>
+            <Button
+              variant="primary"
+              type="submit"
+              style={{ backgroundColor: 'black', alignSelf: 'flex-end' }}
+              onClick={handleSubmit}
+            >
+              Register
+            </Button>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+      <div style={{ backgroundColor: '#800000', height: '100px', position: 'absolute', bottom: 0, left: 0, right: 0 }}></div>
+    </div>
   );
 };
 
