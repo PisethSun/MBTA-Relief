@@ -23,7 +23,7 @@ const PrivateUserProfile = () => {
     // Redirect to the home page after logout
     window.location.href = "/";
   };
-
+  
   const handleUpdateProfile = () => {
     // Add logic for updating the user's profile
     console.log("Updating profile...");

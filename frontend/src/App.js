@@ -37,6 +37,7 @@ const App = () => {
           <Route exact path="/mbtaAlerts" element={<MbtaAlertsPage />} />
           <Route exact path="/mbtaMyPage" element={<MbtaMyPage />} />
           <Route exact path="/Schedule" element={<MbtaSchedule />} />
+          {/* <Route exact path="/homePub" element={<homePublic />} /> */}
           
 
         </Routes>
