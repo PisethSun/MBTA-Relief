@@ -35,7 +35,7 @@ const Register = () => {
       <div style={{ position: 'relative', height: 'calc(100% - 100px)', border: '30px solid white' }}>
         <img src={backgroundImage} alt="Right Image" style={{ position: 'absolute', top: 0, right: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
         <div style={{ position: 'absolute', top: '50%', right: '300px', transform: 'translateY(-50%)', zIndex: 1 }}>
-          <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: '700px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: '755px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between',border:"transparent" }}>
             <div>
               <h2 style={{ textAlign: 'center', color: 'black',marginBottom:'100px' }}>Sign Up </h2>
               <Form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
@@ -89,7 +89,7 @@ const Register = () => {
             <Button
               variant="primary"
               type="submit"
-              style={{ backgroundColor: 'black',alignContent:'center' }}
+              style={{ backgroundColor: 'black',alignContent:'top' }}
               onClick={handleSubmit}
             >
               Register
