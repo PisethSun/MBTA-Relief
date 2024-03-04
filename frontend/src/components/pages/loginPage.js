@@ -4,7 +4,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import getUserInfo from "../../utilities/decodeJwt";
-
+import Image from 'react-bootstrap/Image';
 const PRIMARY_COLOR = "#cc5c99";
 const SECONDARY_COLOR = '#0c0c1f'
 const url = "http://localhost:8081/user/login";
@@ -90,7 +90,7 @@ const Login = () => {
                     placeholder="Enter username"
                   />
                   <Form.Text className="text-muted">
-                    We just might sell your data
+                    
                   </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -134,10 +134,18 @@ const Login = () => {
                 </Button>
               </Form>
             </div>
+            <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+
+            <Image src="./images/MBTAperson.PNG" fluid />;
+              </div>
           </div>
         </div>
       </section>
+
+      
     </>
+
+    
   );
 };
 
