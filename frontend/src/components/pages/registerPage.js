@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import backgroundImage from "./images/RedLineImage.png";
+import leftImage from "./images/RedLineImage.png";
+import rightImage from "./images/MBTAperson.PNG";
 
 
 const url = "http://localhost:8081/user/signup";
@@ -33,11 +34,12 @@ const Register = () => {
   return (
     <div style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
       <div style={{ position: 'relative', height: 'calc(100% - 100px)', border: '30px solid white' }}>
-        <img src={backgroundImage} alt="Background Image" style={{ position: 'absolute', top: 0, right: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-        <div style={{ position: 'absolute', top: '50%', right: '300px', transform: 'translateY(-50%)', zIndex: 1 }}>
-          <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: '755px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between',border:"transparent" }}>
+        <img src={leftImage} alt="left Image" style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
+        <img src={rightImage} alt="left Image" style={{ position: 'absolute', top: 0, right: 0, width: '25%', height: '100%', objectFit: 'cover' }} />
+        <div style={{ position: 'absolute', top: '50%', right: '25%', transform: 'translateY(-50%)', zIndex: 1 }}>
+          <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: '790px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between',border:"transparent", top:'0'}}>
             <div>
-              <h2 style={{ textAlign: 'center', color: 'black',marginBottom:'100px' }}>Sign Up </h2>
+              <h2 style={{ textAlign: 'center', color: 'black',marginBottom:'50px', marginTop:'100px' }}>Sign Up </h2>
               <Form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <div className="mb-3 row">
                   <label htmlFor="username" className="col-sm-3 col-form-label" style={{ color: 'black', textAlign: 'left',fontSize:'20px' }}>Username</label>
@@ -74,7 +76,7 @@ const Register = () => {
                       id="password"
                       name="password"
                       onChange={handleChange}
-                      style={{ backgroundColor: 'black', color: 'white', height: '40px', marginRight: '10px', marginBottom: '60px' }}
+                      style={{ backgroundColor: 'black', color: 'white', height: '40px', marginRight: '10px', marginBottom: '100px' }}
                     />
                   </div>
                 </div>
