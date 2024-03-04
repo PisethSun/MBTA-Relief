@@ -33,7 +33,7 @@ const Register = () => {
   return (
     <div style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
       <div style={{ position: 'relative', height: 'calc(100% - 100px)', border: '30px solid white' }}>
-        <img src={backgroundImage} alt="Right Image" style={{ position: 'absolute', top: 0, right: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+        <img src={backgroundImage} alt="Background Image" style={{ position: 'absolute', top: 0, right: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
         <div style={{ position: 'absolute', top: '50%', right: '300px', transform: 'translateY(-50%)', zIndex: 1 }}>
           <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: '755px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between',border:"transparent" }}>
             <div>
