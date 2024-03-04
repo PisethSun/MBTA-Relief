@@ -47,13 +47,7 @@ const HomePage = () => {
           </Table>
         </Col>
       </Row>
-      <Row className="mt-3">
-        <Col>
-          <Button variant="primary" onClick={(e) => handleClick(e)}>
-            Log Out
-          </Button>
-        </Col>
-      </Row>
+    
     </Container>
   );
 };
