@@ -59,11 +59,7 @@ const Login = () => {
       localStorage.setItem("accessToken", accessToken);
       navigate("/home");
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
+      if (error.response && error.response.status >= 400 && error.response.status <= 500) {
         setError(error.response.data.message);
       }
     }
@@ -75,79 +71,34 @@ const Login = () => {
   }
 
   return (
-    <>
-      <section className="vh-100">
-        <div className="container-fluid h-custom vh-100">
-          <div
-            className="row d-flex justify-content-center align-items-center h-100 "
-            style={backgroundStyling}>
-            <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-              <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label style={labelStyling}>Username</Form.Label>
-                  <Form.Control
-                    type="username"
-                    name="username"
-                    onChange={handleChange}
-                    placeholder="Enter username"
-                  />
-                  <Form.Text className="text-muted">
-                    
-                  </Form.Text>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label style={labelStyling}>Password</Form.Label>
-                  <Form.Control
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                  <Form.Text className="text-muted pt-1">
-                    Dont have an account?
-                    <span>
-                      <Link to="/signup" style={labelStyling}> Sign up
-                      </Link>
-                    </span>
-                  </Form.Text>
-                </Form.Group>
-                <div class="form-check form-switch">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="flexSwitchCheckDefault"
-                    onChange={() => { setLight(!light) }}
-                  />
-                  <label class="form-check-label" for="flexSwitchCheckDefault" className='text-muted'>
-                    {bgText}
-                  </label>
-                </div>
-                {error && <div style={labelStyling} className='pt-3'>{error}</div>}
-                <Button
-                  variant="primary"
-                  type="submit"
-                  onClick={handleSubmit}
-                  style={buttonStyling}
-                  className='mt-2'
-                >
-                  Log In
-                </Button>
-              </Form>
-            </div>
-            <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+    <div style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
+      <Image src={leftImage} alt="Left Image" style={{ position: 'absolute', top: 0, left: 0, width: '45%', height: '100%', objectFit: 'cover' }} />
+      <Image src={rightImage} alt="Right Image" style={{ position: 'absolute', top: 0, right: 0, width: '45%', height: '100%', objectFit: 'cover' }} />
+      <div style={{ position: 'absolute', top: '50%', right: '30%', transform: 'translateY(-50%)', zIndex: 1 }}>
+        <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between',borderColor: PRIMARY_COLOR}}>
+          <h2 style={{ textAlign: 'center', color: PRIMARY_COLOR, marginBottom: '20px' }}>Log In</h2>
+          <Form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="username" style={{ color: SECONDARY_COLOR }}>Username</Form.Label>
+              <Form.Control type="text" id="username" name="username" onChange={handleChange} placeholder="Enter your username" style={{ borderColor: PRIMARY_COLOR }} />
+            </Form.Group>
 
-            <Image src="./images/MBTAperson.PNG" fluid />;
-              </div>
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="password" style={{ color: SECONDARY_COLOR }}>Password</Form.Label>
+              <Form.Control type="password" id="password" name="password" onChange={handleChange} placeholder="Enter your password" style={{ borderColor: PRIMARY_COLOR }} />
+            </Form.Group>
+
+            {error && <div style={{ color: 'red', fontWeight: 'bold', marginBottom: '20px' }}>{error}</div>}
+
+            <Button variant="primary" type="submit" style={{ backgroundColor: PRIMARY_COLOR, borderColor: 'transparent' }}>Log In</Button>
+          </Form>
+          <div style={{ textAlign: 'center', marginTop: '20px' }}>
+            Don't have an account? <Link to="/signup" style={{ color: PRIMARY_COLOR }}>Sign up</Link>
           </div>
         </div>
-      </section>
-
-      
-    </>
-
-    
+      </div>
+      <div style={{ backgroundColor: '#800000', height: '100px', position: 'absolute', bottom: 0, left: 0, right: 0 }}></div>
+    </div>
   );
 };
 
