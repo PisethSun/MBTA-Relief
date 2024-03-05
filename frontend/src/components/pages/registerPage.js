@@ -4,7 +4,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import leftImage from "./images/RedLineImage.png";
-import rightImage from "./images/MBTAperson.PNG";
+import rightImage from "./images/GreenLineImage.png";
 
 
 const url = "http://localhost:8081/user/signup";
@@ -35,7 +35,7 @@ const Register = () => {
     <div style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
       <div style={{ position: 'relative', height: 'calc(100% - 100px)', border: '30px solid white' }}>
         <img src={leftImage} alt="left Image" style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
-        <img src={rightImage} alt="left Image" style={{ position: 'absolute', top: 0, right: 0, width: '25%', height: '100%', objectFit: 'cover' }} />
+        <img src={rightImage} alt="righ Image" style={{ position: 'absolute', top: 0, right: 0, width: '40%', height: '100%' }} />
         <div style={{ position: 'absolute', top: '50%', right: '25%', transform: 'translateY(-50%)', zIndex: 1 }}>
           <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: '790px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between',border:"transparent", top:'0'}}>
             <div>
@@ -91,7 +91,7 @@ const Register = () => {
             <Button
               variant="primary"
               type="submit"
-              style={{ backgroundColor: 'black',alignContent:'top' }}
+              style={{ backgroundColor: 'black',alignContent:'top', marginBottom:'50%' }}
               onClick={handleSubmit}
             >
               Register
