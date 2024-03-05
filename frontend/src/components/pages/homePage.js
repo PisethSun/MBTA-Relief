@@ -18,11 +18,27 @@ const HomePage = () => {
   }, []);
 
   if (!user) return <div><Row className="mt-3">
-  <Col>
-    <h4>MBTA-Releif Unofficial Bathroom </h4>
-    <iframe src="https://www.google.com/maps/d/embed?mid=1p9qGlMr_bbXufuX5Uw0jXNuLLiuh-Un3&ehbc=2E312F" width="640" height="480"></iframe>
-  </Col>
-</Row></div>;
+      <Container>
+        <Row className="mt-3">
+          <Col>
+            <div className="responsive-container">
+              {/* Container content goes here */}
+              <h4>MBTA-Relief Unofficial Bathroom</h4>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+      <Col>
+        {/* Google Map centered within the container */}
+        <iframe
+          src="https://www.google.com/maps/d/embed?mid=1p9qGlMr_bbXufuX5Uw0jXNuLLiuh-Un3&ehbc=2E312F"
+          width="640"
+          height="480"
+          title="Embedded Google Map"
+          className="mx-auto d-block" // Center the map horizontally
+        ></iframe>
+      </Col>
+    </Row></div>;
 
   const { username, email } = user;
 
@@ -49,7 +65,6 @@ const HomePage = () => {
           </Table>
         </Col>
       </Row>
-    
     </Container>
   );
 };
