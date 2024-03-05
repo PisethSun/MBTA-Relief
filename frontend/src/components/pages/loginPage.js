@@ -5,9 +5,10 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import getUserInfo from "../../utilities/decodeJwt";
 import Image from 'react-bootstrap/Image';
-import leftImage from "./images/RedLineImage.png";
-import rightImage from "./images/GreenLineImage.png";
-const PRIMARY_COLOR = "#0096FF";
+import leftImage from "./images/TrainStation1.jpeg";
+import rightImage from "./images/TrainStation2.webp";
+import logo from "./images/MBTALogo.png";
+const PRIMARY_COLOR = "#72d3fe";
 const SECONDARY_COLOR = '#0c0c1f'
 const url = "http://localhost:8081/user/login";
 
@@ -72,11 +73,11 @@ const Login = () => {
 
   return (
     <div style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
-      <Image src={leftImage} alt="Left Image" style={{ position: 'absolute', top: 0, left: 0, width: '45%', height: '100%', objectFit: 'cover' }} />
-      <Image src={rightImage} alt="Right Image" style={{ position: 'absolute', top: 0, right: 0, width: '45%', height: '100%', objectFit: 'cover' }} />
-      <div style={{ position: 'absolute', top: '50%', right: '30%', transform: 'translateY(-50%)', zIndex: 1 }}>
-        <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between',borderColor: PRIMARY_COLOR}}>
-          <h2 style={{ textAlign: 'center', color: PRIMARY_COLOR, marginBottom: '20px' }}>Log In</h2>
+      <Image src={leftImage} alt="Left Image" style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
+      <Image src={rightImage} alt="Right Image" style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1 }}>
+    <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderColor: PRIMARY_COLOR }}>
+        <h2 style={{ textAlign: 'center', color: PRIMARY_COLOR, marginBottom: '20px' }}>Log In</h2>
           <Form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="username" style={{ color: SECONDARY_COLOR }}>Username</Form.Label>
@@ -97,7 +98,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <div style={{ backgroundColor: '#800000', height: '100px', position: 'absolute', bottom: 0, left: 0, right: 0 }}></div>
     </div>
   );
 };
