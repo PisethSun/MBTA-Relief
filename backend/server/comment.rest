@@ -40,3 +40,7 @@ Content-Type: application/json
 ### Find comments by postId
 GET http://localhost:8081/comments/comment/getCommentById/
 Content-Type: application/json
+
+### Get all comments
+GET http://localhost:8081/comment/getAll
+Content-Type: application/json
