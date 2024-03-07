@@ -1,15 +1,24 @@
 const express = require("express");
 const router = express.Router();
-const favModel = require('../models/favoriteModel');
+const z = require("zod");
+const bcrypt = require("bcrypt");
 
-router.get('/getAll', async (req, res) => {
-    try {
-        const favorites = await favModel.find();
-        return res.json(favorites);
-    } catch (error) {
-        console.error('Error fetching favorites:', error);
-        return res.status(500).json({ error: 'Failed to fetch favorites' });
+const findFavbyID = require("../models/byfavbID");
+
+router.get("/getUserById", async (req, res) => {
+  var { userId } = req.body;
+
+  findFavbyID.findById(userId, function (err, user) {
+    if (err) {
+      console.log(err);
     }
+    if (user==null) {
+      res.status(404).send("userId does not exist.");
+    } 
+    else {
+      return res.json(user);
+    }
+  });
 });
 
 module.exports = router;

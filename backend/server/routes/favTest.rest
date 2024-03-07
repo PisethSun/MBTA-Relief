@@ -1,3 +1,9 @@
 ###
 GET http://localhost:8081/favorite/getAll
 Content-Type: application/json
+
+
+
+###
+GET http://localhost:8081/byfavbID/byfavbID
+Content-Type: application/json
