@@ -1,88 +1,95 @@
-const express = require("express");
+const express = require('express');
+const Comment = require('../models/commentModel'); // Make sure this path matches your project structure
 
-// CommentRoutes is an instance of the express router.
-// We use it to define our routes.
-// The router will be added as a middleware and will take control of requests starting with path 
-const commentRoutes = express.Router();
-//==============================================
+const router = express.Router();
 
-// This will help us connect to the database
-const comment = require("../models/commentsModel");
+// Create a new comment
+router.post('/comments/comment/add', async (req, res) => {
+  try {
+    const comment = new Comment(req.body);
+    await comment.save();
+    res.status(201).json(comment);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
-commentRoutes.post("/comments/comment/reply/:id", async (req, res) => {
+// Get all comments
+router.get('/comments/comment', async (req, res) => {
+  try {
+    const comments = await Comment.find();
+    res.json(comments);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Reply to a comment
+router.post('/comments/comment/reply/:id', async (req, res) => {
   const { commentContent } = req.body;
-  const { id } = req.params;
-
-  if (!id && !commentContent) return res.status(403).json("Please provide the required fields");
-  const data = await comment.findById(id).then(e => e)
-  
-    if(!data) return res.status(404).json('User does not exist')
-
-  comment.findByIdAndUpdate(
-    id,
-    { $addToSet: { replies: `${commentContent}` } },
-    { upsert: true }
-  ).then(e => {
-
-      return res.status(200).json(e)
-  }).then(e => {
-    return e
-  })
-
-});
-// This section will help you get a list of all the comments.
-commentRoutes.get("/comments/comment", (req, res) => {
-  comment.find()
-  .then((comments) => res.json(comments))
-    .catch((err) =>
-      res.status(404).json({ commentsfound: "No comments found" })
-    );
+  try {
+    const comment = await Comment.findById(req.params.id);
+    if (!comment) {
+      return res.status(404).json({ message: 'Comment not found' });
+    }
+    comment.replies.push(commentContent);
+    await comment.save();
+    res.json(comment);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 });
 
-// Finds a specific comment by their id. Do "npm test" if you're making any changes to this.
-commentRoutes.get("/comments/comment/:id", (req, res) => {
-  comment.findById(req.params.id)
-    .then((comment) => res.json(comment))
-    .catch((err) =>
-      res.status(404).json({ commentnotfound: "No comment found" })
-    );
+// Update a comment
+router.put('/comments/comment/update/:id', async (req, res) => {
+  try {
+    const comment = await Comment.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!comment) {
+      return res.status(404).json({ message: 'Comment not found' });
+    }
+    res.json(comment);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 });
 
-commentRoutes.get("/comments/comment/getCommentById/:postId", async (req,res) => {
-  comment.find({postId: req.params.postId})
-  .then (comment => res.status(200).json(comment))
-  .catch((err)=>
-    res.status(404).json({ commentnotfound : "No comment found"})
-  );
-})
-
-
-
-// This section will help you create a new comment.
-commentRoutes.post("/comments/comment/add", (req, res) => {
-  comment.create(req.body)
-    .then((comment) => res.json({ msg: "Comment added" }))
-    .catch((err) =>
-      res.status(400).json({ error: "Unable to add this comment" })
-    );
+// Delete a comment
+router.delete('/comments/comment/:id', async (req, res) => {
+  try {
+    const comment = await Comment.findByIdAndDelete(req.params.id);
+    if (!comment) {
+      return res.status(404).json({ message: 'Comment not found' });
+    }
+    res.json({ message: 'Comment deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
-// This section will help you update a comment by id.
-commentRoutes.put("/comments/comment/update/:id", (req, res) => {
-  comment.findByIdAndUpdate(req.params.id, req.body)
-    .then((comment) => res.json({ msg: "Updated successfully" }))
-    .catch((err) =>
-      res.status(400).json({ error: "Unable to update the Database" })
-    );
+// Get a specific comment by ID
+router.get('/comments/comment/:id', async (req, res) => {
+  try {
+    const comment = await Comment.findById(req.params.id);
+    if (!comment) {
+      return res.status(404).json({ message: 'Comment not found' });
+    }
+    res.json(comment);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
-// This section will help you delete a comment
-commentRoutes.delete("/comments/comment/:id", (req, res) => {
-  comment.findByIdAndRemove(req.params.id, req.body)
-    .then((comment) => res.json({ msg: "comment deleted successfully" }))
-    .catch((err) => res.status(404).json({ error: "No comment" }));
+// Find comments by postId
+router.get('/comments/comment/getCommentById/:postId', async (req, res) => {
+  try {
+    const comments = await Comment.find({ postId: req.params.postId });
+    if (!comments) {
+      return res.status(404).json({ message: 'No comments found for this post' });
+    }
+    res.json(comments);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
-// help you find a comment to reply to by id.
-
-module.exports = commentRoutes;
+module.exports = router;
