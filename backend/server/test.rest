@@ -27,7 +27,7 @@ POST http://localhost:8081/user/EditUser
 Content-Type: application/json 
 
 {
-    "userId" : "65e7a816470f0a7a65dbae58",
+    "userId" : "65e7a9d7470f0a7a65dbae6c",
     "username" : "Josh Edit",
     "password" : "josh12345"
 }
@@ -37,7 +37,7 @@ GET  http://localhost:8081/user/getUserById
 Content-Type: application/json 
 
 {
-    "userId" : "65e7a816470f0a7a65dbae58"
+    "userId" : "65e7a9d7470f0a7a65dbae6c"
 }
 
 ###
