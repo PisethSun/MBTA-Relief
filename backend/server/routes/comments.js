@@ -1,6 +1,5 @@
 const express = require('express');
-const Comment = require('../models/commentModel'); // Make sure this path matches your project structure
-
+const Comment = require('../models/commentModel');
 const router = express.Router();
 
 // Create a new comment
