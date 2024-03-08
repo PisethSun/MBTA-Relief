@@ -3,5 +3,19 @@ GET http://localhost:8081/comment/getAll
 Content-Type: application/json
 
 ###
-POST http://localhost:8081/
+POST http://localhost:8081/comment/create
+Content-Type: application/json
+{
+    "postId" : 1,
+    "commentContent" : "Test",
+    "userId" : "65e7a9d7470f0a7a65dbae6c",
+    "username" : "JoshRaimo"
+}
+
+###
+DELETE http://localhost:8081/comment/deleteAll
+Content-Type: application/json
+
+###
+DELETE http://localhost:8081/comment/deleteById
 Content-Type: application/json
