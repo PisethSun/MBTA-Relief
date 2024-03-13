@@ -9,9 +9,9 @@ Content-Type: application/json
 
  {
   "userId": "65f1ec23429de3cae859ebe9",
-  "bathroomId": "4",
+  "bathroomId": "1",
   "line": "Red",
-  "station": "Davis"
+  "station": "Davisa"
 }
 
 ###
@@ -19,11 +19,11 @@ POST http://localhost:8081/favorite/EditFav
 Content-Type: application/json 
 
 {
-    "_id":"65f2132ca42f4e8698876cca",
+    "_id":"65f21e78a42f4e8698876cec",
     "userId":"65f1ec23429de3cae859ebe9",
-    "bathroomId":"4",
+    "bathroomId":"0",
     "line":"Green",
-    "station":"North Station"
+    "station":"North Andover"
 }
 
 

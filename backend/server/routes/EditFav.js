@@ -1,17 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const FavoriteModel = require('../models/favoriteModel');
-const z = require('zod');
+const { z } = require('zod');
 
 const editFavoriteSchema = z.object({
   _id: z.string(), 
-  userID: z.string().optional(),
-  bathroomId:z.string(),
+  userId: z.string().optional(),
+  bathroomId: z.string(),
   line: z.string(),
-  station: z.string(),
+  station: z.string()
 });
 
 router.post('/EditFav', async (req, res) => {
+    
   try {
 
     const { error, data } = editFavoriteSchema.safeParse(req.body);
@@ -20,7 +21,7 @@ router.post('/EditFav', async (req, res) => {
     }
 
     const { _id, bathroomId, line, station } = data;
-    const favorite = await FavoriteModel.findOneAndUpdate({ _id }, {bathroomId, line, station }, { new: true });
+    const favorite = await FavoriteModel.findOneAndUpdate({ _id }, { bathroomId, line, station }, { new: true });
     if (!favorite) {
       return res.status(404).json({ message: 'Favorite not found' });
     }

@@ -29,7 +29,7 @@ app.use('/user', getAllUsersRoute)
 app.use('/user', getUserByIdRoute)
 app.use('/user', editUser)
 app.use('/user', deleteUser)
-app.use('/favorite',favoriteGetAll)
+app.use('/favorite', favoriteGetAll)
 app.use('/favorite', addNewFavoriteRoute)
 app.use('/favorite', EditTheFavRoute)
 
