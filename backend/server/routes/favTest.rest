@@ -3,4 +3,16 @@ GET http://localhost:8081/favorite/getAll
 Content-Type: application/json
 
 
+###
+POST http://localhost:8081/favorite
+Content-Type: application/json
+
+{
+  "userID": "65f1ec23429de3cae859ebe9",
+  "bathroomId": "1",
+  "line": "Blue",
+  "station": "Wonderland"
+  
+}
+
 

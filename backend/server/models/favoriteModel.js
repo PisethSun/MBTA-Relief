@@ -9,10 +9,14 @@ const favoriteSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  dateFavorited: {
-    type: Date,
-    default: () => Date.now(),
-  }
+    line: {
+      type: String,
+      required: false,
+    },
+    station: {
+        type: String,
+        required: false,
+      }
 }, { collection: "favorites" });
 
 // Ensure that a user cannot favorite the same bathroom more than once
