@@ -6,7 +6,7 @@ const Favorite = require("../models/favoriteModel");
 
 const createFavoriteSchema = z.object(
     {
-  userID: z.string().nonempty(),
+  userId: z.string().nonempty(),
   bathroomId:z.string(),
   line: z.string(),
   station: z.string()
@@ -14,10 +14,10 @@ const createFavoriteSchema = z.object(
 
 router.post("/", async (req, res) => {
   try {
-    const { userID, bathroomId, line, station } = createFavoriteSchema.parse(req.body);
+    const { userId, bathroomId, line, station } = createFavoriteSchema.parse(req.body);
 
     const newFavorite = new Favorite({
-      userID,
+      userId,
       bathroomId,
       line,
       station

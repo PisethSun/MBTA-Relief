@@ -7,16 +7,16 @@ const favoriteSchema = new mongoose.Schema({
   },
   bathroomId: {
     type: String,
-    required: true,
+    required: false,
   },
-    line: {
-      type: String,
-      required: false,
-    },
-    station: {
-        type: String,
-        required: false,
-      }
+  line: {
+    type: String,
+    required: false,
+  },
+  station: {
+    type: String,
+    required: false,
+  }
 }, { collection: "favorites" });
 
 // Ensure that a user cannot favorite the same bathroom more than once
