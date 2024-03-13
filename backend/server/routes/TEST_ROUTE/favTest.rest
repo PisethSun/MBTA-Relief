@@ -9,10 +9,23 @@ Content-Type: application/json
 
  {
   "userId": "65f1ec23429de3cae859ebe9",
-  "bathroomId": "3",
+  "bathroomId": "4",
   "line": "Red",
   "station": "Davis"
 }
+
+###
+POST http://localhost:8081/favorite/EditFav
+Content-Type: application/json 
+
+{
+    "_id":"65f2132ca42f4e8698876cca",
+    "userId":"65f1ec23429de3cae859ebe9",
+    "bathroomId":"4",
+    "line":"Green",
+    "station":"North Station"
+}
+
 
 
 
