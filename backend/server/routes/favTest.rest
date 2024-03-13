@@ -8,10 +8,10 @@ POST http://localhost:8081/favorite
 Content-Type: application/json
 
  {
-  "userId": null,
-  "bathroomId": null,
-  "line": null,
-  "station": null
+  "userId": "65f1ec23429de3cae859ebe9",
+  "bathroomId": "2",
+  "line": "Blue",
+  "station": "Wonderland"
 }
 
 
