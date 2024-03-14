@@ -18,15 +18,15 @@ Content-Type: application/json
 
 // _id must be added
 ###
-PUT  http://localhost:8081/favorite/editFav/65f21e78a42f4e8698876cec
+PUT  http://localhost:8081/favorite/editFav/65f2852247a205cf319208ae
 Content-Type: application/json 
 
 {
-    "_id":"65f21e78a42f4e8698876cec",
+    "_id":"65f2852247a205cf319208ae",
     "userId":"65f1ec23429de3cae859ebe9",
-    "bathroomId":"3",
+    "bathroomId":"7",
     "line":"Blue",
-    "station":"North "
+    "station":"Airport "
 }
 
 //Delete by ID 
