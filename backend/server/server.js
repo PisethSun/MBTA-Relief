@@ -14,7 +14,7 @@ const favoriteGetAll = require('./routes/favoriteGetAll')
 const addNewFavoriteRoute = require('./routes/favoriteNew')
 const editTheFavRoute = require('./routes/favoriteEditById')
 const deleteTheFavRoute = require('./routes/favoriteDeleteById')
-const deleteAllFav = require('./routes/deleteAll')
+const deleteAllFav = require('./routes/favoriteDeleteAll')
 
 
 
