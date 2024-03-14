@@ -31,6 +31,8 @@ Content-Type: application/json
 ###
 DELETE http://localhost:8081/favorite/deleteFav/65f24a54a42f4e8698876cf2
 
+// do not need the body becuase I deleted by ID
+
 
 
 
