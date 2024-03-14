@@ -18,11 +18,11 @@ Content-Type: application/json
 
 // _id must be added
 ###
-PUT  http://localhost:8081/favorite/editFav/65f2852247a205cf319208ae
+PUT  http://localhost:8081/favorite/editFav/65f28ab947a205cf319208bb
 Content-Type: application/json 
 
 {
-    "_id":"65f2852247a205cf319208ae",
+    "_id":"65f28ab947a205cf319208bb",
     "userId":"65f1ec23429de3cae859ebe9",
     "bathroomId":"7",
     "line":"Blue",
