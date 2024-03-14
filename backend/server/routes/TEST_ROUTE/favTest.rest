@@ -9,9 +9,9 @@ Content-Type: application/json
 
  {
   "userId": "65f1ec23429de3cae859ebe9",
-  "bathroomId": "5",
-  "line": "Red",
-  "station": "Davisa"
+  "bathroomId": "1",
+  "line": "Blue",
+  "station": "Wonderland"
 }
 
 // _id must be added
@@ -22,9 +22,9 @@ Content-Type: application/json
 {
     "_id":"65f21e78a42f4e8698876cec",
     "userId":"65f1ec23429de3cae859ebe9",
-    "bathroomId":"1",
+    "bathroomId":"3",
     "line":"Blue",
-    "station":"North Andover"
+    "station":"North "
 }
 
 //Delete by ID 
@@ -34,7 +34,8 @@ DELETE http://localhost:8081/favorite/deleteFav/65f24a54a42f4e8698876cf2
 // do not need the body becuase I deleted by ID
 
 
-
+###
+DELETE http://localhost:8081/favorite/deleteAll
 
 
 
