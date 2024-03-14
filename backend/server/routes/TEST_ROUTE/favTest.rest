@@ -9,20 +9,21 @@ Content-Type: application/json
 
  {
   "userId": "65f1ec23429de3cae859ebe9",
-  "bathroomId": "1",
+  "bathroomId": "5",
   "line": "Red",
   "station": "Davisa"
 }
 
+// _id must be added
 ###
-POST http://localhost:8081/favorite/EditFav
+PUT  http://localhost:8081/favorite/editFav/65f21e78a42f4e8698876cec
 Content-Type: application/json 
 
 {
     "_id":"65f21e78a42f4e8698876cec",
     "userId":"65f1ec23429de3cae859ebe9",
-    "bathroomId":"0",
-    "line":"Green",
+    "bathroomId":"1",
+    "line":"Blue",
     "station":"North Andover"
 }
 

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const favModel = require('../models/favoriteModel');
-
+// get URL
 router.get('/getAll', async (req, res) => {
     try {
         const favorites = await favModel.find();

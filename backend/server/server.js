@@ -8,12 +8,11 @@ const getUserByIdRoute = require('./routes/userGetUserById')
 const dbConnection = require('./config/db.config')
 const editUser = require('./routes/userEditUser')
 const deleteUser = require('./routes/userDeleteAll')
-
 // Favorite
 
 const favoriteGetAll = require('./routes/favoriteGetAll')
 const addNewFavoriteRoute = require('./routes/AddNewFav')
-const EditTheFavRoute = require('./routes/EditFav')
+const editTheFavRoute = require('./routes/EditFav')
 
 
 
@@ -31,7 +30,7 @@ app.use('/user', editUser)
 app.use('/user', deleteUser)
 app.use('/favorite', favoriteGetAll)
 app.use('/favorite', addNewFavoriteRoute)
-app.use('/favorite', EditTheFavRoute)
+app.use('/favorite', editTheFavRoute)
 
 app.listen(SERVER_PORT, (req, res) => {
     console.log(`The backend service is running on port ${SERVER_PORT} and waiting for requests.`);
