@@ -27,6 +27,9 @@ Content-Type: application/json
     "station":"North Andover"
 }
 
+//Delete by ID 
+###
+DELETE http://localhost:8081/favorite/deleteFav/65f24a54a42f4e8698876cf2
 
 
 
