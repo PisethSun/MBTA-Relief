@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "mogodb": "^0.0.1-security",
+    "mongodb": "^6.5.0"
+  }
+}

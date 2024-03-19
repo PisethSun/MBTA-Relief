@@ -13,7 +13,7 @@ router.get("/getRatingById", async (req, res) => {
       console.log(err);
     }
     if (rating==null) {
-      res.status(404).send("ratingId does not exist.");
+      res.status(404).send("rating does not exist.");
     } 
     else {
       return res.json(rating);

@@ -1,0 +1,27 @@
+### Create a new rating
+POST http://localhost:8081/api/ratings
+Content-Type: application/json
+
+{
+  "username": "user123",
+  "rating": 5,
+  "station": "station456",
+  "ratingId": "abc123"
+}
+
+### Get all ratings
+GET http://localhost:8081/api/ratings
+
+### Get a specific rating by ID
+GET http://localhost:8081/api/ratings/abc123
+
+### Update a rating by ID
+PATCH http://localhost:8081/api/ratings/abc123
+Content-Type: application/json
+
+{
+  "rating": 4
+}
+
+### Delete a rating by ID
+DELETE http://localhost:8081/api/ratings/abc123

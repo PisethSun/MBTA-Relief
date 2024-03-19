@@ -17,6 +17,12 @@ const deleteTheFavRoute = require('./routes/favoriteDeleteById')
 const deleteAllFav = require('./routes/favoriteDeleteAll')
 // End of Favorites Routes
 
+//start of rating routes
+const deleteAllRatings = require('./routes/ratingsDeleteAll')
+const getAllRatings = require('./routes/ratingsGetAllRatings')
+const getRatingById = require('./routes/ratingsGetRatingsById')
+const createRating = require('./routes/ratingCreateRating')
+//End of rating routes
 
 
 require('dotenv').config();
@@ -40,6 +46,13 @@ app.use('/favorite', deleteTheFavRoute)
 app.use('/favorite', deleteAllFav)
 
 // End of Favorites Routes
+
+// start of rating routes
+app.use('/rating',deleteAllRatings)
+app.use('/rating',getAllRatings)
+app.use('/rating',getRatingById)
+app.use('/rating',createRating)
+// end of rating routes
 app.listen(SERVER_PORT, (req, res) => {
     console.log(`The backend service is running on port ${SERVER_PORT} and waiting for requests.`);
 })

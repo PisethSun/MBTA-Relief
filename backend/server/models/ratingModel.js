@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-//rating schema/model
+
 const ratingSchema = new mongoose.Schema(
   {
     username: {
@@ -9,7 +9,7 @@ const ratingSchema = new mongoose.Schema(
       label: "username",
     },
     rating: {
-      type: int,
+      type: Number,
       required: true,
       label: "rating",
     },
