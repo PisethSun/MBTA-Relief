@@ -31,13 +31,13 @@ Content-Type: application/json
 
 //Delete by ID 
 ###
-DELETE http://localhost:8081/favorite/deleteFav/65f2852247a205cf319208ae
+DELETE http://localhost:8081/favorite/deleteFav/65f28ab947a205cf319208bb
 
 // do not need the body becuase I deleted by ID
 
 
 ###
-DELETE http://localhost:8081/favorite/deleteAll
+DELETE http://localhost:8081/favorite/deleteAll/
 
 
 
