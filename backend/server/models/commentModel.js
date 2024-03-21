@@ -2,24 +2,24 @@ const mongoose = require("mongoose");
 
 const commentsSchema = new mongoose.Schema(
   {
-    username: {
+    userId: {
       type: String,
       required: true,
       label: "username",
    },
     comment: {
       type: String,
-      required: true,
+      required: false,
       label: "comment",
   },
     station: {
       type: String,
-      required: true,
+      required: false,
       label: "station"
   },
     commentId: {
       type: String,
-      required: true
+      required: false,
     }
   }, 
   { collection: "comments" }
