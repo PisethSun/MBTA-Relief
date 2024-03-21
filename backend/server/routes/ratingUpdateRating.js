@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const newRatingModel = require('../models/ratingModel')
 
-router.put("/rating/updateRating/:ratingId", async (req, res) => { 
+router.put("/update/:ratingId", async (req, res) => { 
     const { ratingId } = req.params
 
     const updateRating = newRatingModel.findByIdAndUpdate(req.params.RatingId, req.body)

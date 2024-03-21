@@ -6,15 +6,15 @@ const mongoose = require("mongoose");
 router.post("/createrating", async (req, res) => {
   const { ratingId, username, rating,station  } = req.body;
 
-  const createNewRating = newRatingModel({
-    RatingId: mongoose.Types.ObjectId(id),
+  const createNewRating = newPostModel({
+    ratingId: ratingId,
     username: username,
     rating: rating,
     station: station, 
   });
 
   try {
-    const response = await newPostModel.create(createNewPost);
+    const response = await newPostModel.create(createNewRating);
     res.json({ msg: 'Rating created successfully' });
   } catch (err) {
     console.error('Error creating rating:', err);

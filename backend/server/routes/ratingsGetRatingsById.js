@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 
 const newRatingModel = require("../models/ratingModel");
 
-router.get("/getRatingById", async (req, res) => {
+router.get("/get/:ratingId", async (req, res) => {
   var { ratingId } = req.body;
 
   newUserModel.findById(ratingId, function (err, rating) {

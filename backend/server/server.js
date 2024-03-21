@@ -20,8 +20,8 @@ const deleteAllFav = require('./routes/favoriteDeleteAll')
 //start of rating routes
 const deleteAllRatings = require('./routes/ratingsDeleteAll')
 const getAllRatings = require('./routes/ratingsGetAllRatings')
-const getRatingById = require('./routes/ratingsGetRatingsById')
 const createRating = require('./routes/ratingCreateRating')
+const updateRating = require('./routes/ratingUpdateRating')
 //End of rating routes
 
 
@@ -59,6 +59,7 @@ app.use('/rating',deleteAllRatings)
 app.use('/rating',getAllRatings)
 app.use('/rating',getRatingById)
 app.use('/rating',createRating)
+app.use('/rating',updateRating)
 // end of rating routes
 
 // Start of Comment Routes

@@ -1,10 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const newRatingModel = require('../models/ratingModel')
+const ratingModel = require("../models/ratingModel");
 
-router.post('/deleteAll', async (req, res) => {
-    const rating = await newRatingModel.deleteMany();
-    return res.json(rating)
-  })
+router.delete('/deleteAll', async (req, res) => {
 
-  module.exports = router;
+    try {
+       const deleteAll= await ratingModel.find();
+       const deleted = ratingModel.deleteMany(deleteAll)
+       console.log(deleted);
+       res.json({message: `All ratings has been deleted`})
+    } catch (error) {
+
+        res.status(400).json({message: error.message})
+    }
+
+});
+
+module.exports = router;
