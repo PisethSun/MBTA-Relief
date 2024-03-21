@@ -8,9 +8,9 @@ POST http://localhost:8081/comment/createComment
 Content-Type: application/json
 {
   "commentId": "1",
-  "username": "User1",
+  "station": "station1",
   "comment": "Great station",
-  "station": "station1"
+  "username": "User1"
 }
 
 ###
