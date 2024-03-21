@@ -11,33 +11,34 @@ Content-Type: application/json
 
  {
   "userId": "65f1ec23429de3cae859ebe9",
-  "bathroomId": "6",
+  "bathroomId": "1",
   "line": "Blue",
   "station": "Wonderland"
 }
 
 // _id must be added
+// usse _id to edit and server must be restart and reopen rest file
 ###
-PUT  http://localhost:8081/favorite/editFav/65f28ab947a205cf319208bb
+PUT  http://localhost:8081/favorite/editFav/65fc6590b11332fbbe778159
 Content-Type: application/json 
 
 {
-    "_id":"65f28ab947a205cf319208bb",
+    "_id":"65fc6590b11332fbbe778159",
     "userId":"65f1ec23429de3cae859ebe9",
-    "bathroomId":"7",
+    "bathroomId":"2",
     "line":"Blue",
     "station":"Airport "
 }
 
 //Delete by ID 
 ###
-DELETE http://localhost:8081/favorite/deleteFav/65f28ab947a205cf319208bb
+DELETE http://localhost:8081/favorite/deleteFav/65fc6590b11332fbbe778159
 
 // do not need the body becuase I deleted by ID
 
 
 ###
-DELETE http://localhost:8081/favorite/deleteAll/
+DELETE http://localhost:8081/favorite/deleteAll
 
 
 
