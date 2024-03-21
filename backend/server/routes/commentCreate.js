@@ -7,8 +7,9 @@ const Comment = require("../models/commentModel");
 const createCommentSchema = z.object(
     {
   userId: z.string().nonempty(),
-  line: z.string(),
-  station: z.string()
+  comment: z.string(),
+  station: z.string(),
+  commentId: z.string()
 });
 
 router.post("/", async (req, res) => {
