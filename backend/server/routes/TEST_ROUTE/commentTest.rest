@@ -3,13 +3,14 @@ GET http://localhost:8081/comment/getAll
 Content-Type: application/json
 
 ###
-POST http://localhost:8081/comment/create
+POST http://localhost:8081/comment/createComment
+
 Content-Type: application/json
 {
-    "username": "JoshRaimo",
-    "comment": "Great station.",
-    "station": "station1",
-    "commentId": "1"
+  "commentId": "1",
+  "username": "User1",
+  "comment": "Great station",
+  "station": "station1"
 }
 
 ###
