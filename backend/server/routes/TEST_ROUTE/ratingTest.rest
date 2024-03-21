@@ -14,7 +14,7 @@ GET http://localhost:8081/rating/getAllRatings
 
 
 ### Update a rating by ID
-Put http://localhost:8081/rating/update/65fc33882c6ba9ceed6cec74
+Put http://localhost:8081/rating/update/65fc5429313d7063a7f73e23
 
 Content-Type: application/json
 
@@ -23,7 +23,6 @@ Content-Type: application/json
 }
 
 ### get a rating by id 
-GET http://localhost:8081/rating/get/65fc33882c6ba9ceed6cec74
-
+GET http://localhost:8081/rating/get/65fc5429313d7063a7f73e23
 ### Delete all ratings
 DELETE http://localhost:8081/rating/deleteAll
