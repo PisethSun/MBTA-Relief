@@ -13,12 +13,13 @@ const createCommentSchema = z.object(
 
 router.post("/", async (req, res) => {
   try {
-    const { userId, line, station } = createCommentSchema.parse(req.body);
+    const { userId, comment, station, commentId } = createCommentSchema.parse(req.body);
 
     const newComment = new Comment({
       userId,
-      line,
-      station
+      comment,
+      station,
+      commentId,
     });
 
     await newComment.save();
