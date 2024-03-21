@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
       userId,
       comment,
       station,
-      commentId,
+      commentId
     });
 
     await newComment.save();
