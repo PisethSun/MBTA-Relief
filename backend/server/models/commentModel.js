@@ -3,23 +3,22 @@ const mongoose = require("mongoose");
 const commentsSchema = new mongoose.Schema(
   {
     username: {
-     type: String,
-      required: true
-   },
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true
-    },
-    commentContent: {
       type: String,
-      required: true
-    },
-    date: {
-      type: Date,
-      default: Date.now
-    },
-    postId: {
-      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      label: "username",
+   },
+    comment: {
+      type: String,
+      required: true,
+      label: "comment",
+  },
+    station: {
+      type: String,
+      required: true,
+      label: "station"
+  },
+    commentId: {
+      type: String,
       required: true
     }
   }, 

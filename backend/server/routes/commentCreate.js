@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const commentModel = require('../models/commentModel'); // Ensure this is the correct path
+const commentModel = require('../models/commentModel');
 
-router.post('/create', async (req, res) => {
+router.post('/createComment', async (req, res) => {
     try {
         // Using the correct model variable name to create a new comment instance
         const newComment = new commentModel(req.body);

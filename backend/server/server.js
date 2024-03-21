@@ -25,6 +25,13 @@ const createRating = require('./routes/ratingCreateRating')
 //End of rating routes
 
 
+// Start of Comment Routes
+const deleteAllComments = require('./routes/commentDeleteAll')
+const getAllComments = require('./routes/commentGetAll')
+const getCommentById = require('./routes/commentGetById')
+const createComment = require('./routes/commentCreate')
+// End of Comment Routes
+
 require('dotenv').config();
 const SERVER_PORT = 8081
 
@@ -53,6 +60,14 @@ app.use('/rating',getAllRatings)
 app.use('/rating',getRatingById)
 app.use('/rating',createRating)
 // end of rating routes
+
+// Start of Comment Routes
+app.use('/comment',deleteAllComments)
+app.use('/comment',getAllComments)
+app.use('/comment',getCommentById)
+app.use('/comment',createComment)
+// End of Comment Routes
+
 app.listen(SERVER_PORT, (req, res) => {
     console.log(`The backend service is running on port ${SERVER_PORT} and waiting for requests.`);
 })
