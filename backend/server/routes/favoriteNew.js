@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
 
     await newFavorite.save();
 
-    res.status(201).json({ message: 'Favorite added successfully', favorite: newFavorite });
+    res.status(201).json({ message: 'Your Favorite Bathroom Added', favorite: newFavorite });
   } catch (error) {
     console.error('Error adding favorite:', error);
 
