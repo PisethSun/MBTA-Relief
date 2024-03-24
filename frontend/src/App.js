@@ -16,8 +16,7 @@ import MbtaMyPage from "./components/pages/mbtaMyPage";
 import MbtaMyFavorite from "./components/pages/mbtaFavorite";
 import MbtaSchedule from "./components/pages/Schedule";
 export const UserContext = createContext();
-//test change
-//test again
+
 const App = () => {
   const [user, setUser] = useState();
 

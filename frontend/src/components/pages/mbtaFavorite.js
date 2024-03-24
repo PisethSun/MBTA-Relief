@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import axios from 'axios';
 
 
-function Favorite() {
+function Alerts() {
   const [alerts, setAlerts] = useState([]);
 
 
@@ -48,4 +48,4 @@ function Favorite() {
 }
 
 
-export default Favorite;
+export default Alerts;
