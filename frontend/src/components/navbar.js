@@ -27,7 +27,7 @@ export default function Navbar() {
           <Nav.Link href="/privateUserProfile">Profile</Nav.Link>
           <Nav.Link href="/mbtaAlerts">MBTA Alerts</Nav.Link>
           <Nav.Link href="/mbtaMYPAGE">MBTA My Page</Nav.Link>
-          <Nav.Link href="/mbtaMYPAGE"></Nav.Link>
+          <Nav.Link href="/MbtaMyFavorite">Favorite</Nav.Link>
         </Nav>
 
         {user && user.username ? (
