@@ -93,6 +93,7 @@ function Alerts() {
       const isConfirmed = window.confirm("Are you sure you want to delete all favorites?");
       if (isConfirmed) {
         deleteAllFavorites();
+        window.location.reload();
       }
     }}
   >

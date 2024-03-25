@@ -5,10 +5,10 @@ const favoriteModel = require('../models/favoriteModel');
 router.delete('/deleteAll', async (req, res) => {
     try {
         await favoriteModel.deleteMany();
-        return res.json(200).json({message: `All Fav has been deleted`})
+      
     } catch (error) {
         console.error('Error deleting Fav:', error);
-        return res.status(500).json({ error: 'Failed to delete Favorite'});
+        // return res.status(500).json({ error: 'Failed to delete Favorite'});
     }
 
 });
