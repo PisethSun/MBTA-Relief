@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, Form, Modal } from 'react-bootstrap';
 import axios from 'axios';
-import wonderlandImage from './images/bathroomImg/wonderland.png'; 
+import wonderlandImage from './images/bathroomImg/placeholder.png'; 
 
 function Alerts() {
   const [alerts, setAlerts] = useState([]);
@@ -24,6 +24,21 @@ function Alerts() {
     await axios.delete(`http://localhost:8081/favorite/deleteFav/${id}`);
     fetchData(); // Reload the favorites to update the UI
   };
+
+  const deleteAllFavorites = async () => {
+    try {
+        await axios.delete('http://localhost:8081/favorite/deleteAll');
+        // Assuming fetchData() fetches the updated list of favorites
+        alert('All favorites have been deleted successfully.');
+        window.location.reload(); // Refresh the page to reflect changes
+    } catch (error) {
+        console.error("There was an error deleting all favorites: ", error);
+        alert('Failed to delete all favorites.');
+        window.location.reload(); // Refresh the page to reflect changes
+    }
+};
+
+  
 
   const showEditForm = (favorite) => {
     setEditData({ line: favorite.line, station: favorite.station, bathroomId: favorite.bathroomId });
@@ -66,9 +81,26 @@ function Alerts() {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
       <h1>Favorites</h1>
+      
+      
       <br></br>
       <Button variant="success" onClick={() => setShowCreateModal(true)}>Create New Favorite</Button>
       <br></br>
+      <div >  <Button 
+    variant="danger" 
+    style={{marginLeft: 'auto'}} // This ensures the button is aligned to the right of the modal header
+    onClick={() => {
+      const isConfirmed = window.confirm("Are you sure you want to delete all favorites?");
+      if (isConfirmed) {
+        deleteAllFavorites();
+      }
+    }}
+  >
+    Delete All Favorites
+  </Button></div>
+  <br></br>
+    
+      
       {alerts.map((alert) => (
         <Card key={alert._id} className="mb-3" style={{ width: '18rem', border: '1px solid black' }}>
           <Card.Body>
@@ -90,9 +122,11 @@ function Alerts() {
       ))}
 
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+        
 <Modal.Header closeButton>
 <Modal.Title>Edit Favorite</Modal.Title>
 </Modal.Header>
+
 <Modal.Body>
 <Form>
 <Form.Group>
