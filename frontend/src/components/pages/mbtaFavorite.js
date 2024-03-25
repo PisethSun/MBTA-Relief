@@ -80,30 +80,29 @@ function Alerts() {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-      <h1>Favorites</h1>
-      
-      
-      <br></br>
-      <Button variant="success" onClick={() => setShowCreateModal(true)}>Create New Favorite</Button>
-      <br></br>
-      <div >  <Button 
-    variant="danger" 
-    style={{marginLeft: 'auto'}} // This ensures the button is aligned to the right of the modal header
-    onClick={() => {
-      const isConfirmed = window.confirm("Are you sure you want to delete all favorites?");
-      if (isConfirmed) {
-        deleteAllFavorites();
-        window.location.reload();
-      }
-    }}
-  >
-    Delete All Favorites
-  </Button></div>
-  <br></br>
-    
-      
+    <h1>Favorites</h1>
+    <br></br>
+    <Button variant="success" onClick={() => setShowCreateModal(true)}>Create New Favorite</Button>
+    <br></br>
+    <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}> {/* Added flex container for cards */}
+      <Button
+        variant="danger"
+        style={{ marginLeft: 'auto' }} // This ensures the button is aligned to the right of the modal header
+        onClick={() => {
+          const isConfirmed = window.confirm("Are you sure you want to delete all favorites?");
+          if (isConfirmed) {
+            deleteAllFavorites();
+            window.location.reload();
+          }
+        }}
+      >
+        Delete All Favorites
+      </Button>
+    </div>
+    <br></br>
+    <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}> {/* This line makes the cards horizontal */}
       {alerts.map((alert) => (
-        <Card key={alert._id} className="mb-3" style={{ width: '18rem', border: '1px solid black' }}>
+        <Card key={alert._id} className="mb-3" style={{ width: '18rem', border: '1px solid black', margin: '10px' }}> {/* Adjusted card styles */}
           <Card.Body>
             <Card.Img variant="top" src={wonderlandImage} alt="Placeholder" />
             <Card.Text>
@@ -121,6 +120,7 @@ function Alerts() {
           </Card.Body>
         </Card>
       ))}
+    </div>
 
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
         
