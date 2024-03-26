@@ -12,7 +12,7 @@ const createCommentSchema = z.object(
   commentId: z.string()
 });
 
-router.post("/", async (req, res) => {
+router.post("/create", async (req, res) => {
   try {
     const { userId, comment, station, commentId } = createCommentSchema.parse(req.body);
 
