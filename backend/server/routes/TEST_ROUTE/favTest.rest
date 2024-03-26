@@ -19,11 +19,11 @@ Content-Type: application/json
 // _id must be added
 // usse _id to edit and server must be restart and reopen rest file
 ###
-PUT  http://localhost:8081/favorite/editFav/65fc6590b11332fbbe778159
+PUT  http://localhost:8081/favorite/editFav/6602c3d84a23f09225d19f61
 Content-Type: application/json 
 
 {
-    "_id":"65fc6590b11332fbbe778159",
+    "_id":"6602c3d84a23f09225d19f61",
     "userId":"65f1ec23429de3cae859ebe9",
     "bathroomId":"2",
     "line":"Blue",
@@ -32,7 +32,7 @@ Content-Type: application/json
 
 //Delete by ID 
 ###
-DELETE http://localhost:8081/favorite/deleteFav/65fc6590b11332fbbe778159
+DELETE http://localhost:8081/favorite/deleteFav/6602c2531d59924e5866a430
 
 // do not need the body becuase I deleted by ID
 

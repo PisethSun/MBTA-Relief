@@ -31,6 +31,8 @@ const deleteAllComments = require('./routes/commentDeleteAll')
 const getAllComments = require('./routes/commentGetAll')
 const getCommentById = require('./routes/commentGetById')
 const createComment = require('./routes/commentCreate')
+const commentDeleteById = require('./routes/commentDeleteById')
+const commentEditById = require('./routes/commentEditById')
 // End of Comment Routes
 
 require('dotenv').config();
@@ -68,6 +70,8 @@ app.use('/comment',deleteAllComments)
 app.use('/comment',getAllComments)
 app.use('/comment',getCommentById)
 app.use('/comment',createComment)
+app.use('/comment',commentDeleteById)
+app.use('/comment',commentEditById)
 // End of Comment Routes
 
 app.listen(SERVER_PORT, (req, res) => {
