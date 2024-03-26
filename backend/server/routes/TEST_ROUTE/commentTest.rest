@@ -1,7 +1,9 @@
+// Get all comments
 ###
 GET http://localhost:8081/comment/getAll
 Content-Type: application/json
 
+// Create new comment
 ###
 POST http://localhost:8081/comment/
 Content-Type: application/json
@@ -13,14 +15,31 @@ Content-Type: application/json
   "commentId": "1"
 }
 
+// Edit comment by id (_id)
+###
+PUT http://localhost:8081/comment/editComment/6602c6ff4cc22a05d72e095e
+Content-Type: application/json 
+
+{
+    "_id": "6602c6ff4cc22a05d72e095e",
+    "userId": "1",
+    "comment": "Bad station",
+    "station": "Blue",
+    "commentId": "1"
+}
+
+// Delete all comments
 ###
 DELETE http://localhost:8081/comment/deleteAll
 Content-Type: application/json
 
+
+// Delete comment by id (_id)
 ###
-DELETE http://localhost:8081/comment/deleteById/1
+DELETE http://localhost:8081/comment/deleteById/6602c6ff4cc22a05d72e095e
 Content-Type: application/json
 
+// Get comment by id (_id)
 ###
-GET http://localhost:8081/comment/get/1
+GET http://localhost:8081/comment/get/6602c6ff4cc22a05d72e095e
 Content-Type: application/json
