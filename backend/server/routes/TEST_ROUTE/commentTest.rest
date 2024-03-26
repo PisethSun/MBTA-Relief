@@ -7,7 +7,7 @@ POST http://localhost:8081/comment/
 Content-Type: application/json
 
 {
-  "userId": "User1",
+  "userId": "1",
   "comment": "Great station",
   "station": "Blue",
   "commentId": "1"
@@ -19,4 +19,8 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:8081/comment/deleteById/1
+Content-Type: application/json
+
+###
+GET http://localhost:8081/comment/get/1
 Content-Type: application/json
