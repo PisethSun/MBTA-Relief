@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, Form, Modal } from 'react-bootstrap';
 import axios from 'axios';
-import wonderlandImage from './images/bathroomImg/placeholder.png'; 
+import placeholder from './images/bathroomImg/placeholder.png'; 
 
 function Alerts() {
   const [alerts, setAlerts] = useState([]);
@@ -104,7 +104,7 @@ function Alerts() {
       {alerts.map((alert) => (
         <Card key={alert._id} className="mb-3" style={{ width: '18rem', border: '1px solid black', margin: '10px' }}> {/* Adjusted card styles */}
           <Card.Body>
-            <Card.Img variant="top" src={wonderlandImage} alt="Placeholder" />
+            <Card.Img variant="top" src={placeholder} alt="Placeholder" />
             <Card.Text>
               <strong>Station Name:</strong> {alert.station}<br />
               <strong>Bathroom ID:</strong> {alert.bathroomId}<br />
