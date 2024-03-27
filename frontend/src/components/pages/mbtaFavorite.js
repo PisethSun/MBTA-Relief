@@ -85,19 +85,22 @@ function Alerts() {
     <Button variant="success" onClick={() => setShowCreateModal(true)}>Create New Favorite</Button>
     <br></br>
     <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}> {/* Added flex container for cards */}
-      <Button
-        variant="danger"
-        style={{ marginLeft: 'auto' }} // This ensures the button is aligned to the right of the modal header
-        onClick={() => {
-          const isConfirmed = window.confirm("Are you sure you want to delete all favorites?");
-          if (isConfirmed) {
-            deleteAllFavorites();
-            window.location.reload();
-          }
-        }}
-      >
-        Delete All Favorites
-      </Button>
+  <Button
+  variant="danger"
+  style={{ marginLeft: 'auto' }} // This ensures the button is aligned to the right
+  onClick={() => {
+    const isConfirmed = window.confirm("Are you sure you want to delete all favorites?");
+    if (isConfirmed) {
+      deleteAllFavorites();
+      // Removing the window.location.reload(); from here to rely on fetchData()
+      window.location.reload();
+    }
+  }}
+  disabled={alerts.length === 0} // Disable the button if there are no favorites
+>
+  Delete All Favorites
+</Button>
+
     </div>
     <br></br>
     <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}> {/* This line makes the cards horizontal */}
