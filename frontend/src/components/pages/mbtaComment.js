@@ -5,10 +5,10 @@ import placeholder from './images/bathroomImg/placeholder.png';
 
 function Alerts() {
   const [alerts, setAlerts] = useState([]);
-  const [editData, setEditData] = useState({ comment: '', station: '' });
+  const [editData, setEditData] = useState({ comment: '', station: '', commentId: '' });
   const [showEditModal, setShowEditModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [createData, setCreateData] = useState({ comment: '', station: '' });
+  const [createData, setCreateData] = useState({ comment: '', station: '', commentId: '' });
   const [currentEditingId, setCurrentEditingId] = useState(null);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function Alerts() {
   
 
   const showEditForm = (comment) => {
-    setEditData({ comment: comment.comment, station: comment.station });
+    setEditData({ comment: comment.comment, station: comment.station, commentId: comment.commentId });
     setCurrentEditingId(comment._id);
     setShowEditModal(true);
   };
@@ -107,6 +107,7 @@ function Alerts() {
             <Card.Text>
               <strong>Comment:</strong> {alert.comment}<br />
               <strong>Station Name:</strong> {alert.station}<br />
+              <strong>CommentID:</strong> {alert.commentId}<br />
             </Card.Text>
             <Button variant="primary" onClick={() => showEditForm(alert)}>Edit</Button>
             <Button variant="danger" onClick={() => {
@@ -146,6 +147,15 @@ value={editData.station}
 onChange={handleEditInputChange}
 />
 </Form.Group>
+<Form.Group>
+<Form.Label>CommentId</Form.Label>
+<Form.Control
+type="text"
+name="commentId"
+value={editData.commentId}
+onChange={handleEditInputChange}
+/>
+</Form.Group>
 </Form>
 </Modal.Body>
 <Modal.Footer>
@@ -175,6 +185,15 @@ onChange={handleEditInputChange}
             name="station"
             value={createData.station}
             onChange={handleCreateInputChange}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>CommentID</Form.Label>
+          <Form.Control
+          type="text"
+          name="commentId"
+          value={createData.commentId}
+          onChange={handleCreateInputChange}
           />
         </Form.Group>
       </Form>
