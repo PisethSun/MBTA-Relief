@@ -14,6 +14,7 @@ import getUserInfo from "./utilities/decodeJwt";
 import MbtaAlertsPage from "./components/pages/mbtaAlerts";
 import MbtaMyPage from "./components/pages/mbtaMyPage";
 import MbtaMyFavorite from "./components/pages/mbtaFavorite";
+import MbtaMyComment from "./components/pages/mbtaComment";
 import MbtaSchedule from "./components/pages/Schedule";
 export const UserContext = createContext();
 
@@ -33,11 +34,12 @@ const App = () => {
           <Route exact path="/home" element={<HomePage />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
-          <Route path="/privateUserProfile" element={<PrivateUserProfile />} />
+          <Route exact path="/privateUserProfile" element={<PrivateUserProfile />} />
           <Route exact path="/mbtaAlerts" element={<MbtaAlertsPage />} />
           <Route exact path="/mbtaMyPage" element={<MbtaMyPage />} />
           <Route exact path="/Schedule" element={<MbtaSchedule />} />
           <Route exact path="/mbtaFavorite" element={<MbtaMyFavorite />} />
+          <Route exact path="/mbtaComment" element={<MbtaMyComment /> }/>
           
         
           

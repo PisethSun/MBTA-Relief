@@ -17,11 +17,11 @@ Content-Type: application/json
 
 // Edit comment by id (_id)
 ###
-PUT http://localhost:8081/comment/editComment/6602c6ff4cc22a05d72e095e
+PUT http://localhost:8081/comment/editComment/660418440f135f5d36559d11
 Content-Type: application/json 
 
 {
-    "_id": "6602c6ff4cc22a05d72e095e",
+    "_id": "660418440f135f5d36559d11",
     "userId": "1",
     "comment": "Bad station",
     "station": "Blue",
@@ -36,10 +36,10 @@ Content-Type: application/json
 
 // Delete comment by id (_id)
 ###
-DELETE http://localhost:8081/comment/deleteById/6602c6ff4cc22a05d72e095e
+DELETE http://localhost:8081/comment/deleteById/660418440f135f5d36559d11
 Content-Type: application/json
 
 // Get comment by id (_id)
 ###
-GET http://localhost:8081/comment/get/6602c6ff4cc22a05d72e095e
+GET http://localhost:8081/comment/get/660418440f135f5d36559d11
 Content-Type: application/json

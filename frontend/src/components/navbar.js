@@ -28,6 +28,7 @@ export default function Navbar() {
           <Nav.Link href="/mbtaAlerts">MBTA Alerts</Nav.Link>
           <Nav.Link href="/mbtaMYPAGE">MBTA My Page</Nav.Link>
           <Nav.Link href="/mbtaFavorite">Favorite</Nav.Link>
+          <Nav.Link href="/mbtaComment">Comment</Nav.Link>
         </Nav>
 
         {user && user.username ? (
