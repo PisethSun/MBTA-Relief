@@ -4,10 +4,9 @@ const newPostModel = require('../models/ratingModel');
 const mongoose = require("mongoose");
 
 router.post("/createrating", async (req, res) => {
-  const { ratingId, username, rating,station  } = req.body;
+  const { username, rating,station  } = req.body;
 
   const createNewRating = newPostModel({
-    ratingId: ratingId,
     username: username,
     rating: rating,
     station: station, 

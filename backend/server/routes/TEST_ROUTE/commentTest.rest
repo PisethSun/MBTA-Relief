@@ -17,11 +17,11 @@ Content-Type: application/json
 
 // Edit comment by id (_id)
 ###
-PUT http://localhost:8081/comment/editComment/660418440f135f5d36559d11
+PUT http://localhost:8081/comment/editComment/660adeb96ed30e4a5d346524
 Content-Type: application/json 
 
 {
-    "_id": "660418440f135f5d36559d11",
+    "_id": "660adeb96ed30e4a5d346524",
     "userId": "1",
     "comment": "Bad station",
     "station": "Blue",
@@ -41,5 +41,5 @@ Content-Type: application/json
 
 // Get comment by id (_id)
 ###
-GET http://localhost:8081/comment/get/660418440f135f5d36559d11
+GET http://localhost:8081/comment/get/660adeb96ed30e4a5d346524
 Content-Type: application/json

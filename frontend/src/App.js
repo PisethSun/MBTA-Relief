@@ -15,6 +15,7 @@ import MbtaAlertsPage from "./components/pages/mbtaAlerts";
 import MbtaMyPage from "./components/pages/mbtaMyPage";
 import MbtaMyFavorite from "./components/pages/mbtaFavorite";
 import MbtaMyComment from "./components/pages/mbtaComment";
+import MbtaMyRating from "./components/pages/mbtaRating";
 import MbtaSchedule from "./components/pages/Schedule";
 export const UserContext = createContext();
 
@@ -40,6 +41,7 @@ const App = () => {
           <Route exact path="/Schedule" element={<MbtaSchedule />} />
           <Route exact path="/mbtaFavorite" element={<MbtaMyFavorite />} />
           <Route exact path="/mbtaComment" element={<MbtaMyComment /> }/>
+          <Route exact path="/mbtaRating" element={<MbtaMyRating />}/>
           
         
           

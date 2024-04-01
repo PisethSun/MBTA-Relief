@@ -18,10 +18,7 @@ const ratingSchema = new mongoose.Schema(
       required: true,
       label: "station"
     },
-    ratingId: {
-      type: String,
-      required: true,
-   }
+    
   },
   { collection: "ratings" }
 );

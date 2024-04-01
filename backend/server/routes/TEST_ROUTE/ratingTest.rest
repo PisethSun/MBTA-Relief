@@ -3,7 +3,6 @@ POST http://localhost:8081/rating/createrating
 Content-Type: application/json
 
 {
-  "ratingId": "abc123",
   "username": "user123",
   "rating": "5",
   "station": "station123"
@@ -14,15 +13,16 @@ GET http://localhost:8081/rating/getAllRatings
 
 
 ### Update a rating by ID
-Put http://localhost:8081/rating/update/65fc5429313d7063a7f73e23
-
+PUT http://localhost:8081/rating/update/65fc68e627b0adb0768a2a25
 Content-Type: application/json
 
 {
-  "rating": "4"
+    "_id": "65fc68e627b0adb0768a2a25",  
+    "rating": "3",
 }
 
 ### get a rating by id 
-GET http://localhost:8081/rating/get/65fc5429313d7063a7f73e23
+GET http://localhost:8081/rating/get/65fc68e627b0adb0768a2a25
+
 ### Delete all ratings
 DELETE http://localhost:8081/rating/deleteAll

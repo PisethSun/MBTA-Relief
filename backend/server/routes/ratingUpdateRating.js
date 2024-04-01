@@ -1,22 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const newRatingModel = require('../models/ratingModel');
+const z = require('zod');
+const ratingModel = require("../models/ratingModel");
 
-router.put("/update/:ratingId", async (req, res) => { 
-    const { ratingId } = req.params;
-
+router.put('/update/:ratingId', async (req, res) => {
+    const id = req.params.ratingId
     try {
-        const updatedRating = await newRatingModel.findByIdAndUpdate(ratingId, req.body, { new: true });
-
-        if (!updatedRating) {
-            return res.status(404).json({ error: 'Rating not found' });
-        }
-
-        res.json({ msg: 'Rating successfully updated', rating: updatedRating });
-    } catch (err) {
-        console.error('Error updating rating:', err);
-        res.status(500).json({ error: 'Failed to update rating' });
+       const newRating = req.body
+       const rating = await ratingModel.findByIdAndUpdate(id, newRating);
+       res.json(rating)
+    } catch (error) {
+        res.status(400).json({message: error.message})
     }
+
 });
 
 module.exports = router;
