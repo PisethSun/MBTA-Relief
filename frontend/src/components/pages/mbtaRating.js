@@ -134,7 +134,7 @@ function Alerts() {
 <Form.Label>Rating</Form.Label>
 <Form.Control
 type="Number"
-name="Rating"
+name="rating"
 value={editData.rating}
 onChange={handleEditInputChange}
 />
