@@ -17,8 +17,10 @@ PUT http://localhost:8081/rating/update/65fc68e627b0adb0768a2a25
 Content-Type: application/json
 
 {
-    "_id": "65fc68e627b0adb0768a2a25",  
+    "_id": "65fc68e627b0adb0768a2a25", 
+    "username":"user123" ,
     "rating": "3",
+    "station": "station123"
 }
 
 ### get a rating by id 

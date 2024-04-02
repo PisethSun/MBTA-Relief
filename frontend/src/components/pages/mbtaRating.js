@@ -5,10 +5,10 @@ import placeholder from './images/bathroomImg/placeholder.png';
 
 function Alerts() {
   const [alerts, setAlerts] = useState([]);
-  const [editData, setEditData] = useState({ rating: '', station: '', ratingId: '' });
+  const [editData, setEditData] = useState({ username: '', station: '', rating: '' });
   const [showEditModal, setShowEditModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [createData, setCreateData] = useState({ rating: '', station: '', ratingId: '' });
+  const [createData, setCreateData] = useState({ username: '', station: '', rating: '' });
   const [currentEditingId, setCurrentEditingId] = useState(null);
 
   useEffect(() => {
@@ -16,31 +16,31 @@ function Alerts() {
   }, []);
 
   async function fetchData() {
-    const result = await axios('http://localhost:8081/rating/getAll');
+    const result = await axios('http://localhost:8081/rating/getAllRatings');
     setAlerts(result.data);
   }
 
   const deleteRating = async (id) => {
-    await axios.delete(`http://localhost:8081/rating/deleteById/${id}`);
-    fetchData(); // Reload the comments to update the UI
+    await axios.delete(`http://localhost:8081/rating/delete/${id}`);
+    fetchData(); 
   };
 
   const deleteAllRatings = async () => {
     try {
         await axios.delete('http://localhost:8081/rating/deleteAll');
         alert('All ratings have been deleted successfully.');
-        window.location.reload(); // Refresh the page to reflect changes
+        window.location.reload(); 
     } catch (error) {
         console.error(`There was an error deleting all ratings: `, error);
         alert('Failed to delete all ratings.');
-        window.location.reload(); // Refresh the page to reflect changes
+        window.location.reload(); 
     }
 };
 
   
 
   const showEditForm = (rating) => {
-    setEditData({ rating: rating.rating, station: rating.station, ratingId: rating.ratingId });
+    setEditData({ rating: rating.rating, station: rating.station, username: rating.username });
     setCurrentEditingId(rating._id);
     setShowEditModal(true);
   };
@@ -64,12 +64,13 @@ function Alerts() {
   const saveEdit = async () => {
     await axios.put(`http://localhost:8081/rating/update/${currentEditingId}`, editData);
     setShowEditModal(false);
-    fetchData(); // Reload the favorites to update the UI
+    fetchData(); 
   };
 
   const saveNewRating = async () => {
-    await axios.post('http://localhost:8081/rating/createrating', { ...createData, userId: "65f1ec23429de3cae859ebe9" }, {
+    await axios.post('http://localhost:8081/rating/createrating', { ...createData, userId: "660af4ea12f058719993e17b" }, {
       headers: {
+
         'Content-Type': 'application/json',
       },
     });
@@ -88,7 +89,7 @@ function Alerts() {
         variant="danger"
         style={{ marginLeft: 'auto' }} // This ensures the button is aligned to the right of the modal header
         onClick={() => {
-          const isConfirmed = window.confirm("Are you sure you want to delete all comments?");
+          const isConfirmed = window.confirm("Are you sure you want to delete all ratings?");
           if (isConfirmed) {
             deleteAllRatings();
             window.location.reload();
@@ -107,7 +108,7 @@ function Alerts() {
             <Card.Text>
               <strong>Rating:</strong> {alert.rating}<br />
               <strong>Station Name:</strong> {alert.station}<br />
-              <strong>RatingID:</strong> {alert.ratingId}<br />
+              <strong>Username:</strong> {alert.username}<br />
             </Card.Text>
             <Button variant="primary" onClick={() => showEditForm(alert)}>Edit</Button>
             <Button variant="danger" onClick={() => {
@@ -132,7 +133,7 @@ function Alerts() {
 <Form.Group>
 <Form.Label>Rating</Form.Label>
 <Form.Control
-type="Integer"
+type="Number"
 name="Rating"
 value={editData.rating}
 onChange={handleEditInputChange}
@@ -148,11 +149,11 @@ onChange={handleEditInputChange}
 />
 </Form.Group>
 <Form.Group>
-<Form.Label>RatingId</Form.Label>
+<Form.Label>Username</Form.Label>
 <Form.Control
 type="text"
-name="ratingId"
-value={editData.ratingId}
+name="username"
+value={editData.username}
 onChange={handleEditInputChange}
 />
 </Form.Group>
@@ -172,8 +173,8 @@ onChange={handleEditInputChange}
         <Form.Group>
           <Form.Label>Rating</Form.Label>
           <Form.Control
-            type="text"
-            name="comment"
+            type="Number"
+            name="rating"
             value={createData.rating}
             onChange={handleCreateInputChange}
           />
@@ -188,11 +189,11 @@ onChange={handleEditInputChange}
           />
         </Form.Group>
         <Form.Group>
-          <Form.Label>RatingID</Form.Label>
+          <Form.Label>Username</Form.Label>
           <Form.Control
           type="text"
-          name="ratingId"
-          value={createData.ratingId}
+          name="username"
+          value={createData.username}
           onChange={handleCreateInputChange}
           />
         </Form.Group>
