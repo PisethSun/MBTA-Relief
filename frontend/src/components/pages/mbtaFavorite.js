@@ -109,9 +109,9 @@ function Alerts() {
           <Card.Body>
             <Card.Img variant="top" src={placeholder} alt="Placeholder" />
             <Card.Text>
-              <strong>Station Name:</strong> {alert.station}<br />
+              <strong>Station Line:</strong> {alert.station}<br />
               <strong>Bathroom ID:</strong> {alert.bathroomId}<br />
-              <strong>Station Line:</strong> {alert.line}
+              <strong>Station Name:</strong> {alert.line}
             </Card.Text>
             <Button variant="primary" onClick={() => showEditForm(alert)}>Edit</Button>
             <Button variant="danger" onClick={() => {
