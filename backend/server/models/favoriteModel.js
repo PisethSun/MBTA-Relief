@@ -5,10 +5,7 @@ const favoriteSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  bathroomId: {
-    type: String,
-    required: false,
-  },
+ 
   line: {
     type: String,
     required: false,

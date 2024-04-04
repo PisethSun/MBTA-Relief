@@ -24,7 +24,6 @@ Content-Type: application/json
 
  {
   "userId": "65f1ec23429de3cae859ebe9",
-  "bathroomId": "2",
   "line": "Red",
   "station": "Andrew"
 }
