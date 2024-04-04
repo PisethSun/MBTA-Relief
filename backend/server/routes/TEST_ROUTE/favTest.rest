@@ -6,6 +6,19 @@ Content-Type: application/json
 
 
 ###
+POST http://localhost:8081/user/editUser
+Content-Type: application/json
+
+{
+    "userId": "65f1ec23429de3cae859ebe9",
+    "username": "PisethS",
+    "email": "pisethsun92@gmail.com",
+    "password": "newPassword123"
+}
+
+
+
+###
 POST http://localhost:8081/favorite
 Content-Type: application/json
 
