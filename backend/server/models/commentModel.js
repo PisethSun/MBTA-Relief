@@ -14,8 +14,9 @@ const commentsSchema = new mongoose.Schema(
       type: String,
       required: false,
   },
-    commentId: {
-      type: String,
+    date: {
+      type: Date,
+      default: Date.now,
       required: false,
     }
   }, 

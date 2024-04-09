@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, Form, Modal } from 'react-bootstrap';
 import axios from 'axios';
-import placeholder from './images/bathroomImg/placeholder.png'; 
+import placeholder from './images/bathroomImg/placeholder.png';
 
 function Alerts() {
   const [alerts, setAlerts] = useState([]);
-  const [editData, setEditData] = useState({ comment: '', station: '', commentId: '' });
+  const [editData, setEditData] = useState({ comment: '', station: '' });
   const [showEditModal, setShowEditModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [createData, setCreateData] = useState({ comment: '', station: '', commentId: '' });
+  const [createData, setCreateData] = useState({ comment: '', station: '' });
   const [currentEditingId, setCurrentEditingId] = useState(null);
 
   useEffect(() => {
@@ -26,21 +26,12 @@ function Alerts() {
   };
 
   const deleteAllComments = async () => {
-    try {
-        await axios.delete('http://localhost:8081/comment/deleteAll');
-        alert('All comments have been deleted successfully.');
-        window.location.reload(); // Refresh the page to reflect changes
-    } catch (error) {
-        console.error("There was an error deleting all comments: ", error);
-        alert('Failed to delete all comments.');
-        window.location.reload(); // Refresh the page to reflect changes
-    }
-};
-
-  
+    await axios.delete('http://localhost:8081/comment/deleteAll');
+    fetchData(); // Reload the comments to update the UI
+  };
 
   const showEditForm = (comment) => {
-    setEditData({ comment: comment.comment, station: comment.station, commentId: comment.commentId });
+    setEditData({ comment: comment.comment, station: comment.station });
     setCurrentEditingId(comment._id);
     setShowEditModal(true);
   };
@@ -64,7 +55,7 @@ function Alerts() {
   const saveEdit = async () => {
     await axios.put(`http://localhost:8081/comment/editComment/${currentEditingId}`, editData);
     setShowEditModal(false);
-    fetchData(); // Reload the favorites to update the UI
+    fetchData(); // Reload the comments to update the UI
   };
 
   const saveNewComment = async () => {
@@ -74,137 +65,104 @@ function Alerts() {
       },
     });
     setShowCreateModal(false);
-    fetchData();
+    fetchData(); // Reload the comments to update the UI
   };
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  }
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-    <h1>Comments</h1>
-    <br></br>
-    <Button variant="success" onClick={() => setShowCreateModal(true)}>Create New Comment</Button>
-    <br></br>
-    <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}> {/* Added flex container for cards */}
-      <Button
-        variant="danger"
-        style={{ marginLeft: 'auto' }} // This ensures the button is aligned to the right of the modal header
-        onClick={() => {
-          const isConfirmed = window.confirm("Are you sure you want to delete all comments?");
-          if (isConfirmed) {
-            deleteAllComments();
-            window.location.reload();
-          }
-        }}
-      >
-        Delete All Comments
-      </Button>
-    </div>
-    <br></br>
-    <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}> {/* This line makes the cards horizontal */}
-      {alerts.map((alert) => (
-        <Card key={alert._id} className="mb-3" style={{ width: '18rem', border: '1px solid black', margin: '10px' }}> {/* Adjusted card styles */}
-          <Card.Body>
-            <Card.Img variant="top" src={placeholder} alt="Placeholder" />
-            <Card.Text>
-              <strong>Comment:</strong> {alert.comment}<br />
-              <strong>Station Name:</strong> {alert.station}<br />
-              <strong>CommentID:</strong> {alert.commentId}<br />
-            </Card.Text>
-            <Button variant="primary" onClick={() => showEditForm(alert)}>Edit</Button>
-            <Button variant="danger" onClick={() => {
-              const isConfirmed = window.confirm("Are you sure you want to delete?");
-              if (isConfirmed) {
-                deleteComment(alert._id);
-              }
-            }}>Delete</Button>
-          </Card.Body>
-        </Card>
-      ))}
-    </div>
+      <h1>Comments</h1>
+      <br></br>
+      <Button variant="success" onClick={() => setShowCreateModal(true)}>Create New Comment</Button>
+      <br></br>
+      <Button variant="danger" onClick={deleteAllComments}>Delete All Comments</Button>
+      <br></br>
+      <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+        {alerts.map((alert) => (
+          <Card key={alert._id} className="mb-3" style={{ width: '18rem', border: '1px solid black', margin: '10px' }}>
+            <Card.Body>
+              <Card.Img variant="top" src={placeholder} alt="Placeholder" />
+              <Card.Text>
+                <strong>Comment:</strong> {alert.comment}<br />
+                <strong>Station Name:</strong> {alert.station}<br />
+                <strong>Date:</strong> {formatDate(alert.date)}<br />
+              </Card.Text>
+              <Button variant="primary" onClick={() => showEditForm(alert)}>Edit</Button>
+              <Button variant="danger" onClick={() => deleteComment(alert._id)}>Delete</Button>
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
 
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
-        
-<Modal.Header closeButton>
-<Modal.Title>Edit Comment</Modal.Title>
-</Modal.Header>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Comment</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group>
+              <Form.Label>Comment</Form.Label>
+              <Form.Control
+                type="text"
+                name="comment"
+                value={editData.comment}
+                onChange={handleEditInputChange}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Station</Form.Label>
+              <Form.Control
+                type="text"
+                name="station"
+                value={editData.station}
+                onChange={handleEditInputChange}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowEditModal(false)}>Close</Button>
+          <Button variant="primary" onClick={saveEdit}>Save Changes</Button>
+        </Modal.Footer>
+      </Modal>
 
-<Modal.Body>
-<Form>
-<Form.Group>
-<Form.Label>Comment</Form.Label>
-<Form.Control
-type="text"
-name="comment"
-value={editData.comment}
-onChange={handleEditInputChange}
-/>
-</Form.Group>
-<Form.Group>
-<Form.Label>Station</Form.Label>
-<Form.Control
-type="text"
-name="station"
-value={editData.station}
-onChange={handleEditInputChange}
-/>
-</Form.Group>
-<Form.Group>
-<Form.Label>CommentId</Form.Label>
-<Form.Control
-type="text"
-name="commentId"
-value={editData.commentId}
-onChange={handleEditInputChange}
-/>
-</Form.Group>
-</Form>
-</Modal.Body>
-<Modal.Footer>
-<Button variant="secondary" onClick={() => setShowEditModal(false)}>Close</Button>
-<Button variant="primary" onClick={saveEdit}>Save Changes</Button>
-</Modal.Footer>
-</Modal>
-<Modal show={showCreateModal} onHide={() => setShowCreateModal(false)}>
-    <Modal.Header closeButton>
-      <Modal.Title>Create New Comment</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-      <Form>
-        <Form.Group>
-          <Form.Label>Comment</Form.Label>
-          <Form.Control
-            type="text"
-            name="comment"
-            value={createData.comment}
-            onChange={handleCreateInputChange}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Station Name</Form.Label>
-          <Form.Control
-            type="text"
-            name="station"
-            value={createData.station}
-            onChange={handleCreateInputChange}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>CommentID</Form.Label>
-          <Form.Control
-          type="text"
-          name="commentId"
-          value={createData.commentId}
-          onChange={handleCreateInputChange}
-          />
-        </Form.Group>
-      </Form>
-    </Modal.Body>
-    <Modal.Footer>
-      <Button variant="secondary" onClick={() => setShowCreateModal(false)}>Close</Button>
-      <Button variant="primary" onClick={saveNewComment}>Save New Comment</Button>
-    </Modal.Footer>
-  </Modal>
-</div>
-);
+      <Modal show={showCreateModal} onHide={() => setShowCreateModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Create New Comment</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group>
+              <Form.Label>Comment</Form.Label>
+              <Form.Control
+                type="text"
+                name="comment"
+                value={createData.comment}
+                onChange={handleCreateInputChange}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Station Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="station"
+                value={createData.station}
+                onChange={handleCreateInputChange}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowCreateModal(false)}>Close</Button>
+          <Button variant="primary" onClick={saveNewComment}>Save New Comment</Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
 }
 
 export default Alerts;
