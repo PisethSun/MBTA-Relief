@@ -10,15 +10,35 @@ function Alerts() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [createData, setCreateData] = useState({ comment: '', station: '' });
   const [currentEditingId, setCurrentEditingId] = useState(null);
+  const [stations, setStations] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchData();
+    fetchStations();
   }, []);
 
   async function fetchData() {
     const result = await axios('http://localhost:8081/comment/getAll');
     setAlerts(result.data);
   }
+
+  const fetchStations = async () => {
+    try {
+      const response = await fetch(
+        "https://api-v3.mbta.com/stops?filter[route_type]=1"
+      );
+      const data = await response.json();
+      setStations(
+        data.data.map((station) => ({
+          id: station.id,
+          name: station.attributes.name,
+        }))
+      );
+    } catch (error) {
+      console.error("Error fetching stations:", error);
+    }
+  };
 
   const deleteComment = async (id) => {
     await axios.delete(`http://localhost:8081/comment/deleteById/${id}`);
@@ -89,7 +109,7 @@ function Alerts() {
               <Card.Text>
                 <strong>Comment:</strong> {alert.comment}<br />
                 <strong>Station Name:</strong> {alert.station}<br />
-                <strong>Date:</strong> {formatDate(alert.date)}<br />
+                <strong>Date Posted:</strong> {formatDate(alert.date)}<br />
               </Card.Text>
               <Button variant="primary" onClick={() => showEditForm(alert)}>Edit</Button>
               <Button variant="danger" onClick={() => deleteComment(alert._id)}>Delete</Button>
@@ -147,12 +167,18 @@ function Alerts() {
             </Form.Group>
             <Form.Group>
               <Form.Label>Station Name</Form.Label>
-              <Form.Control
-                type="text"
+              <Form.Select
                 name="station"
                 value={createData.station}
                 onChange={handleCreateInputChange}
-              />
+              >
+                <option value="">Select a station</option>
+                {stations.map((station) => (
+                  <option key={station.id} value={station.name}>
+                    {station.name}
+                  </option>
+                ))}
+                </Form.Select>
             </Form.Group>
           </Form>
         </Modal.Body>
