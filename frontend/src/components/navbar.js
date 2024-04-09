@@ -21,7 +21,7 @@ export default function Navbar() {
     setUser({});
 
     // Navigate to home page or login page after logout
-    navigate('/');
+    navigate('/login');
   };
 
   return (
