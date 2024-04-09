@@ -47,15 +47,17 @@ const Login = () => {
     try {
       const { data: res } = await axios.post(url, data);
       const { accessToken } = res;
-      //store token in localStorage
+      // Store token in localStorage
       localStorage.setItem("accessToken", accessToken);
-      navigate("/home");
+      navigate("/home", { replace: true });
+      window.location.reload();
     } catch (error) {
       if (error.response && error.response.status >= 400 && error.response.status <= 500) {
         setError(error.response.data.message);
       }
     }
   };
+  
 
   if(user) {
     navigate('/home');
