@@ -8,19 +8,17 @@ const createCommentSchema = z.object(
     {
   userId: z.string().nonempty(),
   comment: z.string(),
-  station: z.string(),
-  commentId: z.string()
+  station: z.string()
 });
 
 router.post("/", async (req, res) => {
   try {
-    const { userId, comment, station, commentId } = createCommentSchema.parse(req.body);
+    const { userId, comment, station, date } = createCommentSchema.parse(req.body);
 
     const newComment = new Comment({
       userId,
       comment,
-      station,
-      commentId
+      station
     });
 
     await newComment.save();

@@ -11,8 +11,7 @@ Content-Type: application/json
 {
   "userId": "1",
   "comment": "Great station",
-  "station": "Blue",
-  "commentId": "1"
+  "station": "Blue"
 }
 
 // Edit comment by id (_id)
@@ -25,7 +24,6 @@ Content-Type: application/json
     "userId": "1",
     "comment": "Bad station",
     "station": "Blue",
-    "commentId": "1"
 }
 
 // Delete all comments
