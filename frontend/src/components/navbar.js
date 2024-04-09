@@ -15,9 +15,14 @@ export default function Navbar() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    localStorage.removeItem('accessToken')
-    return navigate('/')
-};
+    localStorage.removeItem('accessToken');
+
+    // Reset user state to reflect that no user is logged in
+    setUser({});
+
+    // Navigate to home page or login page after logout
+    navigate('/');
+  };
 
   return (
     <ReactNavbar bg="dark" variant="dark">
@@ -35,7 +40,7 @@ export default function Navbar() {
         {user && user.username ? (
           <Nav className="ml-auto align-items-center">
             <Nav.Item className="text-light me-2">Welcome, {user.username}</Nav.Item>
-            <Nav.Link onClick={(e) => handleClick(e)}className="text-light">Logout</Nav.Link>
+            <Nav.Link onClick={handleClick} className="text-light">Logout</Nav.Link>
           </Nav>
         ) : (
           <Nav className="ml-auto">
@@ -47,5 +52,3 @@ export default function Navbar() {
     </ReactNavbar>
   );
 }
-
-
