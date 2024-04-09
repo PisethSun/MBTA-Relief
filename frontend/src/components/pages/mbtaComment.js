@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, Form, Modal } from 'react-bootstrap';
 import axios from 'axios';
-import placeholder from './images/bathroomImg/placeholder.png';
+import toileticon from './images/toileticon.png';
 
 function Alerts() {
   const [alerts, setAlerts] = useState([]);
@@ -11,7 +11,6 @@ function Alerts() {
   const [createData, setCreateData] = useState({ comment: '', station: '' });
   const [currentEditingId, setCurrentEditingId] = useState(null);
   const [stations, setStations] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchData();
@@ -105,13 +104,13 @@ function Alerts() {
         {alerts.map((alert) => (
           <Card key={alert._id} className="mb-3" style={{ width: '18rem', border: '1px solid black', margin: '10px' }}>
             <Card.Body>
-              <Card.Img variant="top" src={placeholder} alt="Placeholder" />
+              <Card.Img variant="top" src={toileticon} alt="toileticon" />
               <Card.Text>
                 <strong>Comment:</strong> {alert.comment}<br />
                 <strong>Station Name:</strong> {alert.station}<br />
                 <strong>Date Posted:</strong> {formatDate(alert.date)}<br />
               </Card.Text>
-              <Button variant="primary" onClick={() => showEditForm(alert)}>Edit</Button>
+              <Button variant="primary" onClick={() => showEditForm(alert)} style={{ marginRight: '10px' }}>Edit</Button>
               <Button variant="danger" onClick={() => deleteComment(alert._id)}>Delete</Button>
             </Card.Body>
           </Card>
