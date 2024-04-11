@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, Form, Modal } from 'react-bootstrap';
 import axios from 'axios';
+import toileticon from './images/bathroomImg/wonderland.png';
 
 function Favorites() {
   const [favorites, setFavorites] = useState([]);
@@ -79,24 +80,33 @@ function Favorites() {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-      <h1>Favorites</h1>
+      <h4>Add Your Favorites Station </h4>
       <Button variant="success" onClick={() => setShowCreateModal(true)}>Add New Favorite</Button>
       <Button variant="danger" onClick={deleteAllFavorites}>Delete All Favorites</Button>
-      {favorites.map((favorite) => (
-        <Card key={favorite._id} className="mb-3" style={{ width: '18rem', margin: '10px' }}>
-          <Card.Body>
-            <Card.Title>{favorite.station}</Card.Title>
-            <Card.Subtitle>{favorite.line}</Card.Subtitle>
-            <Button variant="primary" onClick={() => showEditForm(favorite)} style={{ marginRight: '10px' }}>Edit</Button>
-            <Button variant="danger" onClick={() => deleteFavorite(favorite._id)}>Delete</Button>
+      <br></br>
+      <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+        {favorites.map((favorite) => (
+          <Card.Body style={{ display: 'flex', alignItems: 'center' }}>
+            <Card.Img variant="top" src={toileticon} alt="toileticon" style={{ width: '100px', marginRight: '10px' }} /> {/* Adjust the width here */}
+            <div>
+              <Card.Text>
+                <strong>Station:</strong> {favorite.station}
+              </Card.Text>
+              <Card.Text>
+                <strong>Line:</strong> {favorite.line}
+              </Card.Text>
+              <Button variant="primary" onClick={() => showEditForm(favorite)} style={{ marginRight: '10px' }}>Edit</Button>
+              <Button variant="danger" onClick={() => deleteFavorite(favorite._id)}>Delete</Button>
+            </div>
           </Card.Body>
-        </Card>
-      ))}
-
+        ))}
+      </div>
       <EditModal show={showEditModal} onHide={() => setShowEditModal(false)} data={editData} handleInputChange={handleInputChange} saveNewFavorite={saveEdit} stations={stations} />
       <CreateModal show={showCreateModal} onHide={() => setShowCreateModal(false)} data={createData} handleInputChange={handleInputChange} saveNewFavorite={saveNewFavorite} stations={stations} />
     </div>
   );
+  
+  
 }
 
 function EditModal({ show, onHide, data, handleInputChange, saveNewFavorite, stations }) {
