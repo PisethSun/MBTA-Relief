@@ -71,10 +71,12 @@ const Login = () => {
       <Link to="/home">
         <img src={logo} alt="Logo" style={{ position: 'absolute', top: '20px', left: '20px', width: '100px', height: 'auto', zIndex: 2 }} />
       </Link>
+      
       <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1 }}>
         <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderColor: PRIMARY_COLOR }}>
           <h2 style={{ textAlign: 'center', color: PRIMARY_COLOR, marginBottom: '20px' }}>Log In</h2>
           <Form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+
             <Form.Group className="mb-3">
               <Form.Label htmlFor="username" style={{ color: SECONDARY_COLOR }}>Username</Form.Label>
               <div style={{ position: 'relative' }}>
