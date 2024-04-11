@@ -72,7 +72,7 @@ const PrivateUserProfile = () => {
         </Col>
 
         <Col xs={12} md={3}>
-          <h2>Favorite Stations</h2>
+          <h2>My Favorite Stations</h2>
           {favorites.map(favorite => (
             <Card key={favorite._id} className="mb-3">
               <Card.Body>
