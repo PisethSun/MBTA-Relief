@@ -79,26 +79,28 @@ function Favorites() {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', border: '1px solid #ccc', borderRadius: '5px', padding: '20px', backgroundColor: '#f9f9f9' }}>
       <h4>Add Your Favorites Station </h4>
       <Button variant="success" onClick={() => setShowCreateModal(true)}>Add New Favorite</Button>
       <Button variant="danger" onClick={deleteAllFavorites}>Delete All Favorites</Button>
-      <br></br>
+      <br />
       <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
         {favorites.map((favorite) => (
-          <Card.Body style={{ display: 'flex', alignItems: 'center' }}>
-            <Card.Img variant="top" src={toileticon} alt="toileticon" style={{ width: '100px', marginRight: '10px' }} /> {/* Adjust the width here */}
-            <div>
-              <Card.Text>
-                <strong>Station:</strong> {favorite.station}
-              </Card.Text>
-              <Card.Text>
-                <strong>Line:</strong> {favorite.line}
-              </Card.Text>
-              <Button variant="primary" onClick={() => showEditForm(favorite)} style={{ marginRight: '10px' }}>Edit</Button>
-              <Button variant="danger" onClick={() => deleteFavorite(favorite._id)}>Delete</Button>
-            </div>
-          </Card.Body>
+          <div key={favorite._id} style={{ border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', backgroundColor: '#fff' }}>
+            <Card.Body style={{ display: 'flex', alignItems: 'center', padding: '10px' }}>
+              <Card.Img variant="top" src={toileticon} alt="toileticon" style={{ width: '100px', marginRight: '10px' }} /> {/* Adjust the width here */}
+              <div>
+                <Card.Text>
+                  <strong>Station:</strong> {favorite.station}
+                </Card.Text>
+                <Card.Text>
+                  <strong>Line:</strong> {favorite.line}
+                </Card.Text>
+                <Button variant="primary" onClick={() => showEditForm(favorite)} style={{ marginRight: '10px' }}>Edit</Button>
+                <Button variant="danger" onClick={() => deleteFavorite(favorite._id)}>Delete</Button>
+              </div>
+            </Card.Body>
+          </div>
         ))}
       </div>
       <EditModal show={showEditModal} onHide={() => setShowEditModal(false)} data={editData} handleInputChange={handleInputChange} saveNewFavorite={saveEdit} stations={stations} />
@@ -107,13 +109,14 @@ function Favorites() {
   );
   
   
+  
 }
 
 function EditModal({ show, onHide, data, handleInputChange, saveNewFavorite, stations }) {
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
-        <Modal.Title>Edit Favorite</Modal.Title>
+        <Modal.Title>New Favorite</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
