@@ -76,7 +76,7 @@ const Register = () => {
 
               {error && <div style={{ color: 'red', fontWeight: 'bold', marginBottom: '20px' }}>{error}</div>}
 
-              <Button variant="primary" type="submit" style={{ backgroundColor: PRIMARY_COLOR, borderColor: 'transparent' }}>Log In</Button>
+              <Button variant="primary" type="submit" style={{ backgroundColor: PRIMARY_COLOR, borderColor: 'transparent' }}>Sign Up</Button>
             </Form>
             <div style={{ textAlign: 'center', marginTop: '20px' }}>
               Already have an account? <Link to="/login" style={{ color: PRIMARY_COLOR }}>Log In</Link>
