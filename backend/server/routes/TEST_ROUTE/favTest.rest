@@ -6,24 +6,11 @@ Content-Type: application/json
 
 
 ###
-POST http://localhost:8081/user/editUser
-Content-Type: application/json
-
-{
-    "userId": "65f1ec23429de3cae859ebe9",
-    "username": "PisethS",
-    "email": "pisethsun92@gmail.com",
-    "password": "newPassword123"
-}
-
-
-
-###
-POST http://localhost:8081/favorite
+POST http://localhost:8081/favorite/
 Content-Type: application/json
 
  {
-  "userId": "65f1ec23429de3cae859ebe9",
+  "userId": "1",
   "line": "Red",
   "station": "Andrew"
 }
@@ -31,21 +18,20 @@ Content-Type: application/json
 // _id must be added
 // usse _id to edit and server must be restart and reopen rest file
 ###
-PUT  http://localhost:8081/favorite/editFav/6602c3d84a23f09225d19f61
+PUT  http://localhost:8081/favorite/editFav/661766f3accd60c438764139
 Content-Type: application/json 
 
 {
-    "_id":"6602c3d84a23f09225d19f61",
-    "userId":"65f1ec23429de3cae859ebe9",
-    "bathroomId":"2",
+    "_id":"661766f3accd60c438764139",
+    "userId":"1",
     "line":"Blue",
     "station":"Airport "
 }
 
 //Delete by ID 
 ###
-DELETE http://localhost:8081/favorite/deleteFav/6602c2531d59924e5866a430
-
+DELETE http://localhost:8081/favorite/deleteFav/661766f3accd60c438764139
+Content-Type: application/json
 // do not need the body becuase I deleted by ID
 
 
