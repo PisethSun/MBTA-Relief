@@ -133,13 +133,19 @@ function Alerts() {
               />
             </Form.Group>
             <Form.Group>
-              <Form.Label>Station</Form.Label>
-              <Form.Control
-                type="text"
+              <Form.Label>Station Name</Form.Label>
+              <Form.Select
                 name="station"
-                value={editData.station}
-                onChange={handleEditInputChange}
-              />
+                value={createData.station}
+                onChange={handleCreateInputChange}
+              >
+                <option value="">Select a station</option>
+                {stations.map((station) => (
+                  <option key={station.id} value={station.name}>
+                    {station.name}
+                  </option>
+                ))}
+                </Form.Select>
             </Form.Group>
           </Form>
         </Modal.Body>
