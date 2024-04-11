@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Image from 'react-bootstrap/Image';
 import leftImage from "./images/TrainStation1.jpeg";
-
 import rightImage from "./images/TrainStation2.webp";
+import logo from "./images/MBTALogo.png";
+import usernameIcon from "./images/usernameicon.png";
+import passwordIcon from "./images/passwordicon.png";
+import emailIcon from "./images/mailicon.png";
 
-
+const PRIMARY_COLOR = "#72d3fe";
+const SECONDARY_COLOR = '#0c0c1f';
 const url = "http://localhost:8081/user/signup";
 
 const Register = () => {
@@ -34,74 +39,50 @@ const Register = () => {
 
   return (
     <div style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
-      <div style={{ position: 'relative', height: 'calc(100% - 100px)', border: '30px solid white' }}>
-        <img src={leftImage} alt="left Image" style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
-        <img src={rightImage} alt="righ Image" style={{ position: 'absolute', top: 0, right: 0, width: '35%', height: '100%' }} />
-        <div style={{ position: 'absolute', top: '50%', right: '25%', transform: 'translateY(-50%)', zIndex: 1 }}>
-          <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: '600px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between',border:"transparent", top:'0'}}>
-            <div>
-              <h2 style={{ textAlign: 'center', color: 'black',marginBottom:'50px', marginTop:'100px' }}>Sign Up </h2>
-              <Form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <div className="mb-3 row">
-                  <label htmlFor="username" className="col-sm-3 col-form-label" style={{ color: 'black', textAlign: 'left',fontSize:'20px' }}>Username</label>
-                  <div className="col-sm-9">
-                    <input
-                      type="text"
-                      className="form-control mb-2"
-                      id="username"
-                      name="username"
-                      onChange={handleChange}
-                      style={{ backgroundColor: 'black', color: 'white', height: '40px', marginRight: '10px', marginBottom:'70px' }}
-                    />
-                  </div>
-                </div>
-                <div className="mb-3 row">
-                  <label htmlFor="email" className="col-sm-3 col-form-label" style={{ color: 'black', textAlign: 'left', fontSize:'20px' }}>Email</label>
-                  <div className="col-sm-9">
-                    <input
-                      type="email"
-                      className="form-control mb-2"
-                      id="email"
-                      name="email"
-                      onChange={handleChange}
-                      style={{ backgroundColor: 'black', color: 'white', height: '40px', marginRight: '10px', marginBottom:'60px' }}
-                    />
-                  </div>
-                </div>
-                <div className="mb-3 row">
-                  <label htmlFor="password" className="col-sm-3 col-form-label" style={{ color: 'black', textAlign: 'left',fontSize:'20px' }}>Password</label>
-                  <div className="col-sm-9">
-                    <input
-                      type="password"
-                      className="form-control mb-2"
-                      id="password"
-                      name="password"
-                      onChange={handleChange}
-                      style={{ backgroundColor: 'black', color: 'white', height: '40px', marginRight: '10px', marginBottom: '100px' }}
-                    />
-                  </div>
-                </div>
-                {error && (
-                  <div style={{ color: 'red', fontWeight: 'bold' }}>
-                    {error}
-                  </div>
-                )}
-              </Form>
+      <Image src={leftImage} alt="Left Image" style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
+      <Image src={rightImage} alt="Right Image" style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
+      <Link to="/home">
+        <img src={logo} alt="Logo" style={{ position: 'absolute', top: '20px', left: '20px', width: '100px', height: 'auto', zIndex: 2 }} />
+      </Link>
+
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1 }}>
+        <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderColor: PRIMARY_COLOR }}>
+          <h2 style={{ textAlign: 'center', color: PRIMARY_COLOR, marginBottom: '20px' }}>Sign Up</h2>
+          <Form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             
-            </div>
-            <Button
-              variant="primary"
-              type="submit"
-              style={{ backgroundColor: 'black',alignContent:'top', marginBottom:'50%' }}
-              onClick={handleSubmit}
-            >
-              Register
-            </Button>
-            
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="username" style={{ color: SECONDARY_COLOR }}>Username</Form.Label>
+              <div style={{ position: 'relative' }}>
+                <img src={usernameIcon} alt="Username Icon" style={{ position: 'absolute', top: '50%', left: '10px', transform: 'translateY(-50%)', width: '20px', height: 'auto' }} />
+                <Form.Control type="text" id="username" name="username" onChange={handleChange} placeholder="Enter your username" style={{ borderColor: PRIMARY_COLOR, paddingLeft: '40px' }} />
+              </div>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="email" style={{ color: SECONDARY_COLOR }}>Email</Form.Label>
+              <div style={{ position: 'relative' }}>
+                <img src={emailIcon} alt="Email Icon" style={{ position: 'absolute', top: '50%', left: '10px', transform: 'translateY(-50%)', width: '20px', height: 'auto' }} />
+                <Form.Control type="text" id="email" name="email" onChange={handleChange} placeholder="Enter your email" style={{ borderColor: PRIMARY_COLOR, paddingLeft: '40px' }} />
+              </div>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="password" style={{ color: SECONDARY_COLOR }}>Password</Form.Label>
+              <div style={{ position: 'relative' }}>
+                <img src={passwordIcon} alt="Password Icon" style={{ position: 'absolute', top: '50%', left: '10px', transform: 'translateY(-50%)', width: '20px', height: 'auto' }} />
+                <Form.Control type="password" id="password" name="password" onChange={handleChange} placeholder="Enter your password" style={{ borderColor: PRIMARY_COLOR, paddingLeft: '40px' }} />
+              </div>
+              </Form.Group>
+
+              {error && <div style={{ color: 'red', fontWeight: 'bold', marginBottom: '20px' }}>{error}</div>}
+
+              <Button variant="primary" type="submit" style={{ backgroundColor: PRIMARY_COLOR, borderColor: 'transparent' }}>Log In</Button>
+            </Form>
+            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+              Already have an account? <Link to="/login" style={{ color: PRIMARY_COLOR }}>Log In</Link>
           </div>
         </div>
       </div>
-      <div style={{ backgroundColor: '#800000', height: '100px', position: 'absolute', bottom: 0, left: 0, right: 0 }}></div>
     </div>
   );
 };
