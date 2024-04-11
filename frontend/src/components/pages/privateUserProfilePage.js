@@ -62,8 +62,7 @@ const PrivateUserProfile = () => {
     <div className="container mt-4">
       <Row className="justify-content-center align-items-center">
         <Col xs={12} md={4} className="text-center" style={{ border: '2px solid #007bff', padding: '10px', borderRadius: '5px' }}>
-        <Image src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTFoY3hycnhvenI2ZmtuOXd0b3A5d3hkdTR3enVqcWZ2OTB2dnVxNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/loUqCMSfXHcsVb3cUZ/giphy.gif" roundedCircle style={{ width: '200px', height: '200px' }} />
-
+          <Image src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTFoY3hycnhvenI2ZmtuOXd0b3A5d3hkdTR3enVqcWZ2OTB2dnVxNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/loUqCMSfXHcsVb3cUZ/giphy.gif" roundedCircle style={{ width: '200px', height: '200px' }} />
           <div className="mt-2">
             <h1>{user.username}</h1>
             <Button variant="info" onClick={handleUpdateProfile}>
@@ -72,7 +71,7 @@ const PrivateUserProfile = () => {
           </div>
         </Col>
 
-        <Col xs={12} md={4}>
+        <Col xs={12} md={3}>
           <h2>Favorite Stations</h2>
           {favorites.map(favorite => (
             <Card key={favorite._id} className="mb-3">
