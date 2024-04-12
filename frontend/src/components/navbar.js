@@ -9,17 +9,17 @@ import { MdLogin, MdEdit, MdOutlineRemoveRedEye, MdLogout } from "react-icons/md
 import { Dropdown } from 'react-bootstrap';
 
 export default function Navbar() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setUser(getUserInfo());
+    setUser(getUserInfo() || {});
   }, []);
 
   const handleClick = (e) => {
     e.preventDefault();
     localStorage.removeItem('accessToken');
-    setUser({});
+    setUser(null);
     navigate('/login');
   };
 
@@ -28,11 +28,14 @@ export default function Navbar() {
       <Container>
         <Nav className="me-auto">
           <Nav.Link href="/home">Home</Nav.Link>
-          <Nav.Link href="/privateUserProfile">Profile</Nav.Link>
           <Nav.Link href="/mbtaAlerts">MBTA Alerts</Nav.Link>
-          <Nav.Link href="/mbtaFavorite">My Favorite Bathroom</Nav.Link>
-          <Nav.Link href="/mbtaComment">Comment</Nav.Link>
-          <Nav.Link href="/mbtaRating">Rating</Nav.Link>
+          {user && user.username ? (
+            <>
+              <Nav.Link href="/mbtaFavorite">My Favorite Bathroom</Nav.Link>
+              <Nav.Link href="/mbtaComment">Comment</Nav.Link>
+              <Nav.Link href="/mbtaRating">Rating</Nav.Link>
+            </>
+          ) : null}
         </Nav>
 
         {user && user.username ? (
