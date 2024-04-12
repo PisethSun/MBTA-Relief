@@ -4,6 +4,9 @@ import getUserInfo from '../utilities/decodeJwt';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import ReactNavbar from 'react-bootstrap/Navbar';
+import { FaUser } from 'react-icons/fa';
+import { MdLogin, MdEdit, MdOutlineRemoveRedEye, MdLogout } from "react-icons/md";
+import { Dropdown } from 'react-bootstrap';
 
 export default function Navbar() {
   const [user, setUser] = useState({});
@@ -16,11 +19,7 @@ export default function Navbar() {
   const handleClick = (e) => {
     e.preventDefault();
     localStorage.removeItem('accessToken');
-
-    // Reset user state to reflect that no user is logged in
     setUser({});
-
-    // Navigate to home page or login page after logout
     navigate('/login');
   };
 
@@ -31,7 +30,6 @@ export default function Navbar() {
           <Nav.Link href="/home">Home</Nav.Link>
           <Nav.Link href="/privateUserProfile">Profile</Nav.Link>
           <Nav.Link href="/mbtaAlerts">MBTA Alerts</Nav.Link>
-          <Nav.Link href="/mbtaMYPAGE">MBTA My Page</Nav.Link>
           <Nav.Link href="/mbtaFavorite">My Favorite Bathroom</Nav.Link>
           <Nav.Link href="/mbtaComment">Comment</Nav.Link>
           <Nav.Link href="/mbtaRating">Rating</Nav.Link>
@@ -39,13 +37,25 @@ export default function Navbar() {
 
         {user && user.username ? (
           <Nav className="ml-auto align-items-center">
-            <Nav.Item className="text-light me-2">Welcome, {user.username}</Nav.Item>
-            <Nav.Link onClick={handleClick} className="text-light">Logout</Nav.Link>
+            <Dropdown>
+              <Dropdown.Toggle variant="dark" id="dropdown-basic">
+                <FaUser /> {user.username}
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Header>Profile</Dropdown.Header>
+                <Dropdown.Item href="/privateUserProfile"><MdOutlineRemoveRedEye /> View Profile</Dropdown.Item>
+                <Dropdown.Item href="/editUserProfile"><MdEdit /> Edit Profile</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={handleClick}><MdLogout /> Log Out</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </Nav>
         ) : (
           <Nav className="ml-auto">
-            <Nav.Link href="/login">Login</Nav.Link>
-            <Nav.Link href="/signup">Sign Up</Nav.Link>
+            <Nav.Link href="/login" className="align-items-center d-flex">
+              <MdLogin /> Login
+            </Nav.Link>
           </Nav>
         )}
       </Container>

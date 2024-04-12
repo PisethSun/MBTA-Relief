@@ -28,16 +28,22 @@ function Alerts() {
         "https://api-v3.mbta.com/stops?filter[route_type]=1"
       );
       const data = await response.json();
-      setStations(
-        data.data.map((station) => ({
-          id: station.id,
-          name: station.attributes.name,
-        }))
-      );
+      const stationsWithDuplicates = data.data.map((station) => ({
+        id: station.id,
+        name: station.attributes.name,
+      }));
+  
+      const uniqueStations = Array.from(new Set(stationsWithDuplicates.map(s => s.name)))
+        .map(name => {
+          return stationsWithDuplicates.find(s => s.name === name);
+        })
+        .sort((a, b) => a.name.localeCompare(b.name));
+  
+      setStations(uniqueStations);
     } catch (error) {
       console.error("Error fetching stations:", error);
     }
-  };
+  };    
 
   const deleteComment = async (id) => {
     await axios.delete(`http://localhost:8081/comment/deleteById/${id}`);
@@ -136,8 +142,8 @@ function Alerts() {
               <Form.Label>Station Name</Form.Label>
               <Form.Select
                 name="station"
-                value={createData.station}
-                onChange={handleCreateInputChange}
+                value={editData.station}
+                onChange={handleEditInputChange}
               >
                 <option value="">Select a station</option>
                 {stations.map((station) => (

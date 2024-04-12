@@ -3,5 +3,8 @@
     "mogodb": "^0.0.1-security",
     "mongodb": "^6.5.0",
     "react-icons": "^5.0.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }

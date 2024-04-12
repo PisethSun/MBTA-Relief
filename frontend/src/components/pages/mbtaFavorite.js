@@ -69,14 +69,24 @@ function Favorites() {
 
 
   const saveNewFavorite = async () => {
-    await axios.post('http://localhost:8081/favorite', { ...createData, userId: "65f1ec23429de3cae859ebe9" }, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    setShowCreateModal(false);
-    fetchData(); // Reload the comments to update the UI
+    try {
+      await axios.post('http://localhost:8081/favorite', { ...createData, userId: "65f1ec23429de3cae859ebe9" }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      setShowCreateModal(false);
+      fetchData(); // Reload the favorites to update the UI
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        alert(error.response.data.message);
+      } else {
+        console.error('An unexpected error occurred:', error);
+      }
+    }
   };
+  
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', border: '1px solid #ccc', borderRadius: '5px', padding: '20px', backgroundColor: '#f9f9f9' }}>

@@ -10,7 +10,7 @@ POST http://localhost:8081/favorite/
 Content-Type: application/json
 
  {
-  "userId": "1",
+  "userId": "2",
   "line": "Red",
   "station": "Andrew"
 }
