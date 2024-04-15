@@ -1,22 +1,61 @@
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, ListGroup } from 'react-bootstrap';
 
 const HomePage = () => {
+  const [stations, setStations] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchStations = async () => {
+      try {
+        const response = await fetch('https://api-v3.mbta.com/stops?filter[route_type]=1&api_key=3265600446114fd88d8345aa363df758');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        const uniqueNames = new Set(data.data.map(station => station.attributes.name));
+        const uniqueStations = Array.from(uniqueNames).map(name => 
+          data.data.find(station => station.attributes.name === name)
+        );
+
+        uniqueStations.sort((a, b) => a.attributes.name.localeCompare(b.attributes.name));
+        setStations(uniqueStations);
+      } catch (e) {
+        setError(e.message);
+        console.error("Failed to fetch stations:", e);
+      }
+    };
+
+    fetchStations();
+  }, []);
+
   return (
     <Container>
       <Row className="mt-3">
-        <Col>
-          <div className="responsive-container">
-            <h4>MBTA-Relief Unofficial Bathroom</h4>
-            {/* Google Map centered within the container */}
-            <iframe
-              src="https://www.google.com/maps/d/embed?mid=1p9qGlMr_bbXufuX5Uw0jXNuLLiuh-Un3&ehbc=2E312F"
-              width="640"
-              height="480"
-              title="Embedded Google Map"
-              className="mx-auto d-block" // Center the map horizontally
-            ></iframe>
-          </div>
+        <Col md={6}>
+          <h4>MBTA-Relief Unofficial Bathroom</h4>
+          <iframe
+            src="https://www.google.com/maps/d/u/0/embed?mid=1AIIwRDPrVD_S00-Z-k-1Ws7qsSKTp2M&ehbc=2E312F"
+            width="100%"
+            height="480"
+            title="Embedded Google Map"
+            className="mx-auto d-block"
+            style={{ border: '0' }}
+          ></iframe>
+        </Col>
+        <Col md={6}>
+          <h4>MBTA Stations</h4>
+          {error ? (
+            <p>Error fetching stations: {error}</p>
+          ) : (
+            <ListGroup>
+              {stations.map(station => (
+                <ListGroup.Item key={station.id}>
+                  {station.attributes.name}
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+          )}
         </Col>
       </Row>
     </Container>
