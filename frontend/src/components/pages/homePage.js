@@ -8,7 +8,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchStations = async () => {
       try {
-        const response = await fetch('https://api-v3.mbta.com/stops?filter[route_type]=1&api_key=3265600446114fd88d8345aa363df758');
+        const response = await fetch('https://api-v3.mbta.com/stops?filter[route_type]=1&api_key=');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
