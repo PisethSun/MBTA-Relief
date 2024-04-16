@@ -8,7 +8,7 @@ const PrivateUserProfile = () => {
   const [user, setUser] = useState({});
   const [favorites, setFavorites] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [editData, setEditData] = useState({ line: '', station: '', bathroomId: '' });
+  const [editData, setEditData] = useState({ line: '', station: '' });
   const [currentEditingId, setCurrentEditingId] = useState(null);
 
   const navigate = useNavigate(); // Initialize navigate function
@@ -32,7 +32,7 @@ const PrivateUserProfile = () => {
   };
 
   const showEditForm = (favorite) => {
-    setEditData({ line: favorite.line, station: favorite.station, bathroomId: favorite.bathroomId });
+    setEditData({ line: favorite.line, station: favorite.station});
     setCurrentEditingId(favorite._id);
     setShowEditModal(true);
   };
@@ -100,10 +100,7 @@ const PrivateUserProfile = () => {
               <Form.Label>Station</Form.Label>
               <Form.Control type="text" name="station" value={editData.station} onChange={handleEditInputChange} />
             </Form.Group>
-            <Form.Group>
-              <Form.Label>Bathroom ID</Form.Label>
-              <Form.Control type="text" name="bathroomId" value={editData.bathroomId} onChange={handleEditInputChange} />
-            </Form.Group>
+         
           </Form>
         </Modal.Body>
         <Modal.Footer>
