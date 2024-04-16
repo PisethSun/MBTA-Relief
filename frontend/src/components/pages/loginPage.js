@@ -13,7 +13,7 @@ import passwordIcon from "./images/passwordicon.png";
 
 const PRIMARY_COLOR = "#72d3fe";
 const SECONDARY_COLOR = '#0c0c1f';
-const url = "http://localhost:8081/user/login";
+const url = `${process.env.REACT_APP_BACKEND_SERVER_URI}/user/login`;
 
 const Login = () => {
   const [user, setUser] = useState(null);
