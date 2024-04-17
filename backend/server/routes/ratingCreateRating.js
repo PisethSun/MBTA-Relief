@@ -7,7 +7,6 @@ router.post("/createrating", async (req, res) => {
   const { username, rating,station  } = req.body;
 
   const createNewRating = newPostModel({
-    username: username,
     rating: rating,
     station: station, 
   });

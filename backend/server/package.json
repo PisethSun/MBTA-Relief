@@ -25,6 +25,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.5.0",
     "mongoose": "^6.6.5",
+    "react-icons": "^5.1.0",
     "zod": "^3.19.1"
   },
   "devDependencies": {
