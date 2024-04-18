@@ -34,14 +34,14 @@ const HomePage = () => {
       <Row className="mt-3">
         <Col md={6}>
           <h4>MBTA-Relief Unofficial Bathroom</h4>
-          <iframe
+          {/* <iframe
             src="https://www.google.com/maps/d/u/0/embed?mid=1AIIwRDPrVD_S00-Z-k-1Ws7qsSKTp2M&ehbc=2E312F"
             width="100%"
             height="480"
             title="Embedded Google Map"
             className="mx-auto d-block"
             style={{ border: '0' }}
-          ></iframe>
+          ></iframe> */}
         </Col>
         <Col md={6}>
           <h4>MBTA Stations</h4>
