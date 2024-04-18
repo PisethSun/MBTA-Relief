@@ -16,9 +16,9 @@ function Favorites() {
     fetchData();
     fetchStations();
   }, []);
-
+  const url =process.env.REACT_APP_BACKEND_SERVER_URI;
   async function fetchData() {
-    const result = await axios('http://localhost:8081/favorite/getAll');
+    const result = await axios(`${url}/favorite/getAll`);
     setFavorites(result.data);
   }
 
@@ -36,12 +36,12 @@ function Favorites() {
   };
 
   const deleteFavorite = async (id) => {
-    await axios.delete(`http://localhost:8081/favorite/deleteFav/${id}`);
+    await axios.delete(`${url}/favorite/deleteFav/${id}`);
     fetchData(); // Reload the favorites to update the UI
   };
 
   const deleteAllFavorites = async () => {
-    await axios.delete('http://localhost:8081/favorite/deleteAll');
+    await axios.delete(`${url}/favorite/deleteAll`);
     fetchData(); // Reload the favorites to update the UI
   };
 
@@ -61,7 +61,7 @@ function Favorites() {
   };
 
   const saveEdit = async () => {
-    await axios.put(`http://localhost:8081/favorite/editFav/${currentEditingId}`, editData);
+    await axios.put(`${url}/favorite/editFav/${currentEditingId}`, editData);
     setShowEditModal(false);
     fetchData(); // Reload the favorites to update the UI
   };
@@ -70,7 +70,7 @@ function Favorites() {
 
   const saveNewFavorite = async () => {
     try {
-      await axios.post('http://localhost:8081/favorite', { ...createData, userId: "65f1ec23429de3cae859ebe9" }, {
+      await axios.post(`${url}/favorite`, { ...createData, userId: "65f1ec23429de3cae859ebe9" }, {
         headers: {
           'Content-Type': 'application/json',
         },
