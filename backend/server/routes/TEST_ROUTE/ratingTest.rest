@@ -3,9 +3,8 @@ POST http://localhost:8081/rating/createrating
 Content-Type: application/json
 
 {
-  "username": "user123",
   "rating": "5",
-  "station": "station123"
+  "station": "Airport"
 }
 
 ### Get all ratings
@@ -18,7 +17,6 @@ Content-Type: application/json
 
 {
     "_id": "65fc68e627b0adb0768a2a25", 
-    "username":"user123" ,
     "rating": "3",
     "station": "station123"
 }
@@ -28,3 +26,6 @@ GET http://localhost:8081/rating/get/65fc68e627b0adb0768a2a25
 
 ### Delete all ratings
 DELETE http://localhost:8081/rating/deleteAll
+
+### Get rating by station
+GET http://localhost:8081/rating/Airport
