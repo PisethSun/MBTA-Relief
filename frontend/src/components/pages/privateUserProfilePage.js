@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 import getUserInfo from "../../utilities/decodeJwt";
 
 const PrivateUserProfile = () => {
+  const url =process.env.REACT_APP_BACKEND_SERVER_URI;
   const [user, setUser] = useState({});
   const [favorites, setFavorites] = useState([]);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -22,7 +23,8 @@ const PrivateUserProfile = () => {
   }, []);
 
   const fetchFavorites = async () => {
-    const result = await axios('http://localhost:8081/favorite/getAll');
+
+    const result = await axios(`${url}/favorite/getAll`);
     setFavorites(result.data);
   };
 
