@@ -11,6 +11,7 @@ function Alerts() {
   const [createData, setCreateData] = useState({ station: '', rating: '' });
   const [currentEditingId, setCurrentEditingId] = useState(null);
   const [stations, setStations] = useState([]);
+  const [selectedStation, setSelectedStation] = useState('');
 
   useEffect(() => {
     fetchData();
@@ -100,9 +101,36 @@ function Alerts() {
     fetchData();
   };
 
+  const handleStationChange = (e) => {
+    setSelectedStation(e.target.value);
+    
+    fetchDataForStation(e.target.value);
+  };
+
+  const fetchDataForStation = async (stationName) => {
+    try {
+      const response = await axios.get(`http://localhost:8081/rating/${stationName}`);
+      setAlerts(response.data.ratings);
+    } catch (error) {
+      console.error("Error fetching ratings for the selected station:", error);
+    }
+  };
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
       <h1>Ratings</h1>
+      <br></br>
+      <Form.Select
+        value={selectedStation}
+        onChange={handleStationChange}
+      >
+        <option value="">Search by Station</option>
+        {stations.map((station) => (
+          <option key={station.id} value={station.name}>
+            {station.name}
+          </option>
+        ))}
+      </Form.Select>
       <br></br>
       <Button variant="success" onClick={() => setShowCreateModal(true)}>Create New Rating</Button>
       <br></br>
