@@ -29,11 +29,15 @@ export default function Navbar() {
         <Nav className="me-auto">
           <Nav.Link href="/home">Home</Nav.Link>
           <Nav.Link href="/mbtaAlerts">MBTA Alerts</Nav.Link>
+       
           {user && user.username ? (
             <>
-              <Nav.Link href="/mbtaFavorite">My Favorite Bathroom</Nav.Link>
+              {/* <Nav.Link href="/mbtaFavorite">My Favorite Bathroom</Nav.Link>
               <Nav.Link href="/mbtaComment">Comment</Nav.Link>
-              <Nav.Link href="/mbtaRating">Rating</Nav.Link>
+              <Nav.Link href="/mbtaRating">Rating</Nav.Link> */}
+              <Nav.Link href="/StationManager">Post</Nav.Link>
+        {/* <Nav.Link href="/LiveMap">Live Map</Nav.Link> */}
+
             </>
           ) : null}
         </Nav>
