@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Modal, Form, Card } from 'react-bootstrap';
 
 function FavoritesManager() {
     const [showModal, setShowModal] = useState(false);
     const [stations, setStations] = useState([]);
+    const [favorites, setFavorites] = useState([]); // State to store the list of favorites
     const [formData, setFormData] = useState({
-        userId: '1',  // Set a fixed userId or manage this dynamically if your app includes user authentication
+        userId: '1',  // Assume a fixed userId for simplicity
         station: '',
         line: '',
         comment: '',
@@ -37,22 +38,31 @@ function FavoritesManager() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:8081/favorite', {
-                userId: formData.userId,
+            const responses = await Promise.all([
+                axios.post('http://localhost:8081/favorite', {
+                    userId: formData.userId,
+                    line: formData.line,
+                    station: formData.station
+                }, { headers: { 'Content-Type': 'application/json' }}),
+                axios.post('http://localhost:8081/comment', {
+                    userId: formData.userId,
+                    comment: formData.comment,
+                    station: formData.station
+                }, { headers: { 'Content-Type': 'application/json' }}),
+                axios.post('http://localhost:8081/rating/createrating', {
+                    rating: formData.rating,
+                    station: formData.station
+                }, { headers: { 'Content-Type': 'application/json' }})
+            ]);
+
+            const newFavorite = {
+                _id: responses[0].data._id,  // Assuming the server returns an ID
+                station: formData.station,
                 line: formData.line,
-                station: formData.station
-            }, { headers: { 'Content-Type': 'application/json' }});
-
-            await axios.post('http://localhost:8081/comment', {
-                userId: formData.userId,
                 comment: formData.comment,
-                station: formData.station
-            }, { headers: { 'Content-Type': 'application/json' }});
-
-            await axios.post('http://localhost:8081/rating/createrating', {
-                rating: formData.rating,
-                station: formData.station
-            }, { headers: { 'Content-Type': 'application/json' }});
+                rating: formData.rating
+            };
+            setFavorites([...favorites, newFavorite]);
 
             alert('Favorite, comment, and rating added successfully!');
         } catch (error) {
@@ -119,6 +129,33 @@ function FavoritesManager() {
                     </Form>
                 </Modal.Body>
             </Modal>
+
+            {/* Display favorites */}
+            <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
+                {favorites.map((favorite) => (
+                    <div key={favorite._id} style={{ border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', backgroundColor: '#fff' }}>
+                        <Card.Body style={{ display: 'flex', alignItems: 'center', padding: '10px' }}>
+                            {/* Assuming you have a relevant image or icon */}
+                            <div>
+                                <Card.Text>
+                                    <strong>Station:</strong> {favorite.station}
+                                </Card.Text>
+                                <Card.Text>
+                                    <strong>Line:</strong> {favorite.line}
+                                </Card.Text>
+                                <Card.Text>
+                                    <strong>Comment:</strong> {favorite.comment}
+                                </Card.Text>
+                                <Card.Text>
+                                    <strong>Rating:</strong> {favorite.rating}
+                                </Card.Text>
+                                <Button variant="primary" style={{ marginRight: '10px' }}>Edit</Button>
+                                <Button variant="danger">Delete</Button>
+                            </div>
+                        </Card.Body>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }
