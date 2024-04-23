@@ -102,7 +102,10 @@ function FavoritesManager() {
 
     return (
         <div>
-            <Button variant="primary" onClick={() => setShowModal(true)}>Add New Favorite Station</Button>
+            <div style={{ textAlign: 'center' }}>
+    <Button variant="primary" onClick={() => setShowModal(true)}>Add New Favorite Station</Button>
+</div>
+
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Add New Favorite Station</Modal.Title>
