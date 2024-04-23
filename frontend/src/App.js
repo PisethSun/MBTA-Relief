@@ -16,7 +16,6 @@ import MbtaMyFavorite from "./components/pages/mbtaFavorite";
 import MbtaMyComment from "./components/pages/mbtaComment";
 import MbtaMyRating from "./components/pages/mbtaRating";
 import MbtaSchedule from "./components/pages/Schedule";
-import OpenLayerLiveMap from "./components/pages/LiveMap";
 import StationManagers from "./components/pages/StationManager";
 
 export const UserContext = createContext();
@@ -37,7 +36,6 @@ const App = () => {
           
           <Route exact path="/home" element={<HomePage />} />
           <Route exact path="/landing" element={<LandingPage />} />
-          <Route exact path="/LiveMap" element={<OpenLayerLiveMap />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/privateUserProfile" element={<PrivateUserProfile />} />
