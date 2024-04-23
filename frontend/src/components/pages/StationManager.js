@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Modal, Form } from 'react-bootstrap';
 import axios from 'axios';
+import { Button, Modal, Form } from 'react-bootstrap';
 
-function StationManager() {
+function FavoritesManager() {
     const [showModal, setShowModal] = useState(false);
     const [stations, setStations] = useState([]);
     const [formData, setFormData] = useState({
+        userId: '1',  // Set a fixed userId or manage this dynamically if your app includes user authentication
         station: '',
+        line: '',
         comment: '',
         rating: ''
     });
 
     useEffect(() => {
-        // Fetch stations for dropdown
         fetchStations();
     }, []);
 
-    async function fetchStations() {
+    const fetchStations = async () => {
         try {
             const response = await axios("https://api-v3.mbta.com/stops?filter[route_type]=1");
             setStations(response.data.data.map(station => ({
@@ -26,7 +27,7 @@ function StationManager() {
         } catch (error) {
             console.error("Error fetching stations:", error);
         }
-    }
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -35,21 +36,32 @@ function StationManager() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Submitting Form Data:', formData);  // Log the data being sent
-    
         try {
-            const response = await axios.post('http://localhost:8081/favorite', formData, {
-                headers: { 'Content-Type': 'application/json' }
-            });
-            console.log('Success:', response.data);  // Success log
+            await axios.post('http://localhost:8081/favorite', {
+                userId: formData.userId,
+                line: formData.line,
+                station: formData.station
+            }, { headers: { 'Content-Type': 'application/json' }});
+
+            await axios.post('http://localhost:8081/comment', {
+                userId: formData.userId,
+                comment: formData.comment,
+                station: formData.station
+            }, { headers: { 'Content-Type': 'application/json' }});
+
+            await axios.post('http://localhost:8081/rating/createrating', {
+                rating: formData.rating,
+                station: formData.station
+            }, { headers: { 'Content-Type': 'application/json' }});
+
             alert('Favorite, comment, and rating added successfully!');
         } catch (error) {
-            console.error('Error adding favorite:', error.response.data);  // Log detailed error
-            alert('Failed to submit data: ' + (error.response.data.detail || error.message));
+            console.error('Error adding data:', error.response ? error.response.data : error);
+            alert('Failed to submit data: ' + (error.response && error.response.data.detail ? error.response.data.detail : error.message));
         }
+
         setShowModal(false);
     };
-    
 
     return (
         <div>
@@ -70,13 +82,22 @@ function StationManager() {
                             </Form.Select>
                         </Form.Group>
                         <Form.Group className="mb-3">
+                            <Form.Label>Line</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="line"
+                                value={formData.line}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
                             <Form.Label>Comment</Form.Label>
                             <Form.Control
                                 type="text"
                                 name="comment"
                                 value={formData.comment}
                                 onChange={handleInputChange}
-                                placeholder="Enter your comment"
                                 required
                             />
                         </Form.Group>
@@ -87,10 +108,9 @@ function StationManager() {
                                 name="rating"
                                 value={formData.rating}
                                 onChange={handleInputChange}
-                                placeholder="Rate 1 to 5"
+                                required
                                 min="1"
                                 max="5"
-                                required
                             />
                         </Form.Group>
                         <Button variant="primary" type="submit">
@@ -103,4 +123,4 @@ function StationManager() {
     );
 }
 
-export default StationManager;
+export default FavoritesManager;
