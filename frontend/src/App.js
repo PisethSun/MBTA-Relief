@@ -17,6 +17,9 @@ import MbtaMyComment from "./components/pages/mbtaComment";
 import MbtaMyRating from "./components/pages/mbtaRating";
 import MbtaSchedule from "./components/pages/Schedule";
 import StationManagers from "./components/pages/StationManager";
+import MbtaLiveMapPage from "./components/pages/LiveMap";
+import MbtaStopPage from "./components/pages/mbtaStop";
+
 
 export const UserContext = createContext();
 
@@ -33,7 +36,6 @@ const App = () => {
       <UserContext.Provider value={user}>
         <Routes>
           <Route exact path="/" element={<Navigate replace to="/home" />} />
-          
           <Route exact path="/home" element={<HomePage />} />
           <Route exact path="/landing" element={<LandingPage />} />
           <Route exact path="/login" element={<Login />} />
@@ -45,6 +47,9 @@ const App = () => {
           <Route exact path="/mbtaComment" element={<MbtaMyComment /> }/>
           <Route exact path="/mbtaRating" element={<MbtaMyRating />}/>
           <Route exact path="/StationManager" element={<StationManagers />}/>
+          <Route exact path="/LiveMap" element={<MbtaLiveMapPage />}/>
+          <Route exact path="/mbtaStop" element={<MbtaStopPage />} />
+   
         </Routes>
       </UserContext.Provider>
     </>
