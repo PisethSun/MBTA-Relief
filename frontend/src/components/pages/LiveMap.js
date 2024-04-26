@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import axios from 'axios';
+import Alerts from './mbtaAlerts';
 import customMarkerIcon from '../images/mbta.png';
 import blueLineMarkerIcon from '../images/blue_line.png';
 import greenLineMarkerIcon from '../images/green_line.png';
 import redLineMarkerIcon from '../images/red_line.png';
 import orangeLineMarkerIcon from '../images/orange_line.png';
-import busMarkerIcon from '../images/bus.png'; 
-import axios from 'axios';
-import Alerts from './mbtaAlerts';
+import busMarkerIcon from '../images/bus.png';
+import wonderlandIcon from '../images/wonderland.png'; // Ensure this path is correct
 
 function LiveMap() {
   const [vehicles, setVehicles] = useState([]);
   const [stops, setStops] = useState({});
-  const [description, setDescription] = useState({});
   const [map, setMap] = useState(null);
 
   useEffect(() => {
@@ -21,6 +21,17 @@ function LiveMap() {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
     }).addTo(leafletMap);
+
+    // Add the Wonderland station marker
+    const wonderlandMarker = L.marker([42.4130, -70.9924], {
+      icon: L.icon({
+        iconUrl: wonderlandIcon,
+        iconSize: [35, 45], // size of the icon
+        iconAnchor: [17, 44], // point of the icon which will correspond to marker's location
+        popupAnchor: [0, -44] // point from which the popup should open relative to the iconAnchor
+      })
+    }).bindPopup('Wonderland Station');
+    wonderlandMarker.addTo(leafletMap);
 
     setMap(leafletMap);
 
@@ -49,16 +60,15 @@ function LiveMap() {
 
     fetchData();
     const refreshInterval = setInterval(fetchData, 10000);
-    return () => clearInterval(refreshInterval);
+    return () => {
+      clearInterval(refreshInterval);
+      leafletMap.remove(); // Cleanup map when component is unmounted
+    };
   }, []);
 
   useEffect(() => {
     if (map) {
-      map.eachLayer(layer => {
-        if (layer instanceof L.Marker) {
-          map.removeLayer(layer);
-        }
-      });
+      ;
 
       vehicles.forEach((vehicle) => {
         const { latitude, longitude, label } = vehicle.attributes || {};
@@ -93,7 +103,7 @@ function LiveMap() {
         }
       });
     }
-  }, [map, vehicles, stops]);
+ }, [map, vehicles, stops]);
 
   return (
     <div style={{ marginTop: '30px', display: 'flex', justifyContent: 'center' }}>
