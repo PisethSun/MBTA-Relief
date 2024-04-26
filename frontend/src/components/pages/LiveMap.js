@@ -3,7 +3,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
 import Alerts from './mbtaAlerts';
-import customMarkerIcon from '../images/mbta.png';
+import customMarkerIcon from '../images/bus.png';
 import blueLineMarkerIcon from '../images/blue_line.png';
 import greenLineMarkerIcon from '../images/green_line.png';
 import redLineMarkerIcon from '../images/red_line.png';
@@ -62,7 +62,7 @@ function LiveMap() {
     const refreshInterval = setInterval(fetchData, 10000);
     return () => {
       clearInterval(refreshInterval);
-      leafletMap.remove(); // Cleanup map when component is unmounted
+      leafletMap.remove(); 
     };
   }, []);
 
@@ -92,10 +92,10 @@ function LiveMap() {
               markerIcon = orangeLineMarkerIcon;
               break;
             case "Bus":
-              markerIcon = busMarkerIcon;  // Assuming the ID for bus routes is 'Bus'
+              markerIcon = busMarkerIcon;  
               break;
             default:
-              markerIcon = customMarkerIcon; // Fallback icon for any unspecified route
+              markerIcon = customMarkerIcon; 
           }
 
           const customMarker = L.marker([latitude, longitude], { icon: L.icon({ iconUrl: markerIcon, iconSize: markerSize }) });
