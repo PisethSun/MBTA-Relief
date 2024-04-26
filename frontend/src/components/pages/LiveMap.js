@@ -15,6 +15,7 @@ function LiveMap() {
   const [vehicles, setVehicles] = useState([]);
   const [stops, setStops] = useState({});
   const [map, setMap] = useState(null);
+  const [vehicleMarkers, setVehicleMarkers] = useState([]);
 
   useEffect(() => {
     const leafletMap = L.map('map').setView([42.3601, -71.0589], 13);
@@ -68,7 +69,11 @@ function LiveMap() {
 
   useEffect(() => {
     if (map) {
-      ;
+      // Remove existing vehicle markers
+      vehicleMarkers.forEach(marker => marker.remove());
+
+      const newVehicleMarkers = [];
+      
 
       vehicles.forEach((vehicle) => {
         const { latitude, longitude, label } = vehicle.attributes || {};
@@ -98,12 +103,15 @@ function LiveMap() {
               markerIcon = customMarkerIcon; 
           }
 
-          const customMarker = L.marker([latitude, longitude], { icon: L.icon({ iconUrl: markerIcon, iconSize: markerSize }) });
+          const customMarker = L.marker([latitude, longitude], { icon: L.icon({ iconUrl: markerIcon, iconSize: markerSize }) })
           customMarker.addTo(map).bindPopup(`Vehicle: #${label}<br/>Stop: ${stopName}`);
+          newVehicleMarkers.push(customMarker);
         }
       });
+      setVehicleMarkers(newVehicleMarkers);
+    
     }
- }, [map, vehicles, stops]);
+  }, [map, vehicles, stops, vehicleMarkers]);
 
   return (
     <div style={{ marginTop: '30px', display: 'flex', justifyContent: 'center' }}>
