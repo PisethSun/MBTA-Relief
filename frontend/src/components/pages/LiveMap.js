@@ -6,7 +6,7 @@ import blueLineMarkerIcon from '../images/blue_line.png';
 import greenLineMarkerIcon from '../images/green_line.png';
 import redLineMarkerIcon from '../images/red_line.png';
 import orangeLineMarkerIcon from '../images/orange_line.png';
-import busMarkerIcon from '../images/bus.png';  // Ensure you have a bus icon image
+import busMarkerIcon from '../images/bus.png'; 
 import axios from 'axios';
 import Alerts from './mbtaAlerts';
 
