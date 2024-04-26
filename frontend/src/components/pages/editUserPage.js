@@ -1,60 +1,48 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom'
+import axios from 'axios'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
 import getUserInfo from '../../utilities/decodeJwt';
 
-const EditUserPage = () =>{
+import Image from 'react-bootstrap/Image';
+import leftImage from "./images/TrainStation1.jpeg";
+import rightImage from "./images/TrainStation2.webp";
+import logo from "./images/MBTALogo.png";
+import usernameIcon from "./images/usernameicon.png";
+import passwordIcon from "./images/passwordicon.png";
+import emailIcon from "./images/mailicon.png";
 
-  const url = "http://localhost:8081/user/editUser";
+const PRIMARY_COLOR = "#72d3fe";
+const SECONDARY_COLOR = '#0c0c1f';
+const url = `${process.env.REACT_APP_BACKEND_SERVER_URI}/user/editUser`;
+
+const EditUserPage = () =>{
+  const [error, setError] = useState({})
+  const [data, setData] = useState({userId : "", username: "", email: "", password: "" })
   const navigate = useNavigate();
 
-  // form validation checks
-  const [ errors, setErrors ] = useState({})
-  const findFormErrors = () => {
-    const {username, email, password} = form
-    const newErrors = {}
-    // username validation checks
-    if (!username || username === '') newErrors.name = 'Input a valid username'
-    else if (username.length < 6) newErrors.name = 'Username must be at least 6 characters'
-    // email validation checks
-    if (!email || email === '') newErrors.email = 'Input a valid email address'
-    if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = 'Input a valid email address'
-    // password validation checks
-    if (!password || password === '') newErrors.password = 'Input a valid password'
-    else if (password.length < 8) newErrors.password = 'Password must be at least 8 characters'
-    return newErrors
-  }
-
-  // initialize form values and get userId on render
-  const [form, setValues] = useState({userId : "", username: "", email: "", password: "" })
   useEffect(() => {
-    setValues({userId : getUserInfo().id})
+    setData({userId : getUserInfo().id})
   }, [])
 
-  // handle form field changes
   const handleChange = ({ currentTarget: input }) => {
-    setValues({ ...form, [input.id]: input.value });
-    if ( !!errors[input] ) setErrors({
-      ...errors,
+    setData({ ...data, [input.id]: input.value });
+    if ( !!error[input] ) setError({
+      ...error,
       [input]: null
     })
   };
 
-  // handle form submission with submit button
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const newErrors = findFormErrors()
+    const newErrors = findFormError()
     if(Object.keys(newErrors).length > 0) {
-      setErrors(newErrors)
+      setError(newErrors)
     }
     else {
       try {
-        const { data: res } = await axios.post(url, form);
+        const { data: res } = await axios.post(url, data);
         const { accessToken } = res;
         //store token in localStorage
         localStorage.setItem("accessToken", accessToken);
@@ -71,81 +59,69 @@ const EditUserPage = () =>{
       if (error.response &&
         error.response.status === 409
       ) {
-        setErrors({name : "Username is taken, pick another"})
+        setError({name : "Username is taken, pick another"})
       }
     }
     }
   }
 
-  // handle cancel button
-  const handleCancel = async => {
-    navigate("/privateuserprofile");
+  const findFormError = () => {
+    const {username, email, password} = data
+    const newError = {}
+    // username validation checks
+    if (!username || username === '') newError.name = 'Input a valid username'
+    else if (username.length < 6) newError.name = 'Username must be at least 6 characters'
+    // email validation checks
+    if (!email || email === '') newError.email = 'Input a valid email address'
+    if (!/\S+@\S+\.\S+/.test(email)) newError.email = 'Input a valid email address'
+    // password validation checks
+    if (!password || password === '') newError.password = 'Input a valid password'
+    else if (password.length < 8) newError.password = 'Password must be at least 8 characters'
+    return newError
   }
 
   return(
-    <div>
-      <Card body outline color="success" className="mx-1 my-2" style={{ width: '30rem' }}>
-        <Card.Title>Edit User Information</Card.Title>
-        <Card.Body> 
-        <Form>
+    <div style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
+      <Image src={leftImage} alt="Left Image" style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
+      <Image src={rightImage} alt="Right Image" style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
+      <Link to="/home">
+        <img src={logo} alt="Logo" style={{ position: 'absolute', top: '20px', left: '20px', width: '100px', height: 'auto', zIndex: 2 }} />
+      </Link>
+      
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1 }}>
+        <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderColor: PRIMARY_COLOR }}>
+          <h2 style={{ textAlign: 'center', color: PRIMARY_COLOR, marginBottom: '20px' }}>Edit Profile</h2>
+          <Form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
 
-          <Form.Group className="mb-3" controlId="formName">
-            <Form.Label>Username</Form.Label>
-            <Form.Control type="text" placeholder="Enter new username" 
-                        id="username"
-                        value={form.username}
-                        onChange={handleChange}
-                        isInvalid={ !!errors.name }
-            />
-            <Form.Control.Feedback type='invalid'>
-              { errors.name }
-            </Form.Control.Feedback>
-          </Form.Group>
+          <Form.Group className="mb-3">
+              <Form.Label htmlFor="username">Username</Form.Label>
+              <div style={{ position: 'relative' }}>
+                <img src={usernameIcon} alt="Username Icon" style={{ position: 'absolute', top: '50%', left: '10px', transform: 'translateY(-50%)', width: '20px', height: 'auto' }} />
+                <Form.Control type="text" id="username" name="username" value={data.username} onChange={handleChange} placeholder="Enter your username" style={{ borderColor: PRIMARY_COLOR, paddingLeft: '40px' }} />
+              </div>
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formEmail">
-             <Form.Label>Email address</Form.Label>
-             <Form.Control type="text" placeholder="Enter new email address" 
-                         id="email"
-                         value={form.email}
-                         onChange={handleChange}
-                         isInvalid = { !!errors.email }
-             />
-             <Form.Control.Feedback type='invalid'>
-              { errors.email }
-             </Form.Control.Feedback>
-          </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="email">Email</Form.Label>
+              <div style={{ position: 'relative' }}>
+                <img src={emailIcon} alt="Email Icon" style={{ position: 'absolute', top: '50%', left: '10px', transform: 'translateY(-50%)', width: '20px', height: 'auto' }} />
+                <Form.Control type="email" id="email" name="email" value={data.email} onChange={handleChange} placeholder="Enter your email" style={{ borderColor: PRIMARY_COLOR, paddingLeft: '40px' }} />
+              </div>
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formPassword">
-             <Form.Label>Password</Form.Label>
-             <Form.Control type="text" placeholder="Enter new password" 
-                         id="password"
-                         value={form.password}
-                         onChange={handleChange}
-                         isInvalid = { !!errors.password }
-             />
-             <Form.Control.Feedback type='invalid'>
-              { errors.password }
-             </Form.Control.Feedback>
-          </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="password">New Password</Form.Label>
+              <div style={{ position: 'relative' }}>
+                <img src={passwordIcon} alt="Password Icon" style={{ position: 'absolute', top: '50%', left: '10px', transform: 'translateY(-50%)', width: '20px', height: 'auto' }} />
+                <Form.Control type="password" id="password" name="password" value={data.password} onChange={handleChange} placeholder="Enter new password" style={{ borderColor: PRIMARY_COLOR, paddingLeft: '40px' }} />
+              </div>
+            </Form.Group>
 
-        <Row>
-          <Col>
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
-            Submit
-          </Button>
-          </Col>
-
-          <Col>
-          <Button variant="primary" type="cancel" onClick={handleCancel}>
-            Cancel
-          </Button>
-          </Col>
-        </Row>
-
-        </Form>
-        </Card.Body>
-      </Card>
+            <Button variant="primary" type="submit" onClick={handleSubmit} style={{ backgroundColor: PRIMARY_COLOR, borderColor: 'transparent' }}>Submit</Button>
+          </Form>
+        </div>
       </div>
+    </div>
   )
 }
 
