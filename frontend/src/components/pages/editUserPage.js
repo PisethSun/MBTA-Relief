@@ -23,8 +23,11 @@ const EditUserPage = () =>{
   const navigate = useNavigate();
 
   useEffect(() => {
-    setData({userId : getUserInfo().id})
-  }, [])
+    const userInfo = getUserInfo();
+    if (userInfo) {
+      setData({ userId: userInfo.id, username: userInfo.username, email: userInfo.email });
+    }
+  }, []);
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.id]: input.value });
@@ -47,6 +50,7 @@ const EditUserPage = () =>{
         //store token in localStorage
         localStorage.setItem("accessToken", accessToken);
         navigate("/privateuserprofile");
+        window.location.reload();
       } catch (error) {
       if (
         error.response &&
