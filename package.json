@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "leaflet": "^1.9.4",
     "mogodb": "^0.0.1-security",
     "mongodb": "^6.5.0",
     "ol": "^9.1.0",

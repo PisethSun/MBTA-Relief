@@ -19,7 +19,7 @@ const url = `${process.env.REACT_APP_BACKEND_SERVER_URI}/user/editUser`;
 
 const EditUserPage = () =>{
   const [error, setError] = useState({})
-  const [data, setData] = useState({userId : "", username: "", email: "", password: "" })
+  const [data, setData] = useState({userId : "", username: "", email: "", password: "", confirmPassword: "" })
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,49 +39,37 @@ const EditUserPage = () =>{
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const newErrors = findFormError()
-    if(Object.keys(newErrors).length > 0) {
-      setError(newErrors)
-    }
-    else {
+    const newError = findFormError();
+    if (Object.keys(newError).length > 0) {
+      setError(newError);
+    } else {
       try {
-        const { data: res } = await axios.post(url, data);
-        const { accessToken } = res;
-        //store token in localStorage
-        localStorage.setItem("accessToken", accessToken);
+        const response = await axios.post(url, data);
+        localStorage.setItem("accessToken", response.data.accessToken);
         navigate("/privateuserprofile");
         window.location.reload();
       } catch (error) {
-      if (
-        error.response &&
-        error.response.status != 409 &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
-        window.alert(error.response.data.message);
-      }
-      if (error.response &&
-        error.response.status === 409
-      ) {
-        setError({name : "Username is taken, pick another"})
+        console.error('Error updating user:', error);
+        setError({ general: 'An error occurred while updating your profile.' });
       }
     }
-    }
-  }
+  };
 
   const findFormError = () => {
-    const {username, email, password} = data
-    const newError = {}
-    // username validation checks
-    if (!username || username === '') newError.name = 'Input a valid username'
-    else if (username.length < 6) newError.name = 'Username must be at least 6 characters'
-    // email validation checks
-    if (!email || email === '') newError.email = 'Input a valid email address'
-    if (!/\S+@\S+\.\S+/.test(email)) newError.email = 'Input a valid email address'
-    // password validation checks
-    if (!password || password === '') newError.password = 'Input a valid password'
-    else if (password.length < 8) newError.password = 'Password must be at least 8 characters'
-    return newError
+    const newErrors = {};
+    if (!data.username || data.username.length < 6) {
+      newErrors.username = 'Username must be at least 6 characters long';
+    }
+    if (!data.email || !/\S+@\S+\.\S+/.test(data.email)) {
+      newErrors.email = 'Please enter a valid email';
+    }
+    if (data.password.length < 8) {
+      newErrors.password = 'Password must be at least 8 characters long';
+    }
+    if (data.password !== data.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+    return newErrors;
   }
 
   return(
@@ -120,6 +108,18 @@ const EditUserPage = () =>{
                 <Form.Control type="password" id="password" name="password" value={data.password} onChange={handleChange} placeholder="Enter new password" style={{ borderColor: PRIMARY_COLOR, paddingLeft: '40px' }} />
               </div>
             </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="confirmPassword">Confirm New Password</Form.Label>
+              <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                <img src={passwordIcon} alt="Password Icon" style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', zIndex: 5, width: '20px', height: 'auto' }} />
+                <Form.Control type="password" id="confirmPassword" name="confirmPassword" value={data.confirmPassword} onChange={handleChange} placeholder="Confirm new password" style={{ paddingLeft: '40px', borderColor: PRIMARY_COLOR }} isInvalid={!!error.confirmPassword} />
+                <Form.Control.Feedback type="invalid" style={{ position: 'absolute', top: '100%', left: 0, width: '100%', display: 'block' }}>
+                  {error.confirmPassword}
+                </Form.Control.Feedback>
+              </div>
+            </Form.Group>
+
 
             <Button variant="primary" type="submit" onClick={handleSubmit} style={{ backgroundColor: PRIMARY_COLOR, borderColor: 'transparent' }}>Submit</Button>
           </Form>

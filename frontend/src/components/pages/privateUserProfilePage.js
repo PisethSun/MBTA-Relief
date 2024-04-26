@@ -55,7 +55,7 @@ const PrivateUserProfile = () => {
 
   // Handler for "Update Profile" button click
   const handleUpdateProfile = () => {
-    navigate('/edituser'); // Use the navigate function to redirect to EditUserPage
+    navigate('/editUserPage'); // Use the navigate function to redirect to EditUserPage
   };
 
   if (!user) return <div><h4>Log in to view this page.</h4></div>;
@@ -68,7 +68,7 @@ const PrivateUserProfile = () => {
           <div className="mt-2">
             <h1>{user.username}</h1>
             <Button variant="info" onClick={handleUpdateProfile}>
-              Update Profile
+              Edit Profile
             </Button>
           </div>
         </Col>
