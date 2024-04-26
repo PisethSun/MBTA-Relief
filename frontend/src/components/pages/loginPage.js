@@ -19,9 +19,6 @@ const Login = () => {
   const [user, setUser] = useState(null);
   const [data, setData] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
-  const [light, setLight] = useState(false);
-  const [bgColor, setBgColor] = useState(SECONDARY_COLOR);
-  const [bgText, setBgText] = useState('Light Mode');
   const navigate = useNavigate();
 
   const handleChange = ({ currentTarget: input }) => {
@@ -29,18 +26,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-
     const obj = getUserInfo(user);
     setUser(obj);
-
-    if (light) {
-      setBgColor("white");
-      setBgText('Dark mode');
-    } else {
-      setBgColor(SECONDARY_COLOR);
-      setBgText('Light mode');
-    }
-  }, [light]);
+  }
+);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

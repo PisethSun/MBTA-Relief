@@ -54,7 +54,7 @@ export default function Navbar() {
               <Dropdown.Menu>
                 <Dropdown.Header>Profile</Dropdown.Header>
                 <Dropdown.Item href="/privateUserProfile"><MdOutlineRemoveRedEye /> View Profile</Dropdown.Item>
-                <Dropdown.Item href="/editUserProfile"><MdEdit /> Edit Profile</Dropdown.Item>
+                <Dropdown.Item href="/editUserPage"><MdEdit /> Edit Profile</Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Item onClick={handleClick}><MdLogout /> Log Out</Dropdown.Item>
               </Dropdown.Menu>
