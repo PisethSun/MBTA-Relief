@@ -6,7 +6,6 @@ import Form from "react-bootstrap/Form";
 import Image from 'react-bootstrap/Image';
 import leftImage from "./images/TrainStation1.jpeg";
 import rightImage from "./images/TrainStation2.webp";
-import logo from "./images/MBTALogo.png";
 import usernameIcon from "./images/usernameicon.png";
 import passwordIcon from "./images/passwordicon.png";
 import emailIcon from "./images/mailicon.png";
@@ -67,9 +66,7 @@ const Register = () => {
     <div style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
       <Image src={leftImage} alt="Left Image" style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
       <Image src={rightImage} alt="Right Image" style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
-      <Link to="/home">
-        <img src={logo} alt="Logo" style={{ position: 'absolute', top: '20px', left: '20px', width: '100px', height: 'auto', zIndex: 2 }} />
-      </Link>
+     
 
       <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1 }}>
         <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderColor: PRIMARY_COLOR }}>

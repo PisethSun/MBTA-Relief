@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import getUserInfo from '../utilities/decodeJwt';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import ReactNavbar from 'react-bootstrap/Navbar';
+import Navbar from 'react-bootstrap/Navbar';
 import { FaUser } from 'react-icons/fa';
 import { MdLogin, MdEdit, MdOutlineRemoveRedEye, MdLogout } from "react-icons/md";
 import { Dropdown } from 'react-bootstrap';
+import logo from "./MBTALogos.png";
 
-export default function Navbar() {
+export default function NavbarComponent() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
@@ -16,55 +17,66 @@ export default function Navbar() {
     setUser(getUserInfo() || {});
   }, []);
 
-  const handleClick = (e) => {
-    e.preventDefault();
+  const handleLogout = () => {
     localStorage.removeItem('accessToken');
     setUser(null);
-    navigate('/Map');
+    navigate('/Map'); // Use React Router navigation
   };
 
   return (
     <>
-      <ReactNavbar bg="dark" variant="dark">
+      <Navbar bg="light" variant="white" expand="sm">
         <Container>
-          <Nav className="me-auto">
+          { !user || !user.username ? (
+            <Link to="/Map" className="navbar-brand">
+              <img src={logo} alt="Logo" style={{ width: '100px', height: 'auto' }} />
+            </Link>
+          ) : null}
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              {user && user.username ? (
+                <>
+                  <Link to="/LiveMap" className="nav-link">Live Map</Link>
+                  <Link to="/DisplayAllFav" className="nav-link">All Saved Stations</Link>
+                </>
+              ) : null}
+            </Nav>
             {user && user.username ? (
-              <>
-                <Nav.Link href="/LiveMap">Live Map</Nav.Link>
-                <Nav.Link href="/DisplayAllFav">All Saved Station</Nav.Link>
-              </>
-            ) : null}
-          </Nav>
+              <Nav className="ms-auto">
+                <Dropdown>
+                  <Dropdown.Toggle variant="light" id="dropdown-basic">
+                    <FaUser /> {user.username}
+                  </Dropdown.Toggle>
 
-          {user && user.username ? (
-            <Nav className="ml-auto align-items-center">
-              <Dropdown>
-                <Dropdown.Toggle variant="dark" id="dropdown-basic">
-                  <FaUser /> {user.username}
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Dropdown.Header>Profile</Dropdown.Header>
-                  <Dropdown.Item href="/privateUserProfile"><MdOutlineRemoveRedEye /> View Profile</Dropdown.Item>
-                  <Dropdown.Item href="/editUserPage"><MdEdit /> Edit Profile</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item onClick={handleClick}><MdLogout /> Log Out</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </Nav>
-          ) : (
-            <Nav className="ml-auto">
-              <Nav.Link href="/login" className="align-items-center d-flex">
-                <MdLogin /> Login
-              </Nav.Link>
-              <Nav.Link href="/registerPage" className="align-items-center d-flex">
-                Singup
-              </Nav.Link>
-            </Nav>
-          )}
+                  <Dropdown.Menu>
+                    <Dropdown.Header>Profile</Dropdown.Header>
+                    <Link to="/privateUserProfile" className="dropdown-item">
+                      <MdOutlineRemoveRedEye /> View Profile
+                    </Link>
+                    <Link to="/editUserPage" className="dropdown-item">
+                      <MdEdit /> Edit Profile
+                    </Link>
+                    <Dropdown.Divider />
+                    <Dropdown.Item onClick={handleLogout}>
+                      <MdLogout /> Log Out
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Nav>
+            ) : (
+              <Nav className="ms-auto">
+                <Link to="/login" className="nav-link">
+                  <MdLogin /> Login
+                </Link>
+                <Link to="/signup" className="nav-link">
+                  Signup
+                </Link>
+              </Nav>
+            )}
+          </Navbar.Collapse>
         </Container>
-      </ReactNavbar>
-    
+      </Navbar>
     </>
   );
 }

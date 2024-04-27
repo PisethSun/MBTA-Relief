@@ -9,10 +9,8 @@ import greenLineMarkerIcon from '../images/green_line.png';
 import redLineMarkerIcon from '../images/red_line.png';
 import orangeLineMarkerIcon from '../images/orange_line.png';
 import busMarkerIcon from '../images/bus.png';
-import wonderlandIcon from '../images/wonderland.png'; 
+import wonderlandIcon from '../images/wonderland.png';
 import leftImage from "./images/TrainStation1.jpeg";
-
-
 
 function LiveMap() {
   const [vehicles, setVehicles] = useState([]);
@@ -35,16 +33,27 @@ function LiveMap() {
       })
     }).addTo(leafletMap);
 
-    // Define the custom popup content for Wonderland Station
-    const popupContent = `
+ // Define the custom popup content for Wonderland Station
+const generatePopupContent = (favorites) => {
+  return `
       <div>
-        <h5>Wonderland Station</h5>
-        <p>Click to manage favorites:</p>
+          <h5>Wonderland Station</h5>
+          <p><strong>Rating:</strong> ${favorites.rating}</p>
+          <p><strong>Comment:</strong> ${favorites.comment}</p>
       </div>
-    `;
+  `;
+};
 
-    // Bind the custom popup content to the Wonderland marker
-    wonderlandMarker.bindPopup(popupContent);
+// Example favorites object
+const exampleFavorites = {
+  rating: 4.5,
+  comment: "Great accessibility and clean."
+};
+
+// Bind the custom popup content to the Wonderland marker
+const popupContent = generatePopupContent(exampleFavorites);
+wonderlandMarker.bindPopup(popupContent);
+
 
     // Add event listener to open FavoritesManager when marker is clicked
     wonderlandMarker.on('click', function() {
@@ -138,19 +147,13 @@ function LiveMap() {
         <div id="map" style={{ height: '700px', borderRadius: '8px' }}></div>
       </div>
       <div style={{ marginLeft: '15px', border: '5px solid white', borderRadius: '10px', width: '30%', maxHeight: '700px', overflowY: 'auto', position: 'relative' }}>
-  <img src={leftImage} alt="Left Image" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }} />
-  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-    <FavoritesManager /> {/* Render FavoritesManager component */}
-  </div>
-  
-</div>
-
-
+        <img src={leftImage} alt="Left Image" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }} />
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+          <FavoritesManager /> {/* Render FavoritesManager component */}
+        </div>
+      </div>
     </div>
-
-    
   );
-  
 }
 
 export default LiveMap;
