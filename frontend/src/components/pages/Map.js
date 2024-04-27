@@ -1,53 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import axios from 'axios';
-import FavoritesManager from './StationManager'; // Import FavoritesManager component
-import customMarkerIcon from '../images/bus.png';
+import customMarkerIcon from '../images/mbta.png';
 import blueLineMarkerIcon from '../images/blue_line.png';
 import greenLineMarkerIcon from '../images/green_line.png';
 import redLineMarkerIcon from '../images/red_line.png';
 import orangeLineMarkerIcon from '../images/orange_line.png';
-import busMarkerIcon from '../images/bus.png';
-import wonderlandIcon from '../images/wonderland.png'; 
+import busMarkerIcon from '../images/bus.png';  // Ensure you have a bus icon image
+import axios from 'axios';
+import Alerts from './mbtaAlerts';
 
-function LiveMap() {
+function Map() {
   const [vehicles, setVehicles] = useState([]);
   const [stops, setStops] = useState({});
   const [map, setMap] = useState(null);
-  const [vehicleMarkers, setVehicleMarkers] = useState([]);
 
   useEffect(() => {
     const leafletMap = L.map('map').setView([42.3601, -71.0589], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
     }).addTo(leafletMap);
-
-    const wonderlandMarker = L.marker([42.4130, -70.9924], {
-      icon: L.icon({
-        iconUrl: wonderlandIcon,
-        iconSize: [35, 45], 
-        iconAnchor: [17, 44], 
-        popupAnchor: [0, -44] 
-      })
-    }).addTo(leafletMap);
-
-    // Define the custom popup content for Wonderland Station
-    const popupContent = `
-      <div>
-        <h5>Wonderland Station</h5>
-        <p>Click to manage favorites:</p>
-      </div>
-    `;
-
-    // Bind the custom popup content to the Wonderland marker
-    wonderlandMarker.bindPopup(popupContent);
-
-    // Add event listener to open FavoritesManager when marker is clicked
-    wonderlandMarker.on('click', function() {
-      // Open the FavoritesManager component
-      setMap(leafletMap);
-    });
 
     setMap(leafletMap);
 
@@ -76,18 +48,16 @@ function LiveMap() {
 
     fetchData();
     const refreshInterval = setInterval(fetchData, 10000);
-    return () => {
-      clearInterval(refreshInterval);
-      leafletMap.remove(); 
-    };
+    return () => clearInterval(refreshInterval);
   }, []);
 
   useEffect(() => {
     if (map) {
-   
-      vehicleMarkers.forEach(marker => marker.remove());
-
-      const newVehicleMarkers = [];
+      map.eachLayer(layer => {
+        if (layer instanceof L.Marker) {
+          map.removeLayer(layer);
+        }
+      });
 
       vehicles.forEach((vehicle) => {
         const { latitude, longitude, label } = vehicle.attributes || {};
@@ -111,23 +81,18 @@ function LiveMap() {
               markerIcon = orangeLineMarkerIcon;
               break;
             case "Bus":
-              markerIcon = busMarkerIcon;  
+              markerIcon = busMarkerIcon;  // Assuming the ID for bus routes is 'Bus'
               break;
             default:
-              markerIcon = customMarkerIcon; 
+              markerIcon = busMarkerIcon; // Fallback icon for any unspecified route
           }
 
-          const popupContent = `Vehicle ID: ${label}<br/>Stop: ${stopName}`;
-          const customMarker = L.marker([latitude, longitude], { icon: L.icon({ iconUrl: markerIcon, iconSize: markerSize }) })
-            .bindPopup(popupContent);
-          customMarker.addTo(map);
-          newVehicleMarkers.push(customMarker);
+          const customMarker = L.marker([latitude, longitude], { icon: L.icon({ iconUrl: markerIcon, iconSize: markerSize }) });
+          customMarker.addTo(map).bindPopup(`Vehicle: #${label}<br/>Stop: ${stopName}`);
         }
       });
-
-      setVehicleMarkers(newVehicleMarkers);
     }
-  }, [map, vehicles, stops, vehicleMarkers]);
+  }, [map, vehicles, stops]);
 
   return (
     <div style={{ marginTop: '30px', display: 'flex', justifyContent: 'center' }}>
@@ -135,10 +100,10 @@ function LiveMap() {
         <div id="map" style={{ height: '700px', borderRadius: '8px' }}></div>
       </div>
       <div style={{ marginLeft: '15px', border: '5px solid white', borderRadius: '10px', width: '30%', maxHeight: '700px', overflowY: 'auto' }}>
-        <FavoritesManager /> {/* Render FavoritesManager component */}
+        <Alerts />
       </div>
     </div>
   );
 }
 
-export default LiveMap;
+export default Map;
