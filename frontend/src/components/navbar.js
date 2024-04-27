@@ -21,6 +21,7 @@ export default function Navbar() {
     localStorage.removeItem('accessToken');
     setUser(null);
     navigate('/login');
+    
   };
 
   return (
@@ -28,7 +29,6 @@ export default function Navbar() {
       <Container>
         <Nav className="me-auto">
           <Nav.Link href="/home">Home</Nav.Link>
-          <Nav.Link href="/mbtaAlerts">MBTA Alerts</Nav.Link>
        
           {user && user.username ? (
             <>
@@ -64,6 +64,9 @@ export default function Navbar() {
           <Nav className="ml-auto">
             <Nav.Link href="/login" className="align-items-center d-flex">
               <MdLogin /> Login
+            </Nav.Link>
+            <Nav.Link href="/registerPage" className="align-items-center d-flex">
+               Singup
             </Nav.Link>
           </Nav>
         )}
