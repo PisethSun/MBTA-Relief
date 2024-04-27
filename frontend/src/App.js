@@ -20,6 +20,7 @@ import MbtaSchedule from "./components/pages/Schedule";
 import StationManagers from "./components/pages/StationManager";
 import MbtaLiveMap from "./components/pages/LiveMap";
 import MbtaStop from "./components/pages/mbtaStop";
+import MbtaMAP from "./components/pages/Map";
 
 export const UserContext = createContext();
 
@@ -50,6 +51,7 @@ const App = () => {
           <Route exact path="/StationManager" element={<StationManagers />}/>
           <Route exact path="/LiveMap" element={<MbtaLiveMap />}/>
           <Route exact path="/mbtaStop" element={<MbtaStop />}/>
+          <Route exact path="/Map" element={<MbtaMAP />}/>
         </Routes>
       </UserContext.Provider>
     </>
