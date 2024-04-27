@@ -61,7 +61,7 @@ function DisplayAllFav() {
                 </div>
             </div>
             {/* Footer */}
-            <div style={{ position: 'absolute', width: '100%', backgroundColor: 'black', color: 'white', textAlign: 'center', padding: '10px' }}>
+            <div style={{ position: 'absolute', width: '100%', backgroundColor: '#f8f9fa', color: 'white', textAlign: 'center', padding: '10px' }}>
                 All Right Reserve CSC 300, 2024
             </div>
         </div>
