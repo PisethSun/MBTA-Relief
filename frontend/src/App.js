@@ -21,6 +21,7 @@ import StationManagers from "./components/pages/StationManager";
 import MbtaLiveMap from "./components/pages/LiveMap";
 import MbtaStop from "./components/pages/mbtaStop";
 import MbtaMAP from "./components/pages/Map";
+import DisplayAllFavorite from "./components/pages/DisplayAllFav";
 
 export const UserContext = createContext();
 
@@ -52,6 +53,7 @@ const App = () => {
           <Route exact path="/LiveMap" element={<MbtaLiveMap />}/>
           <Route exact path="/mbtaStop" element={<MbtaStop />}/>
           <Route exact path="/Map" element={<MbtaMAP />}/>
+          <Route exact path="/DisplayAllFav" element={<DisplayAllFavorite />}/>
         </Routes>
       </UserContext.Provider>
     </>
