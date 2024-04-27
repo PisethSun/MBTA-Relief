@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, Image } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import leftImage from "./images/TrainStation1.jpeg";
 import rightImage from "./images/TrainStation2.webp";
 
@@ -34,10 +34,8 @@ function DisplayAllFav() {
     };
 
     return (
-        <div style={{ height: '600px', width: '700px', border: '2px solid lightblue', backgroundColor: 'lightyellow', padding: '20px', margin: '0 auto', position: 'relative' }}>
-            <h1 style={{ textAlign: 'center' }}>All Favorites</h1>
-            <Image src={leftImage} alt="Left Image" style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
-            <Image src={rightImage} alt="Right Image" style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
+        <div style={{ height: '700px', width: '1400px', border: '2px solid lightblue', backgroundColor: 'lightyellow', padding: '20px', margin: '0 auto', position: 'relative', backgroundImage: `url(${leftImage}), url(${rightImage})`, backgroundPosition: 'left top, right top', backgroundSize: '50% 100%, 50% 100%', backgroundRepeat: 'no-repeat' }}>
+         <h1 style={{ textAlign: 'center', color: 'red' }}>All Favorites</h1>
             <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', zIndex: 1 }}>
                 {favorites.map((favorite) => (
                     <div key={favorite._id} style={{ border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', backgroundColor: '#fff', padding: '10px' }}>
