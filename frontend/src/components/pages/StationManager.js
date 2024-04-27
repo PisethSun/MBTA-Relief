@@ -5,9 +5,9 @@ import { Button, Modal, Form, Card } from 'react-bootstrap';
 function FavoritesManager() {
     const [showModal, setShowModal] = useState(false);
     const [stations, setStations] = useState([]);
-    const [favorites, setFavorites] = useState([]); // To store favorites with comments and ratings
+    const [favorites, setFavorites] = useState([]);
     const [formData, setFormData] = useState({
-        userId: '1',  // Assuming a fixed userId for simplicity
+        userId: '1',
         station: '',
         line: '',
         comment: '',
@@ -31,7 +31,6 @@ function FavoritesManager() {
         }
     };
 
-    // Fetch favorites, comments, and ratings from the server
     const fetchFavorites = async () => {
         try {
             const [favoriteResponse, commentResponse, ratingResponse] = await Promise.all([
@@ -53,7 +52,7 @@ function FavoritesManager() {
 
             setFavorites(combinedData);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('Error fetching favorites:', error);
         }
     };
 
@@ -100,11 +99,30 @@ function FavoritesManager() {
         setShowModal(false);
     };
 
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8081/favorite/deleteFav/${id}`);
+            setFavorites(favorites.filter(fav => fav._id !== id));
+        } catch (error) {
+            console.error('Error deleting favorite:', error);
+        }
+    };
+
+    const handleEdit = async (id, updatedData) => {
+        try {
+            await axios.put(`http://localhost:8081/favorite/editFav/${id}`, updatedData);
+            const updatedFavorites = favorites.map(fav => fav._id === id ? { ...fav, ...updatedData } : fav);
+            setFavorites(updatedFavorites);
+        } catch (error) {
+            console.error('Error editing favorite:', error);
+        }
+    };
+
     return (
         <div>
             <div style={{ textAlign: 'center' }}>
-    <Button variant="primary" onClick={() => setShowModal(true)}>Add New Favorite Station</Button>
-</div>
+                <Button variant="primary" onClick={() => setShowModal(true)}>Add New Favorite Station</Button>
+            </div>
 
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
@@ -165,7 +183,6 @@ function FavoritesManager() {
                 {favorites.map((favorite) => (
                     <div key={favorite._id} style={{ border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', backgroundColor: '#fff' }}>
                         <Card.Body style={{ display: 'flex', alignItems: 'center', padding: '10px' }}>
-                            {/* Assuming you have a relevant image or icon */}
                             <div>
                                 <Card.Text>
                                     <strong>Station:</strong> {favorite.station}
@@ -179,8 +196,7 @@ function FavoritesManager() {
                                 <Card.Text>
                                     <strong>Rating:</strong> {favorite.rating}
                                 </Card.Text>
-                                <Button variant="primary" style={{ marginRight: '10px' }}>Edit</Button>
-                                <Button variant="danger">Delete</Button>
+                                <Button variant="danger" onClick={() => handleDelete(favorite._id)}>Delete</Button>
                             </div>
                         </Card.Body>
                     </div>

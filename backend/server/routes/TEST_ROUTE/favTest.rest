@@ -11,8 +11,8 @@ Content-Type: application/json
 
  {
   "userId": "2",
-  "line": "Red",
-  "station": "Andrew"
+  "line": "Blue",
+  "station": "Wonderland"
 }
 
 // _id must be added
