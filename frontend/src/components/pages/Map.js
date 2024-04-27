@@ -95,11 +95,15 @@ function Map() {
   }, [map, vehicles, stops]);
 
   return (
-    <div style={{ marginTop: '30px', display: 'flex', justifyContent: 'center' }}>
-      <div style={{ border: '5px solid white', borderRadius: '10px', width: '68%' }}>
-        <div id="map" style={{ height: '700px', borderRadius: '8px' }}></div>
+    <div style={{display: 'flex', justifyContent: 'center' }}>
+      <div style={{ border: '5px solid white', borderRadius: '10px', width: '75%' }}>
+        <div id="map" style={{ height: '670px', borderRadius: '8px' }}></div>
+         {/* Footer */}
+         <div style={{ position: 'absolute', width: '100%', backgroundColor: 'black', color: 'white', textAlign: 'center', padding: '10px' }}>
+                All Right Reserve 2024 - CSC 300
+            </div>
       </div>
-      <div style={{ marginLeft: '15px', border: '5px solid white', borderRadius: '10px', width: '30%', maxHeight: '700px', overflowY: 'auto' }}>
+      <div style={{ marginLeft: '15px', border: '5px solid white', borderRadius: '10px', width: '45%', maxHeight: '700px', overflowY: 'auto' }}>
         <Alerts />
       </div>
     </div>
