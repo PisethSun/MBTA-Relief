@@ -147,6 +147,7 @@ function LiveMap() {
 
     </div>
   );
+  
 }
 
 export default LiveMap;

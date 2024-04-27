@@ -20,55 +20,51 @@ export default function Navbar() {
     e.preventDefault();
     localStorage.removeItem('accessToken');
     setUser(null);
-    navigate('/login');
-    
+    navigate('/Map');
   };
 
   return (
-    <ReactNavbar bg="dark" variant="dark">
-      <Container>
-        <Nav className="me-auto">
-       
+    <>
+      <ReactNavbar bg="dark" variant="dark">
+        <Container>
+          <Nav className="me-auto">
+            {user && user.username ? (
+              <>
+                <Nav.Link href="/LiveMap">Live Map</Nav.Link>
+                <Nav.Link href="/DisplayAllFav">All Saved Station</Nav.Link>
+              </>
+            ) : null}
+          </Nav>
+
           {user && user.username ? (
-            <>
-              {/* 
-              <Nav.Link href="/mbtaComment">Comment</Nav.Link>
-            */}
-            
-              <Nav.Link href="/LiveMap">Live Map</Nav.Link>
-              <Nav.Link href="/DisplayAllFav">All Saved Station</Nav.Link>
+            <Nav className="ml-auto align-items-center">
+              <Dropdown>
+                <Dropdown.Toggle variant="dark" id="dropdown-basic">
+                  <FaUser /> {user.username}
+                </Dropdown.Toggle>
 
-            </>
-          ) : null}
-        </Nav>
-
-        {user && user.username ? (
-          <Nav className="ml-auto align-items-center">
-            <Dropdown>
-              <Dropdown.Toggle variant="dark" id="dropdown-basic">
-                <FaUser /> {user.username}
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Header>Profile</Dropdown.Header>
-                <Dropdown.Item href="/privateUserProfile"><MdOutlineRemoveRedEye /> View Profile</Dropdown.Item>
-                <Dropdown.Item href="/editUserPage"><MdEdit /> Edit Profile</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item onClick={handleClick}><MdLogout /> Log Out</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Nav>
-        ) : (
-          <Nav className="ml-auto">
-            <Nav.Link href="/login" className="align-items-center d-flex">
-              <MdLogin /> Login
-            </Nav.Link>
-            <Nav.Link href="/registerPage" className="align-items-center d-flex">
-               Singup
-            </Nav.Link>
-          </Nav>
-        )}
-      </Container>
-    </ReactNavbar>
+                <Dropdown.Menu>
+                  <Dropdown.Header>Profile</Dropdown.Header>
+                  <Dropdown.Item href="/privateUserProfile"><MdOutlineRemoveRedEye /> View Profile</Dropdown.Item>
+                  <Dropdown.Item href="/editUserPage"><MdEdit /> Edit Profile</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={handleClick}><MdLogout /> Log Out</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Nav>
+          ) : (
+            <Nav className="ml-auto">
+              <Nav.Link href="/login" className="align-items-center d-flex">
+                <MdLogin /> Login
+              </Nav.Link>
+              <Nav.Link href="/registerPage" className="align-items-center d-flex">
+                Singup
+              </Nav.Link>
+            </Nav>
+          )}
+        </Container>
+      </ReactNavbar>
+    
+    </>
   );
 }

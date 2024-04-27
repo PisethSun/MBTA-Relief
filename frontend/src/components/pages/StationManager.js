@@ -180,27 +180,29 @@ function FavoritesManager() {
 
             {/* Display favorites */}
             <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
-                {favorites.map((favorite) => (
-                    <div key={favorite._id} style={{ border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', backgroundColor: '#fff' }}>
-                        <Card.Body style={{ display: 'flex', alignItems: 'center', padding: '10px' }}>
-                            <div>
-                                <Card.Text>
-                                    <strong>Station:</strong> {favorite.station}
-                                </Card.Text>
-                                <Card.Text>
-                                    <strong>Line:</strong> {favorite.line}
-                                </Card.Text>
-                                <Card.Text>
-                                    <strong>Comment:</strong> {favorite.comment}
-                                </Card.Text>
-                                <Card.Text>
-                                    <strong>Rating:</strong> {favorite.rating}
-                                </Card.Text>
-                                <Button variant="danger" onClick={() => handleDelete(favorite._id)}>Delete</Button>
-                            </div>
-                        </Card.Body>
-                    </div>
-                ))}
+            {favorites.map((favorite) => (
+    <div key={favorite._id} style={{ border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', backgroundColor: '#fff', padding: '10px', width: '300px', height: '200px', position: 'relative' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
+            <div>
+                <Card.Text>
+                    <strong>Station:</strong> {favorite.station}
+                </Card.Text>
+                <Card.Text>
+                    <strong>Line:</strong> {favorite.line}
+                </Card.Text>
+                <Card.Text>
+                    <strong>Comment:</strong> {favorite.comment}
+                </Card.Text>
+                <Card.Text>
+                    <strong>Rating:</strong> {favorite.rating}
+                </Card.Text>
+            </div>
+            <Button variant="danger" onClick={() => handleDelete(favorite._id)} style={{ alignSelf: 'flex-end' }}>Delete</Button>
+        </div>
+    </div>
+))}
+
+
             </div>
         </div>
     );
