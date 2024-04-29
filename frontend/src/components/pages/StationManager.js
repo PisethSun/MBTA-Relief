@@ -11,7 +11,7 @@ function FavoritesManager() {
         station: '',
         line: '',
         comment: '',
-        rating: ''
+        rating: 3 // Default rating set to 3
     });
 
     useEffect(() => {
@@ -61,23 +61,28 @@ function FavoritesManager() {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
+    const handleRatingChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: parseInt(value) }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const responses = await Promise.all([
                 axios.post('http://localhost:8081/favorite', {
-                userId: formData.userId,
-                line: formData.line,
-                station: formData.station
+                    userId: formData.userId,
+                    line: formData.line,
+                    station: formData.station
                 }, { headers: { 'Content-Type': 'application/json' }}),
                 axios.post('http://localhost:8081/comment', {
-                userId: formData.userId,
-                comment: formData.comment,
-                station: formData.station
+                    userId: formData.userId,
+                    comment: formData.comment,
+                    station: formData.station
                 }, { headers: { 'Content-Type': 'application/json' }}),
                 axios.post('http://localhost:8081/rating/createrating', {
-                rating: formData.rating,
-                station: formData.station
+                    rating: formData.rating,
+                    station: formData.station
                 }, { headers: { 'Content-Type': 'application/json' }})
             ]);
 
@@ -161,15 +166,19 @@ function FavoritesManager() {
                         </Form.Group>
                         <Form.Group className="mb-3">
                             <Form.Label>Rating</Form.Label>
-                            <Form.Control
-                                type="number"
-                                name="rating"
-                                value={formData.rating}
-                                onChange={handleInputChange}
-                                required
-                                min="1"
-                                max="5"
-                            />
+                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                <input
+                                    type="range"
+                                    min="1"
+                                    max="5"
+                                    name="rating"
+                                    value={formData.rating}
+                                    onChange={handleRatingChange}
+                                    step="1"
+                                    style={{ width: '100%' }} // Set width to 100%
+                                />
+                                <span>{formData.rating}</span>
+                            </div>
                         </Form.Group>
                         <Button variant="primary" type="submit">
                             Submit
@@ -180,29 +189,27 @@ function FavoritesManager() {
 
             {/* Display favorites */}
             <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
-            {favorites.map((favorite) => (
-    <div key={favorite._id} style={{ border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', backgroundColor: '#fff', padding: '10px', width: '300px', height: '200px', position: 'relative' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
-            <div>
-                <Card.Text>
-                    <strong>Station:</strong> {favorite.station}
-                </Card.Text>
-                <Card.Text>
-                    <strong>Line:</strong> {favorite.line}
-                </Card.Text>
-                <Card.Text>
-                    <strong>Comment:</strong> {favorite.comment}
-                </Card.Text>
-                <Card.Text>
-                    <strong>Rating:</strong> {favorite.rating}
-                </Card.Text>
-            </div>
-            <Button variant="danger" onClick={() => handleDelete(favorite._id)} style={{ alignSelf: 'flex-end' }}>Delete</Button>
-        </div>
-    </div>
-))}
-
-
+                {favorites.map((favorite) => (
+                    <div key={favorite._id} style={{ border: '1px solid #ccc', borderRadius: '5px', marginBottom: '10px', backgroundColor: '#fff', padding: '10px', width: '300px', height: '200px', position: 'relative' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
+                            <div>
+                                <Card.Text>
+                                    <strong>Station:</strong> {favorite.station}
+                                </Card.Text>
+                                <Card.Text>
+                                    <strong>Line:</strong> {favorite.line}
+                                </Card.Text>
+                                <Card.Text>
+                                    <strong>Comment:</strong> {favorite.comment}
+                                </Card.Text>
+                                <Card.Text>
+                                    <strong>Rating:</strong> {favorite.rating}
+                                </Card.Text>
+                            </div>
+                            <Button variant="danger" onClick={() => handleDelete(favorite._id)} style={{ alignSelf: 'flex-end' }}>Delete</Button>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     );

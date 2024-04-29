@@ -54,6 +54,7 @@ const App = () => {
           <Route exact path="/mbtaStop" element={<MbtaStop />}/>
           <Route exact path="/Map" element={<MbtaMAP />}/>
           <Route exact path="/DisplayAllFav" element={<DisplayAllFavorite />}/>
+        
         </Routes>
       </UserContext.Provider>
     </>
