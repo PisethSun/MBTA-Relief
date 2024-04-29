@@ -37,7 +37,7 @@ const App = () => {
       <Navbar />
       <UserContext.Provider value={user}>
         <Routes>
-          <Route exact path="/" element={<Navigate replace to="/home" />} />
+          <Route exact path="/" element={<Navigate replace to="/Map" />} />
           <Route exact path="/home" element={<HomePage />} />
           <Route exact path="/landing" element={<LandingPage />} />
           <Route exact path="/login" element={<Login />} />
