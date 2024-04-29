@@ -9,6 +9,7 @@ const dbConnection = require('./config/db.config')
 const editUser = require('./routes/userEditUser')
 const deleteUser = require('./routes/userDeleteAll')
 
+
 // Start Favorites Routes
 const favoriteGetAll = require('./routes/favoriteGetAll')
 const addNewFavoriteRoute = require('./routes/favoriteNew')
@@ -35,6 +36,7 @@ const getCommentById = require('./routes/commentGetById')
 const createComment = require('./routes/commentCreate')
 const commentDeleteById = require('./routes/commentDeleteById')
 const commentEditById = require('./routes/commentEditById')
+const getCommentBystation = require('./routes/commentSearchByStation')
 // End of Comment Routes
 
 require('dotenv').config();
@@ -76,7 +78,10 @@ app.use('/comment',getCommentById)
 app.use('/comment',createComment)
 app.use('/comment',commentDeleteById)
 app.use('/comment',commentEditById)
+app.use('/comment', getCommentBystation)
 // End of Comment Routes
+
+
 
 app.listen(SERVER_PORT, (req, res) => {
     console.log(`The backend service is running on port ${SERVER_PORT} and waiting for requests.`);
