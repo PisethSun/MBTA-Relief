@@ -39,6 +39,7 @@ export default function NavbarComponent() {
                 <>
                   <Link to="/LiveMap" className="nav-link">Live Map</Link>
                   <Link to="/DisplayAllFav" className="nav-link">All Saved Stations</Link>
+                  <Link to="/mbtaRating" className="nav-link">Reviews</Link>
                 </>
               ) : null}
             </Nav>

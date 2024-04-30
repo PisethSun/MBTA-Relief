@@ -106,10 +106,10 @@ const Register = () => {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label htmlFor="confirmPassword">Confirm New Password</Form.Label>
+              <Form.Label htmlFor="confirmPassword">Confirm Password</Form.Label>
               <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                 <img src={passwordIcon} alt="Password Icon" style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', zIndex: 5, width: '20px', height: 'auto' }} />
-                <Form.Control type="password" id="confirmPassword" name="confirmPassword" value={data.confirmPassword} onChange={handleChange} placeholder="Confirm new password" style={{ paddingLeft: '40px', borderColor: PRIMARY_COLOR }} isInvalid={!!errors.confirmPassword} />
+                <Form.Control type="password" id="confirmPassword" name="confirmPassword" value={data.confirmPassword} onChange={handleChange} placeholder="Confirm password" style={{ paddingLeft: '40px', borderColor: PRIMARY_COLOR }} isInvalid={!!errors.confirmPassword} />
                 <Form.Control.Feedback type="invalid" style={{ position: 'absolute', top: '100%', left: 0, width: '100%', display: 'block' }}>
                   {errors.confirmPassword}
                 </Form.Control.Feedback>
