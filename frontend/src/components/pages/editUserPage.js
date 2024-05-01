@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom'
-import axios from 'axios'
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import getUserInfo from '../../utilities/decodeJwt';
@@ -8,17 +8,17 @@ import getUserInfo from '../../utilities/decodeJwt';
 import Image from 'react-bootstrap/Image';
 import leftImage from "./images/TrainStation1.jpeg";
 import rightImage from "./images/TrainStation2.webp";
+import logo from "./images/MBTALogo.png";
 import usernameIcon from "./images/usernameicon.png";
 import passwordIcon from "./images/passwordicon.png";
 import emailIcon from "./images/mailicon.png";
 
 const PRIMARY_COLOR = "#72d3fe";
-const SECONDARY_COLOR = '#0c0c1f';
 const url = `${process.env.REACT_APP_BACKEND_SERVER_URI}/user/editUser`;
 
-const EditUserPage = () =>{
-  const [error, setError] = useState({})
-  const [data, setData] = useState({userId : "", username: "", email: "", password: "", confirmPassword: "" })
+const EditUserPage = () => {
+  const [error, setError] = useState({});
+  const [data, setData] = useState({ userId: "", username: "", email: "", password: "", confirmPassword: "" });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,26 +30,27 @@ const EditUserPage = () =>{
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.id]: input.value });
-    if ( !!error[input] ) setError({
-      ...error,
-      [input]: null
-    })
+    setError({ ...error, [input.id]: "" }); // Clear specific field error on change
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const newError = findFormError();
-    if (Object.keys(newError).length > 0) {
-      setError(newError);
-    } else {
-      try {
-        const response = await axios.post(url, data);
-        localStorage.setItem("accessToken", response.data.accessToken);
-        navigate("/privateuserprofile");
-        window.location.reload();
-      } catch (error) {
-        console.error('Error updating user:', error);
-        setError({ general: 'An error occurred while updating your profile.' });
+    const newErrors = findFormError();
+    if (Object.keys(newErrors).length > 0) {
+      setError(newErrors);
+      return;
+    }
+
+    try {
+      const response = await axios.post(url, data);
+      localStorage.setItem("accessToken", response.data.accessToken);
+      navigate("/privateuserprofile");
+      window.location.reload();
+    } catch (errorResponse) {
+      if (errorResponse.response && errorResponse.response.status === 409) {
+        setError({ ...error, username: "Username is taken, choose another" });
+      } else if (errorResponse.response && errorResponse.response.status >= 400 && errorResponse.response.status <= 500) {
+        setError({ general: errorResponse.response.data.message });
       }
     }
   };
@@ -69,24 +70,29 @@ const EditUserPage = () =>{
       newErrors.confirmPassword = 'Passwords do not match';
     }
     return newErrors;
-  }
+  };
 
-  return(
+  return (
     <div style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
       <Image src={leftImage} alt="Left Image" style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
       <Image src={rightImage} alt="Right Image" style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
-      
+      <Link to="/home">
+        <img src={logo} alt="Logo" style={{ position: 'absolute', top: '20px', left: '20px', width: '100px', height: 'auto', zIndex: 2 }} />
+      </Link>
       
       <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1 }}>
         <div className="card" style={{ width: '500px', backgroundColor: 'white', padding: '20px', height: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', borderColor: PRIMARY_COLOR }}>
           <h2 style={{ textAlign: 'center', color: PRIMARY_COLOR, marginBottom: '20px' }}>Edit Profile</h2>
           <Form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
 
-          <Form.Group className="mb-3">
+            <Form.Group className="mb-3">
               <Form.Label htmlFor="username">Username</Form.Label>
               <div style={{ position: 'relative' }}>
                 <img src={usernameIcon} alt="Username Icon" style={{ position: 'absolute', top: '50%', left: '10px', transform: 'translateY(-50%)', width: '20px', height: 'auto' }} />
-                <Form.Control type="text" id="username" name="username" value={data.username} onChange={handleChange} placeholder="Enter your username" style={{ borderColor: PRIMARY_COLOR, paddingLeft: '40px' }} />
+                <Form.Control type="text" id="username" name="username" value={data.username} onChange={handleChange} placeholder="Enter your username" style={{ borderColor: PRIMARY_COLOR, paddingLeft: '40px' }} isInvalid={!!error.username} />
+                <Form.Control.Feedback type="invalid" style={{ position: 'absolute', top: '100%', left: 0, width: '100%', display: 'block' }}>
+                  {error.username}
+                </Form.Control.Feedback>
               </div>
             </Form.Group>
 
