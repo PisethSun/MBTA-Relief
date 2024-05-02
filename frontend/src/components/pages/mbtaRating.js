@@ -9,7 +9,7 @@ function Reviews() {
   const [stations, setStations] = useState([]);
   const [selectedStation, setSelectedStation] = useState('');
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [createData, setCreateData] = useState({ station: '', rating: 1, comment: '' });
+  const [createData, setCreateData] = useState({ station: '', rating: 0, comment: '' });
   const [loading, setLoading] = useState(false);
 
   const handleStationChange = (e) => {
@@ -70,10 +70,10 @@ function Reviews() {
     }));
   };
 
-  const handleSliderChange = (e) => {
+  const handleRatingChange = (rating) => {
     setCreateData(prevState => ({
       ...prevState,
-      rating: parseInt(e.target.value),
+      rating: rating,
     }));
   };
 
@@ -113,26 +113,33 @@ function Reviews() {
 
   const generateRatingStars = (ratingValue) => {
     const stars = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 1; i <= 5; i++) {
       stars.push(
-        <img
+        <Button
           key={i}
-          src={i < ratingValue ? filledStar : emptyStar}
-          style={{ width: '20px', height: '20px', marginRight: '5px' }}
-          alt={`Star ${i + 1}`}
-        />
+          variant="link"
+          onClick={() => handleRatingChange(i)}
+          style={{ padding: '0', margin: '0', border: 'none', background: 'none' }}
+        >
+          <img
+            src={i <= ratingValue ? filledStar : emptyStar}
+            style={{ width: '20px', height: '20px', marginRight: '5px' }}
+            alt={`Star ${i}`}
+          />
+        </Button>
       );
     }
     return stars;
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'column', width: '80%', margin: '0 auto' }}>
-      <h1>Reviews</h1>
-      <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+    <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'column', width: '80%', margin: '0 auto', fontFamily: 'Arial, sans-serif' }}>
+      <h1 style={{ marginBottom: '20px', fontSize: '2rem', fontWeight: 'bold', color: '#333' }}>Reviews</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: '20px' }}>
         <Form.Select
           value={selectedStation}
           onChange={handleStationChange}
+          style={{ width: '40%', marginRight: '10px', fontSize: '1rem' }}
         >
           <option value="">All Stations</option>
           <optgroup label="Filter by Station">
@@ -143,41 +150,42 @@ function Reviews() {
             ))}
           </optgroup>
         </Form.Select>
-        <Button variant="success" onClick={() => setShowCreateModal(true)}>Create New Review</Button>
-        <Button variant="danger" onClick={deleteAllRatings}>Delete All Review</Button>
+        <Button variant="success" style={{ fontSize: '1rem', fontWeight: 'bold', padding: '10px 20px' }} onClick={() => setShowCreateModal(true)}>Create New Review</Button>
+        <Button variant="danger" style={{ fontSize: '1rem', fontWeight: 'bold', padding: '10px 20px' }} onClick={deleteAllRatings}>Delete All Reviews</Button>
       </div>
-      <br></br>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div style={{ display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap', width: '100%' }}>
-          {reviews.map(review => (
-            <Card key={review._id} className="mb-3" style={{ width: '18rem', border: '1px solid black', margin: '10px' }}>
-              <Card.Body>
-                <Card.Text>
-                  <strong>Station Name:</strong> {review.station}<br />
-                  <strong>Rating:</strong> {generateRatingStars(review.rating)}<br />
-                  {review.comment && <><strong>Comment:</strong> {review.comment}<br /></>}
-                  <Button variant="danger" size="sm" onClick={() => deleteRating(review._id)}>Delete</Button>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          ))}
-        </div>
-      )}
-
+      <div style={{ width: '100%' }}>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div style={{ display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap', width: '100%' }}>
+            {reviews.map(review => (
+              <Card key={review._id} className="mb-3" style={{ width: '18rem', border: '1px solid #ddd', margin: '10px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}>
+                <Card.Body>
+                  <Card.Text>
+                    <strong style={{ fontWeight: 'bold', fontSize: '1.2rem', marginBottom: '10px', color: '#777' }}>Station Name:</strong> {review.station}<br />
+                    <strong style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '10px', color: '#777' }}>Rating:</strong> {generateRatingStars(review.rating)}<br />
+                    {review.comment && <><strong style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '10px', color: '#777' }}>Comment:</strong> {review.comment}<br /></>}
+                  </Card.Text>
+                  <Button variant="danger" size="sm" onClick={() => deleteRating(review._id)} style={{ fontSize: '0.8rem', padding: '5px 10px' }}>Delete</Button>
+                </Card.Body>
+              </Card>
+            ))}
+          </div>
+        )}
+      </div>
       <Modal show={showCreateModal} onHide={() => setShowCreateModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Create New Review</Modal.Title>
+          <Modal.Title style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#333' }}>Create New Review</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group controlId="stationSelect">
-              <Form.Label>Select Station</Form.Label>
+              <Form.Label style={{ fontWeight: 'bold', fontSize: '1.2rem', color: '#777' }}>Select Station</Form.Label>
               <Form.Select
                 name="station"
                 value={createData.station}
                 onChange={handleCreateInputChange}
+                style={{ fontSize: '1rem' }}
               >
                 <option value="">Select Station</option>
                 {stations.map(station => (
@@ -187,25 +195,34 @@ function Reviews() {
                 ))}
               </Form.Select>
             </Form.Group>
-            <Form.Group controlId="ratingSlider">
-              <Form.Label>Rating: {createData.rating}</Form.Label>
-              <input
-                type="range"
-                min="1"
-                max="5"
-                value={createData.rating}
-                onChange={handleSliderChange}
-                style={{ width: '100%' }}
-              />
+            <Form.Group controlId="ratingInput">
+              <Form.Label style={{ fontWeight: 'bold', fontSize: '1.2rem', color: '#777' }}>Rating:</Form.Label>
+              <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+                {[1, 2, 3, 4, 5].map(rating => (
+                  <Button
+                    key={rating}
+                    variant="link"
+                    onClick={() => handleRatingChange(rating)}
+                    style={{ padding: '0', margin: '0', border: 'none', background: 'none' }}
+                  >
+                    <img
+                      src={rating <= createData.rating ? filledStar : emptyStar}
+                      style={{ width: '30px', height: '30px', marginRight: '10px' }}
+                      alt={`Star ${rating}`}
+                    />
+                  </Button>
+                ))}
+              </div>
             </Form.Group>
             <Form.Group controlId="commentInput">
-              <Form.Label>Add Comment (Optional)</Form.Label>
+              <Form.Label style={{ fontWeight: 'bold', fontSize: '1.2rem', color: '#777' }}>Add Comment (Optional)</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
                 name="comment"
                 value={createData.comment}
                 onChange={handleCreateInputChange}
+                style={{ fontSize: '1rem' }}
               />
             </Form.Group>
           </Form>
