@@ -1,115 +1,55 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Col, Image, Row, Card, Form } from "react-bootstrap";
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import getUserInfo from "../../utilities/decodeJwt";
+import Image from 'react-bootstrap/Image';
+import leftImage from "./images/TrainStation1.jpeg";
+import rightImage from "./images/TrainStation2.webp";
+import logo from "./images/MBTALogo.png";
 
 const PrivateUserProfile = () => {
-  const url =process.env.REACT_APP_BACKEND_SERVER_URI;
   const [user, setUser] = useState({});
-  const [favorites, setFavorites] = useState([]);
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [editData, setEditData] = useState({ line: '', station: '' });
-  const [currentEditingId, setCurrentEditingId] = useState(null);
-
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate();
+  const apiUrl = process.env.REACT_APP_BACKEND_SERVER_URI;
 
   useEffect(() => {
-    const userInfo = getUserInfo();
-    if (userInfo) {
-      setUser(userInfo);
-      fetchFavorites();
-    }
-  }, []);
+    const fetchUserDetails = async () => {
+      try {
+        const userInfo = getUserInfo();
+        if (!userInfo) navigate("/login");
+        setUser(userInfo);
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
 
-  const fetchFavorites = async () => {
+    fetchUserDetails();
+  }, [navigate]);
 
-    const result = await axios(`${url}/favorite/getAll`);
-    setFavorites(result.data);
-  };
-
-  const deleteFavorite = async (id) => {
-    await axios.delete(`http://localhost:8081/favorite/deleteFav/${id}`);
-    fetchFavorites();
-  };
-
-  const showEditForm = (favorite) => {
-    setEditData({ line: favorite.line, station: favorite.station});
-    setCurrentEditingId(favorite._id);
-    setShowEditModal(true);
-  };
-
-  const handleEditInputChange = (e) => {
-    const { name, value } = e.target;
-    setEditData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const saveEdit = async () => {
-    await axios.put(`http://localhost:8081/favorite/editFav/${currentEditingId}`, editData);
-    setShowEditModal(false);
-    fetchFavorites();
-  };
-
-  // Handler for "Update Profile" button click
   const handleUpdateProfile = () => {
-    navigate('/editUserPage'); // Use the navigate function to redirect to EditUserPage
+    navigate('/editUserPage');
   };
-
-  if (!user) return <div><h4>Log in to view this page.</h4></div>;
 
   return (
-    <div className="container mt-4">
-      <Row className="justify-content-center align-items-center">
-        <Col xs={12} md={4} className="text-center" style={{ border: '2px solid #007bff', padding: '10px', borderRadius: '5px' }}>
-          <Image src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTFoY3hycnhvenI2ZmtuOXd0b3A5d3hkdTR3enVqcWZ2OTB2dnVxNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/loUqCMSfXHcsVb3cUZ/giphy.gif" roundedCircle style={{ width: '200px', height: '200px' }} />
-          <div className="mt-2">
-            <h1>{user.username}</h1>
-            <Button variant="info" onClick={handleUpdateProfile}>
-              Edit Profile
-            </Button>
-          </div>
-        </Col>
+    <div style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}>
+      <Image src={leftImage} alt="Left Image" style={{ position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
+      <Image src={rightImage} alt="Right Image" style={{ position: 'absolute', top: 0, right: 0, width: '50%', height: '100%', objectFit: 'cover' }} />
+      <Link to="/home">
+        <img src={logo} alt="Logo" style={{ position: 'absolute', top: '20px', left: '20px', width: '100px', height: 'auto', zIndex: 2 }} />
+      </Link>
 
-        <Col xs={12} md={3}>
-          <h2>My Favorite Stations</h2>
-          {favorites.map(favorite => (
-            <Card key={favorite._id} className="mb-3">
-              <Card.Body>
-                <Card.Text>
-                  Station Line: {favorite.line}<br />
-                  Station Name: {favorite.station}
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          ))}
-        </Col>
-      </Row>
-
-      <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Favorite</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group>
-              <Form.Label>Line</Form.Label>
-              <Form.Control type="text" name="line" value={editData.line} onChange={handleEditInputChange} />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Station</Form.Label>
-              <Form.Control type="text" name="station" value={editData.station} onChange={handleEditInputChange} />
-            </Form.Group>
-         
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowEditModal(false)}>Close</Button>
-          <Button variant="primary" onClick={saveEdit}>Save Changes</Button>
-        </Modal.Footer>
-      </Modal>
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1, width: '500px', backgroundColor: 'white', padding: '20px', borderRadius: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <h2 style={{ color: '#72d3fe' }}>User Profile</h2>
+        <div className="user-details" style={{ textAlign: 'center' }}>
+          <p><strong>Username:</strong> {user.username}</p>
+          <p><strong>Email:</strong> {user.email}</p>
+          <Button variant="info" onClick={handleUpdateProfile} style={{ marginTop: '20px' }}>
+            Edit Profile
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };
