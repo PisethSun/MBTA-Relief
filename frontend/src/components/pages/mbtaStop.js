@@ -23,8 +23,7 @@ function MbtaStop() {
   }, []);
 
   const handleStopClick = (stopId) => {
-    // You can implement the logic to handle the click event
-    // For now, let's just log the stopId to the console
+  
     console.log('Stop Clicked:', stopId);
   };
 
