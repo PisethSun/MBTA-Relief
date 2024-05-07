@@ -37,12 +37,12 @@ function Favorites() {
 
   const deleteFavorite = async (id) => {
     await axios.delete(`${url}/favorite/deleteFav/${id}`);
-    fetchData(); // Reload the favorites to update the UI
+    fetchData(); 
   };
 
   const deleteAllFavorites = async () => {
     await axios.delete(`${url}/favorite/deleteAll`);
-    fetchData(); // Reload the favorites to update the UI
+    fetchData(); 
   };
 
   const showEditForm = (favorite) => {
@@ -63,7 +63,7 @@ function Favorites() {
   const saveEdit = async () => {
     await axios.put(`${url}/favorite/editFav/${currentEditingId}`, editData);
     setShowEditModal(false);
-    fetchData(); // Reload the favorites to update the UI
+    fetchData(); 
   };
 
 
@@ -77,7 +77,7 @@ function Favorites() {
       });
   
       setShowCreateModal(false);
-      fetchData(); // Reload the favorites to update the UI
+      fetchData(); 
     } catch (error) {
       if (error.response && error.response.status === 400) {
         alert(error.response.data.message);
@@ -154,7 +154,7 @@ function EditModal({ show, onHide, data, handleInputChange, saveNewFavorite, sta
 }
 
 function CreateModal({ show, onHide, data, handleInputChange, saveNewFavorite, stations }) {
-  // Reusing the EditModal component body for consistency
+  
   return <EditModal show={show} onHide={onHide} data={data} handleInputChange={handleInputChange} saveNewFavorite={saveNewFavorite} stations={stations} />;
 }
 

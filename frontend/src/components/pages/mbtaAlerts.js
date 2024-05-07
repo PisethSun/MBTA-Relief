@@ -1,11 +1,10 @@
 import React from 'react';
-import Schedule from './Schedule'; // Import the Schedule component
-
+import Schedule from './Schedule'; 
 const MbtaAlertsPage = () => {
   return (
     <div>
       <h2>MBTA Schedule</h2>
-      {/* Render the Schedule component */}
+    
       <Schedule />
     </div>
   );

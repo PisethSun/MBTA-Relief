@@ -39,7 +39,7 @@ function FavoritesManager() {
                 axios.get('http://localhost:8081/rating/getAllRatings')
             ]);
 
-            // Combine data into a single array to manage it easily
+            
             const combinedData = favoriteResponse.data.map(fav => {
                 const comment = commentResponse.data.find(c => c.station === fav.station) || {};
                 const rating = ratingResponse.data.find(r => r.station === fav.station) || {};
@@ -87,7 +87,7 @@ function FavoritesManager() {
             ]);
 
             const newFavorite = {
-                _id: responses[0].data._id,  // Assuming the server returns an ID
+                _id: responses[0].data._id,  
                 station: formData.station,
                 line: formData.line,
                 comment: formData.comment,

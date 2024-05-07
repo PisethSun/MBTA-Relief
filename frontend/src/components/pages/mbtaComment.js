@@ -47,12 +47,12 @@ function Alerts() {
 
   const deleteComment = async (id) => {
     await axios.delete(`http://localhost:8081/comment/deleteById/${id}`);
-    fetchData(); // Reload the comments to update the UI
+    fetchData(); 
   };
 
   const deleteAllComments = async () => {
     await axios.delete('http://localhost:8081/comment/deleteAll');
-    fetchData(); // Reload the comments to update the UI
+    fetchData(); 
   };
 
   const showEditForm = (comment) => {
@@ -90,7 +90,7 @@ function Alerts() {
       },
     });
     setShowCreateModal(false);
-    fetchData(); // Reload the comments to update the UI
+    fetchData(); 
   };
 
   const formatDate = (dateString) => {

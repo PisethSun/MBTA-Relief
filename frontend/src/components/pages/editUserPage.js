@@ -30,7 +30,7 @@ const EditUserPage = () => {
 
   const handleChange = ({ currentTarget: input }) => {
     setData({ ...data, [input.id]: input.value });
-    setError({ ...error, [input.id]: "" }); // Clear specific field error on change
+    setError({ ...error, [input.id]: "" });
   };
 
   const handleSubmit = async (event) => {

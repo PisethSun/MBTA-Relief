@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
-import FavoritesManager from './StationManager'; // Import FavoritesManager component
+import FavoritesManager from './StationManager'; 
 import customMarkerIcon from '../images/bus.png';
 import blueLineMarkerIcon from '../images/blue_line.png';
 import greenLineMarkerIcon from '../images/green_line.png';
@@ -33,7 +33,6 @@ function LiveMap() {
       })
     }).addTo(leafletMap);
 
- // Define the custom popup content for Wonderland Station
 const generatePopupContent = (favorites) => {
   return `
       <div>
@@ -44,20 +43,20 @@ const generatePopupContent = (favorites) => {
   `;
 };
 
-// Example favorites object
+
 const exampleFavorites = {
   rating: 4.5,
   comment: "Great accessibility and clean."
 };
 
-// Bind the custom popup content to the Wonderland marker
+
 const popupContent = generatePopupContent(exampleFavorites);
 wonderlandMarker.bindPopup(popupContent);
 
 
-    // Add event listener to open FavoritesManager when marker is clicked
+
     wonderlandMarker.on('click', function() {
-      // Open the FavoritesManager component
+     
       setMap(leafletMap);
     });
 
